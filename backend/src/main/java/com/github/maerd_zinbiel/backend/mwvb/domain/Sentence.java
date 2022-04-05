@@ -19,4 +19,12 @@ public class Sentence {
     public Sentence(String text) {
         this.text = text;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"text\":\"" + text + '\"' +
+                ",\"word\":" + word +
+                '}';
+    }
 }

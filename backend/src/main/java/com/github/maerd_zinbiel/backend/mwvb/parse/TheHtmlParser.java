@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 
+// TODO: 2022/4/5 why so slow
 public class TheHtmlParser {
     private static final String WMVB_FILE = "com/github/maerd_zinbiel/backend/wmvb/parse/mwvb.html";
     private static final int UNIT_COUNT = 30;

@@ -11,7 +11,6 @@ public class Word {
         this.spell = spell;
         this.explain = explain;
         this.sentence = sentence;
-        sentence.setWord(this);
         this.detail = detail;
     }
 
@@ -37,5 +36,16 @@ public class Word {
 
     public void setRoot(Root root) {
         this.root = root;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\"spell\":\"" + spell + '\"' +
+                ",\"explain\":\"" + explain + '\"' +
+                ",\"sentence\":" + sentence +
+                ",\"detail\":\"" + detail + '\"' +
+                ",\"root\":" + root +
+                '}';
     }
 }

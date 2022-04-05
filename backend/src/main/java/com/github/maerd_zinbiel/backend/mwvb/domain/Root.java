@@ -19,6 +19,7 @@ public class Root {
         words.add(word);
     }
 
+
     public Unit getUnit() {
         return unit;
     }
@@ -39,4 +40,13 @@ public class Root {
         return words;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "\"unit\":" + unit +
+                ",\"name\":\"" + name + '\"' +
+                ",\"description\":\"" + description + "\"" +
+                ",\"words\":" + words +
+                '}';
+    }
 }
