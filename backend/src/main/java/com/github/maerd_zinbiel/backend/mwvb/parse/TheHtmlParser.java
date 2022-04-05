@@ -6,10 +6,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.lang.Nullable;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class TheHtmlParser {
@@ -20,15 +21,16 @@ public class TheHtmlParser {
     private static final int WORDS_IN_MYTHOLOGY_AND_HISTORY = 8;
 
     private final TheIntro theIntro;
-    private List<Unit> units;
+    private final List<Unit> units;
     private static TheHtmlParser instance;
 
     private TheHtmlParser() {
         Elements pages = pages();
+
         theIntro = new TheIntro(pages.first().html());
 
         Elements rest = pages.next();
-        units = new ArrayList<>();
+        units = new LinkedList<>();
         rest = parseUnits(rest);
         parseAnswers(rest);
     }
@@ -38,36 +40,39 @@ public class TheHtmlParser {
 
         String rootDesc = page.child(descIndex).text();
         String rootName = rootDesc.split(" ")[0];
+//        String rootName = "for test";
+//        String rootDesc = "for test";
         Root root = new Root(rootName, rootDesc);
         unit.appendRoot(root);
 
         elements = elements.next();
         for (int i = 0; i < WORDS_IN_ROOT_COUNT; i++) {
-            elements = parseWord(elements, root);
+            elements = parseWord(elements, root, 1, 2, 3);
         }
         return elements;
     }
 
-    private Elements parseWord(Elements elements, Root root) {
+    private Elements parseWord(Elements elements, @Nullable Root root, int infoIndex, int sentenceIndex, int detailIndex) {
         Element page = elements.first();
 
-        assert page.children().size() >= 4;
-
-        String[] info = page.child(1).text().split(" ", 2);
+        String[] info = page.child(infoIndex).text().split(" ", 2);
+//        String[] info = {"for test", "for test"};
         String spell = info[0];
         String explain = info[1];
 
-        Sentence sentence = new Sentence(page.child(2).text());
+        Sentence sentence = new Sentence(page.child(sentenceIndex).text());
 
-        String detail = page.child(3).text();
+        String detail = page.child(detailIndex).text();
 
         Word word = new Word(spell, explain, sentence, detail);
-        root.appendWord(word);
+        if (root != null) {
+            root.appendWord(word);
+        }
 
         return elements.next();
     }
 
-    private Elements parseUnit(Elements elements) {
+    private Elements parseUnit(Elements elements, int unitCount) {
         final Unit unit = new Unit();
         for (int i = 0; i < ROOTS_IN_UNIT_COUNT / 2; i++) {
             if (i == 0) {
@@ -79,16 +84,30 @@ public class TheHtmlParser {
             elements = parseQuiz(elements, unit);
         }
 
-        elements = parseMythologyAndHistory(elements, unit);
-        elements = parseQuiz(elements, unit);
+        elements = parseLastEightWords(elements, unit, unitCount);
+        elements = parseQuiz(elements, unit);  // review quiz
 
         units.add(unit);
         return elements;
     }
 
-    private Elements parseMythologyAndHistory(Elements elements, Unit unit) {
-        for (int i = 0; i < WORDS_IN_MYTHOLOGY_AND_HISTORY; i++) {
-            elements = elements.next();
+    private Elements parseTwoRoots(Elements elements, Unit unit, int firstRootIndex) {
+        elements = parseRoot(elements, unit, firstRootIndex);
+        elements = parseRoot(elements, unit, 1);
+        elements = parseQuiz(elements, unit);
+        return elements;
+    }
+
+    private Elements parseLastEightWords(Elements elements, Unit unit, int unitCount) {
+        if ((unitCount <= 20 && unitCount >= 14) || unitCount == 26) {
+            return parseTwoRoots(elements, unit, 2);
+        }
+        if (unitCount == 27 || unitCount == 28) {
+            return parseTwoRoots(elements, unit, 1);
+        }
+        elements = parseWord(elements, null, 2, 3, 4);
+        for (int i = 1; i < WORDS_IN_MYTHOLOGY_AND_HISTORY; i++) {
+            elements = parseWord(elements, null, 1, 2, 3);
         }
         return elements;
     }
@@ -98,7 +117,7 @@ public class TheHtmlParser {
         if (info.startsWith("Quiz ") || info.startsWith("Review Quizzes ")) {
             return true;
         }
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0; i < 7; i++) {
             String start = (char) ('A' + i) + ". ";
             if (info.startsWith(start)) {
                 return true;
@@ -117,12 +136,13 @@ public class TheHtmlParser {
     }
 
     private Elements parseUnits(Elements elements) {
+        int unitCount = 0;
         while (elements.first().child(1).text().startsWith("Unit ")) {
-            elements = parseUnit(elements);
+            unitCount += 1;
+            System.out.println("parsing unit: " + unitCount);
+            elements = parseUnit(elements, unitCount);
         }
-        System.out.println(elements.first().text());
-        System.out.println(units.size());
-        assert units.size() == UNIT_COUNT;
+        assert unitCount == UNIT_COUNT;
 
         return elements;
     }
@@ -155,7 +175,7 @@ public class TheHtmlParser {
         }
 
         if (doc != null) {
-            return doc.body().select(".page");
+            return doc.body().children();
         }
         throw new RuntimeException();
     }
