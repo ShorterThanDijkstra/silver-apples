@@ -1,6 +1,5 @@
 package com.github.maerd_zinbiel.backend.mwvb.domain;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,8 +16,7 @@ public class Root {
     }
 
     public void appendWord(Word word) {
-//        word.setRoot(this);
-//        words.add(word);
+        words.add(word);
     }
 
     public Unit getUnit() {

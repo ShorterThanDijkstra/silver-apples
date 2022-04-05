@@ -18,7 +18,7 @@ public class TheHtmlParser {
     private static final int UNIT_COUNT = 30;
     private static final int ROOTS_IN_UNIT_COUNT = 8;
     private static final int WORDS_IN_ROOT_COUNT = 4;
-    private static final int WORDS_IN_MYTHOLOGY_AND_HISTORY = 8;
+    private static final int WORDS_LAST = 8;
 
     private final TheIntro theIntro;
     private final List<Unit> units;
@@ -27,7 +27,7 @@ public class TheHtmlParser {
     private TheHtmlParser() {
         Elements pages = pages();
 
-        theIntro = new TheIntro(pages.first().html());
+        theIntro = new TheIntro();
 
         Elements rest = pages.next();
         units = new LinkedList<>();
@@ -44,6 +44,7 @@ public class TheHtmlParser {
 //        String rootDesc = "for test";
         Root root = new Root(rootName, rootDesc);
         unit.appendRoot(root);
+        root.setUnit(unit);
 
         elements = elements.next();
         for (int i = 0; i < WORDS_IN_ROOT_COUNT; i++) {
@@ -67,6 +68,7 @@ public class TheHtmlParser {
         Word word = new Word(spell, explain, sentence, detail);
         if (root != null) {
             root.appendWord(word);
+            word.setRoot(root);
         }
 
         return elements.next();
@@ -106,7 +108,7 @@ public class TheHtmlParser {
             return parseTwoRoots(elements, unit, 1);
         }
         elements = parseWord(elements, null, 2, 3, 4);
-        for (int i = 1; i < WORDS_IN_MYTHOLOGY_AND_HISTORY; i++) {
+        for (int i = 1; i < WORDS_LAST; i++) {
             elements = parseWord(elements, null, 1, 2, 3);
         }
         return elements;

@@ -10,8 +10,7 @@ public class Unit {
     private final List<Quiz> quizzes = new LinkedList<>(); // size:6
 
     public void appendRoot(Root root) {
-//        root.setUnit(this);
-//        roots.add(root);
+        roots.add(root);
     }
 
     public void appendMythologyAndHistory(Word word) {
