@@ -13,19 +13,20 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TheHtmlProcessor {
     private static final String WMVB_FILE = "com/github/maerd_zinbiel/backend/wmvb/parse/mwvb.html";
     private static final String WMVB_FILE_INTRO = "src/main/resources/com/github/maerd_zinbiel/backend/wmvb/parse/mwvb-intro.json";
     private static final String WMVB_FILE_UNITS = "src/main/resources/com/github/maerd_zinbiel/backend/wmvb/parse/mwvb-units.json";
-    private static final String WMVB_FILE_QUIZZES = "src/main/resources/com/github/maerd_zinbiel/backend/wmvb/parse/mwvb-quizzes.json";
 
     private static final int UNIT_COUNT = 30;
     private static final int ROOTS_IN_UNIT_COUNT = 8;
     private static final int WORDS_IN_ROOT_COUNT = 4;
     private static final int WORDS_IN_SPECIAL_SECTION = 8;
     private final Elements pages;
+    private Elements answerPages;
     private static TheHtmlProcessor instance;
 
     private TheHtmlProcessor() {
@@ -53,7 +54,7 @@ public class TheHtmlProcessor {
         throw new RuntimeException();
     }
 
-    private SequenceWriter processUnitsSetup() throws IOException {
+    private SequenceWriter getTheSequenceWriter() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         FileWriter fileWriter = new FileWriter(WMVB_FILE_UNITS, false);
         return mapper.writer().writeValuesAsArray(fileWriter);
@@ -70,8 +71,6 @@ public class TheHtmlProcessor {
                 return false;
             }
             if (!root.getName().equals(rootsNames[i])) {
-                System.out.println(root.getName());
-                System.out.println(rootsNames[i]);
                 return false;
             }
         }
@@ -79,9 +78,10 @@ public class TheHtmlProcessor {
     }
 
     public void processUnits() throws IOException {
-        SequenceWriter seqWriter = processUnitsSetup();
+        SequenceWriter seqWriter = getTheSequenceWriter();
 
         Elements unitsPages = pages.next();
+        this.answerPages = getAnswerPages();
 
         int unitCount = 0;
 
@@ -103,11 +103,14 @@ public class TheHtmlProcessor {
 
             seqWriter.write(unit);
         }
-        processAnswers(unitsPages);
-        System.out.println(unitsPages.first());
         seqWriter.close();
 
+        Element answerPageStart = unitsPages.first();
+        assert answerPageStart != null;
+        assert answerPageStart.children().size() == 3;
+        assert answerPageStart.child(1).text().equals("Answers");
         assert unitCount == UNIT_COUNT;
+        assert answerPages.size() == 0;
     }
 
     private Elements processUnit(Elements unitsPages, Unit unit, int unitCount) {
@@ -183,8 +186,68 @@ public class TheHtmlProcessor {
         return unitsPages.next();
     }
 
+    private boolean validateAnswers(String[] answers, String[] rawAnswers) {
+        String last = rawAnswers[rawAnswers.length - 1];
+        int expectLen = Integer.parseInt(last.split("\\.")[0]);
+        return answers.length == expectLen;
+    }
+
+    private String[] extractAnswers(String text) {
+        String[] rawAnswers = text.split(" ");
+
+        int offset;
+        if (text.startsWith("1.")) {
+            offset = 0;
+        } else {
+            offset = 1;
+        }
+
+        String[] answers = new String[rawAnswers.length - offset];
+
+        for (int i = offset; i < rawAnswers.length; i++) {
+            String rawAnswer = rawAnswers[i];
+            String answer = rawAnswer.split("\\.")[1];
+
+            answers[i - offset] = answer;
+        }
+        assert validateAnswers(answers, rawAnswers);
+        return answers;
+    }
+
+    private List<String[]> processAnswerPage() {
+
+        Element page = answerPages.first();
+        List<String[]> result = new ArrayList<>();
+        assert page != null;
+        for (int i = 0; i < page.children().size(); i++) {
+            Element answerBlock = page.child(i);
+            if (answerBlock.hasText()) {
+                String text = answerBlock.text();
+                if (text.startsWith("Unit ")
+                        || text.startsWith("Quiz ")
+                        || text.startsWith("Review Quizzes ")) {
+                    continue;
+                }
+                result.add(extractAnswers(text));
+            }
+        }
+
+        answerPages = answerPages.next();
+        return result;
+    }
+
     private Elements processQuiz(Elements unitsPages, Unit unit, boolean isReviewQuizzes) {
-        // TODO: 2022/4/5  
+        // TODO: 2022/4/5
+        List<String[]> quizAnswers = processAnswerPage();
+        quizAnswers.forEach(
+                answer -> {
+                    for (String c : answer) {
+                        System.out.print(c + " ");
+                    }
+                    System.out.println();
+                }
+        );
+        System.out.println();
         Element page = unitsPages.first();
         assert page != null;
         assert isFirstQuizPage(page, isReviewQuizzes);
@@ -196,6 +259,17 @@ public class TheHtmlProcessor {
             page = unitsPages.first();
         }
         return unitsPages;
+    }
+
+    protected Elements getAnswerPages() {
+        Elements answerPages = this.pages;
+        Element first = answerPages.first();
+        while (first != null
+                && !"answers".equals(first.attr("id"))) {
+            answerPages = answerPages.next();
+            first = answerPages.first();
+        }
+        return answerPages.next();
     }
 
     private boolean isFirstQuizPage(Element page, boolean isReviewQuizzes) {
@@ -263,10 +337,6 @@ public class TheHtmlProcessor {
         }
 
         return unitsPages;
-    }
-
-    private void processAnswers(Elements answerPages) {
-        // TODO: 2022/4/5
     }
 
     public void processIntro() throws IOException {

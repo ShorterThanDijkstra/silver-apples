@@ -1,12 +1,9 @@
 package com.github.maerd_zinbiel.backend.mwvb.parse;
 
-import com.github.maerd_zinbiel.backend.mwvb.domain.Root;
-import com.github.maerd_zinbiel.backend.mwvb.domain.Unit;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 class TheHtmlProcessorTest {
 
@@ -19,5 +16,11 @@ class TheHtmlProcessorTest {
     void processUnits() throws IOException {
         TheHtmlProcessor.getInstance().processUnits();
     }
-    
+
+    @Test
+    void getAnswerPages() {
+        Elements answerPages = TheHtmlProcessor.getInstance().getAnswerPages();
+        System.out.println(answerPages.first());
+    }
+
 }
