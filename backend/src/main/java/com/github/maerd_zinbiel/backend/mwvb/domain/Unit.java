@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Unit {
+    // TODO: 2022/4/6 List -> Array
     private final List<Root> roots = new LinkedList<>(); // size: 8
     private final List<Word> specialSection = new LinkedList<>(); // size: 8
     private final List<Quiz> quizzes = new LinkedList<>(); // size:6
