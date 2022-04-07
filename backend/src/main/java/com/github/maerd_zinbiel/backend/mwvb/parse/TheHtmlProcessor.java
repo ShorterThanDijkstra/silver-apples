@@ -1,5 +1,6 @@
 package com.github.maerd_zinbiel.backend.mwvb.parse;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SequenceWriter;
 import com.github.maerd_zinbiel.backend.mwvb.domain.*;
@@ -13,8 +14,12 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TheHtmlProcessor {
     private static final String WMVB_FILE = "com/github/maerd_zinbiel/backend/wmvb/parse/mwvb.html";
@@ -56,6 +61,7 @@ public class TheHtmlProcessor {
 
     private SequenceWriter getTheSequenceWriter() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         FileWriter fileWriter = new FileWriter(WMVB_FILE_UNITS, false);
         return mapper.writer().writeValuesAsArray(fileWriter);
     }
@@ -214,10 +220,10 @@ public class TheHtmlProcessor {
         return answers;
     }
 
-    private List<String[]> processAnswerPage() {
+    private Deque<String[]> processAnswerPage() {
 
         Element page = answerPages.first();
-        List<String[]> result = new ArrayList<>();
+        Deque<String[]> result = new LinkedList<>();
         assert page != null;
         for (int i = 0; i < page.children().size(); i++) {
             Element answerBlock = page.child(i);
@@ -228,7 +234,7 @@ public class TheHtmlProcessor {
                         || text.startsWith("Review Quizzes ")) {
                     continue;
                 }
-                result.add(extractAnswers(text));
+                result.addLast(extractAnswers(text));
             }
         }
 
@@ -236,28 +242,76 @@ public class TheHtmlProcessor {
         return result;
     }
 
-    private Elements processQuiz(Elements unitsPages, Unit unit, boolean isReviewQuizzes) {
-        // TODO: 2022/4/5
-        List<String[]> quizAnswers = processAnswerPage();
+    private void extractSimpleQuizPage(Element page, String[] answers, Quiz quiz) {
+        StringBuilder contentBuilder = new StringBuilder();
+        for (int i = 0; i < page.children().size(); i++) {
+            Element child = page.child(i);
+            if (child.hasText()) {
+                String text = child.text();
+                if (text.startsWith("Answers")
+                        || text.startsWith("Quiz ")
+                        || text.startsWith("Review Quizzes ")
+                        || text.startsWith("Unit ")) {
+                    continue;
+                }
+                contentBuilder.append(text);
+                contentBuilder.append(" ");
+            }
+        }
+
+        SimpleQuizPage quizPage = new SimpleQuizPage(contentBuilder.toString(), answers);
+
+        assert validateSimpleQuizPage(quizPage);
+
+        quiz.appendSimplePageQuiz(quizPage);
+    }
+
+    private boolean validateSimpleQuizPage(SimpleQuizPage quizPage) {
+        String content = quizPage.getContent();
+        String[] answers = quizPage.getAnswers();
+
+        Matcher matcher = Pattern.compile("\\d+\\. ").matcher(content);
+        String lastNum = "";
+        while (matcher.find()) {
+            lastNum = matcher.group();
+        }
+        lastNum = lastNum.substring(0, lastNum.length() - 2);
+        assert !lastNum.equals("");
+
+        return Integer.parseInt(lastNum) == answers.length;
+    }
+
+    private void showQuizAnswers(Deque<String[]> quizAnswers) {
         quizAnswers.forEach(
                 answer -> {
-                    for (String c : answer) {
-                        System.out.print(c + " ");
-                    }
+                    Arrays.stream(answer).forEach(s -> System.out.print(s + " "));
                     System.out.println();
                 }
         );
         System.out.println();
+    }
+
+    private Elements processQuiz(Elements unitsPages, Unit unit, boolean isReviewQuizzes) {
+        // TODO: 2022/4/5
+        Deque<String[]> quizAnswers = processAnswerPage();
+
+        Quiz quiz = new Quiz();
+
         Element page = unitsPages.first();
         assert page != null;
         assert isFirstQuizPage(page, isReviewQuizzes);
+        extractSimpleQuizPage(page, quizAnswers.removeFirst(), quiz);
 
         unitsPages = unitsPages.next();
         page = unitsPages.first();
         while (isRestQuizPage(page)) {
+            extractSimpleQuizPage(page, quizAnswers.removeFirst(), quiz);
             unitsPages = unitsPages.next();
             page = unitsPages.first();
         }
+
+        unit.appendQuiz(quiz);
+        assert quizAnswers.isEmpty();
         return unitsPages;
     }
 

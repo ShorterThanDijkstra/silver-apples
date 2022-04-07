@@ -6,9 +6,23 @@ import java.util.List;
 public class Quiz {
     private Unit unit;
     private List<QuizPage> quizPages;
+    private List<SimpleQuizPage> simpleQuizPages;
 
     public Quiz() {
         quizPages = new LinkedList<>();
+        simpleQuizPages = new LinkedList<>();
+    }
+
+    public void appendSimplePageQuiz(SimpleQuizPage pageQuiz) {
+        simpleQuizPages.add(pageQuiz);
+    }
+
+    public List<SimpleQuizPage> getSimplePageQuizzes() {
+        return simpleQuizPages;
+    }
+
+    public void setSimplePageQuizzes(List<SimpleQuizPage> simpleQuizzPages) {
+        this.simpleQuizPages = simpleQuizzPages;
     }
 
     public void appendQuizPage(QuizPage page) {
