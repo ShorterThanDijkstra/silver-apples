@@ -14,7 +14,7 @@ public class Word {
         this.detail = detail;
     }
 
-    public String getSpell() {
+    public String getWord() {
         return spell;
     }
 
