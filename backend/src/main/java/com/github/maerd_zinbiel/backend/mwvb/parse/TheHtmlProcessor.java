@@ -61,7 +61,10 @@ public class TheHtmlProcessor {
 
     private SequenceWriter getTheSequenceWriter() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        mapper = mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper = mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+
         FileWriter fileWriter = new FileWriter(WMVB_FILE_UNITS, false);
         return mapper.writer().writeValuesAsArray(fileWriter);
     }
@@ -263,7 +266,7 @@ public class TheHtmlProcessor {
 
         assert validateSimpleQuizPage(quizPage);
 
-        quiz.appendSimplePageQuiz(quizPage);
+        quiz.appendSimpleQuizPage(quizPage);
     }
 
     private boolean validateSimpleQuizPage(SimpleQuizPage quizPage) {

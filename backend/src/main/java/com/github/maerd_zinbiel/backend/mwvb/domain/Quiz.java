@@ -13,16 +13,16 @@ public class Quiz {
         simpleQuizPages = new LinkedList<>();
     }
 
-    public void appendSimplePageQuiz(SimpleQuizPage pageQuiz) {
-        simpleQuizPages.add(pageQuiz);
+    public void appendSimpleQuizPage(SimpleQuizPage quizPage) {
+        simpleQuizPages.add(quizPage);
     }
 
-    public List<SimpleQuizPage> getSimplePageQuizzes() {
+    public List<SimpleQuizPage> getSimpleQuizPages() {
         return simpleQuizPages;
     }
 
-    public void setSimplePageQuizzes(List<SimpleQuizPage> simpleQuizzPages) {
-        this.simpleQuizPages = simpleQuizzPages;
+    public void setSimpleQuizPages(List<SimpleQuizPage> simpleQuizPages) {
+        this.simpleQuizPages = simpleQuizPages;
     }
 
     public void appendQuizPage(QuizPage page) {
