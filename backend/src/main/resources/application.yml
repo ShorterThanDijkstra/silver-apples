@@ -6,5 +6,6 @@ spring:
     driver-class-name: org.postgresql.Driver
 
 mybatis:
-  mapper-locations: classpath:mapping/*.xml
+  mapper-locations: classpath:mybatis/mapping/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
 

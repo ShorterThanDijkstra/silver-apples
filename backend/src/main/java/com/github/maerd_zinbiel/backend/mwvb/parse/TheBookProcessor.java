@@ -1,8 +1,5 @@
 package com.github.maerd_zinbiel.backend.mwvb.parse;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SequenceWriter;
 import com.github.maerd_zinbiel.backend.mwvb.domain.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,8 +7,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -21,10 +16,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TheHtmlProcessor {
-    private static final String WMVB_FILE = "src/main/resources/book/mwvb.html";
-    private static final String WMVB_FILE_INTRO = "src/main/resources/book/mwvb-intro.json";
-    private static final String WMVB_FILE_UNITS = "src/main/resources/book/mwvb-units.json";
+public class TheBookProcessor {
+    public static final String WMVB_FILE = "src/main/resources/book/mwvb.html";
+    public static final String WMVB_FILE_INTRO = "src/main/resources/book/mwvb-intro.json";
+    public static final String WMVB_FILE_UNITS = "src/main/resources/book/mwvb-units.json";
 
     private static final int UNIT_COUNT = 30;
     private static final int ROOTS_IN_UNIT_COUNT = 8;
@@ -32,15 +27,17 @@ public class TheHtmlProcessor {
     private static final int WORDS_IN_SPECIAL_SECTION = 8;
     private final Elements pages;
     private Elements answerPages;
-    private static TheHtmlProcessor instance;
+    private static TheBookProcessor instance;
+    private final BookWriter writer;
 
-    private TheHtmlProcessor() {
-        pages = pages();
+    private TheBookProcessor(BookWriter writer) {
+        this.pages = pages();
+        this.writer = writer;
     }
 
-    public static TheHtmlProcessor getInstance() {
+    public static TheBookProcessor getInstance(BookWriter writer) {
         if (instance == null) {
-            instance = new TheHtmlProcessor();
+            instance = new TheBookProcessor(writer);
         }
         return instance;
     }
@@ -57,16 +54,6 @@ public class TheHtmlProcessor {
             return doc.body().children();
         }
         throw new RuntimeException();
-    }
-
-    private SequenceWriter getTheSequenceWriter() throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-
-        mapper = mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        mapper = mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-
-        FileWriter fileWriter = new FileWriter(WMVB_FILE_UNITS, false);
-        return mapper.writer().writeValuesAsArray(fileWriter);
     }
 
     private boolean validateUnit(Unit unit, String[] rootsNames) {
@@ -87,8 +74,6 @@ public class TheHtmlProcessor {
     }
 
     public void processUnits() throws IOException {
-        SequenceWriter seqWriter = getTheSequenceWriter();
-
         Elements unitsPages = pages.next();
         this.answerPages = getAnswerPages();
 
@@ -110,9 +95,9 @@ public class TheHtmlProcessor {
 
             assert validateUnit(unit, rootsNames);
 
-            seqWriter.write(unit);
+            this.writer.writeUnit(unit);
         }
-        seqWriter.close();
+        this.writer.writeUnitsDone();
 
         Element answerPageStart = unitsPages.first();
         assert answerPageStart != null;
@@ -318,7 +303,7 @@ public class TheHtmlProcessor {
         return unitsPages;
     }
 
-    protected Elements getAnswerPages() {
+    private Elements getAnswerPages() {
         Elements answerPages = this.pages;
         Element first = answerPages.first();
         while (first != null
@@ -397,7 +382,6 @@ public class TheHtmlProcessor {
     }
 
     public void processIntro() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
 
         TheIntro intro = new TheIntro();
 
@@ -414,8 +398,6 @@ public class TheHtmlProcessor {
 
         assert intro.getParagraphs().size() == 14;
 
-        FileOutputStream stream = new FileOutputStream(WMVB_FILE_INTRO);
-        objectMapper.writeValue(stream, intro);
-        stream.close();
+        writer.writeIntro(intro);
     }
 }
