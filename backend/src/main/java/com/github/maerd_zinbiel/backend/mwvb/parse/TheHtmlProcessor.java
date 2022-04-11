@@ -8,8 +8,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.core.io.ClassPathResource;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,9 +22,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TheHtmlProcessor {
-    private static final String WMVB_FILE = "com/github/maerd_zinbiel/backend/wmvb/parse/mwvb.html";
-    private static final String WMVB_FILE_INTRO = "src/main/resources/com/github/maerd_zinbiel/backend/wmvb/parse/mwvb-intro.json";
-    private static final String WMVB_FILE_UNITS = "src/main/resources/com/github/maerd_zinbiel/backend/wmvb/parse/mwvb-units.json";
+    private static final String WMVB_FILE = "src/main/resources/book/mwvb.html";
+    private static final String WMVB_FILE_INTRO = "src/main/resources/book/mwvb-intro.json";
+    private static final String WMVB_FILE_UNITS = "src/main/resources/book/mwvb-units.json";
 
     private static final int UNIT_COUNT = 30;
     private static final int ROOTS_IN_UNIT_COUNT = 8;
@@ -48,7 +48,7 @@ public class TheHtmlProcessor {
     private Elements pages() {
         Document doc = null;
         try {
-            doc = Jsoup.parse(new ClassPathResource(WMVB_FILE).getFile(), StandardCharsets.UTF_8.name());
+            doc = Jsoup.parse(new File(WMVB_FILE), StandardCharsets.UTF_8.name());
         } catch (IOException e) {
             e.printStackTrace();
         }

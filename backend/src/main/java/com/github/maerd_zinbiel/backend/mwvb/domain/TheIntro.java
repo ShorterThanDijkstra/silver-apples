@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TheIntro {
-    private final String title = "INTRODUCTION to the Second Edition";
+    private static final String TITLE = "INTRODUCTION to the Second Edition";
     private final List<String> paragraphs = new LinkedList<>();
 
     public void appendParagraph(String paragraph) {
@@ -12,7 +12,7 @@ public class TheIntro {
     }
 
     public String getTitle() {
-        return title;
+        return TITLE;
     }
 
     public List<String> getParagraphs() {
