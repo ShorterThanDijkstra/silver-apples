@@ -3,12 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.maerd_zinbiel.backend.mwvb.mapper.TheIntroMapper">
-    <insert id="insertIntro">
-        <foreach collection="#{intro.paragraphs}" item="paragraph" separator=";">
-            insert into the_intro(paragraph) values (#{paragraph})
+    <insert id="insert">
+        insert into the_intro(paragraph)
+        values
+        <foreach collection="intro.paragraphs" item="paragraph" separator=",">
+            (#{paragraph})
         </foreach>
     </insert>
     <select id="getAllParagraphs" resultType="java.lang.String">
-        select paragraph from the_intro;
+        select paragraph
+        from the_intro;
     </select>
 </mapper>

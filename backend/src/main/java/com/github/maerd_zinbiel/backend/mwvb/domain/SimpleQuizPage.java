@@ -1,13 +1,27 @@
 package com.github.maerd_zinbiel.backend.mwvb.domain;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.Arrays;
 
+@Repository
 public class SimpleQuizPage {
-    private final String content;
-    private final String[] answers;
+    private String content;
+    private String[] answers;
+
+    public SimpleQuizPage() {
+    }
 
     public SimpleQuizPage(String content, String[] answers) {
         this.content = content;
+        this.answers = answers;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setAnswers(String[] answers) {
         this.answers = answers;
     }
 

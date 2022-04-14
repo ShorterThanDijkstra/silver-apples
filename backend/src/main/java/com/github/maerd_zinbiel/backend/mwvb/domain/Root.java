@@ -1,13 +1,21 @@
 package com.github.maerd_zinbiel.backend.mwvb.domain;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.LinkedList;
 import java.util.List;
 
+@Repository
+
 public class Root {
     private Unit unit;
-    private final String name;
-    private final String description;
-    private final List<Word> words; // size: 4
+    private String name;
+    private String description;
+    private List<Word> words; // size: 4
+
+    public Root() {
+
+    }
 
     public Root(String name, String description) {
         this.name = name;
@@ -19,6 +27,17 @@ public class Root {
         words.add(word);
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setWords(List<Word> words) {
+        this.words = words;
+    }
 
     public Unit getUnit() {
         return unit;

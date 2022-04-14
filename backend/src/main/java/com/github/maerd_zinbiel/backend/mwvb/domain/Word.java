@@ -1,11 +1,34 @@
 package com.github.maerd_zinbiel.backend.mwvb.domain;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class Word {
-    private final String spell;
-    private final String explain;
-    private final Sentence sentence;
-    private final String detail;
+    private String spell;
+    private String explain;
+    private Sentence sentence;
+    private String detail;
     private Root root;
+
+    public Word() {
+
+    }
+
+    public void setSpell(String spell) {
+        this.spell = spell;
+    }
+
+    public void setExplain(String explain) {
+        this.explain = explain;
+    }
+
+    public void setSentence(Sentence sentence) {
+        this.sentence = sentence;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
 
     public Word(String spell, String explain, Sentence sentence, String detail) {
         this.spell = spell;

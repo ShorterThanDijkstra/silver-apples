@@ -1,8 +1,11 @@
 package com.github.maerd_zinbiel.backend.mwvb.domain;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.LinkedList;
 import java.util.List;
 
+@Repository
 public class Unit {
     // TODO: 2022/4/6 List -> Array
     private final List<Root> roots = new LinkedList<>(); // size: 8

@@ -9,3 +9,6 @@ mybatis:
   mapper-locations: classpath:mybatis/mapping/*.xml
   config-location: classpath:mybatis/mybatis-config.xml
 
+logging:
+  level:
+    com.github.maerd_zinbiel.backend.mwvb.mapper : debug

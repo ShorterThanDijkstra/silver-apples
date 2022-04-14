@@ -1,8 +1,11 @@
 package com.github.maerd_zinbiel.backend.mwvb.domain;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class Sentence {
-    private final String text;
-    private  Word word;
+    private String text;
+    private Word word;
 
     public String getText() {
         return text;
@@ -16,7 +19,15 @@ public class Sentence {
         this.word = word;
     }
 
+    public Sentence() {
+
+    }
+
     public Sentence(String text) {
+        this.text = text;
+    }
+
+    public void setText(String text) {
         this.text = text;
     }
 

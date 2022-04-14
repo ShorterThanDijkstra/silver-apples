@@ -1,8 +1,11 @@
 package com.github.maerd_zinbiel.backend.mwvb.domain;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.LinkedList;
 import java.util.List;
 
+@Repository
 public class Quiz {
     private Unit unit;
     private List<QuizPage> quizPages;
