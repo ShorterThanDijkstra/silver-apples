@@ -6,4 +6,5 @@
     <insert id="insert" parameterType="Unit" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO unit (index) VALUES (#{unit.index});
     </insert>
+
 </mapper>

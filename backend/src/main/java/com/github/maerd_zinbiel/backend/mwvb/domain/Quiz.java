@@ -10,10 +10,12 @@ public class Quiz {
     private Unit unit;
     private List<QuizPage> quizPages;
     private List<SimpleQuizPage> simpleQuizPages;
+    private Integer id;
 
     public Quiz() {
         quizPages = new LinkedList<>();
         simpleQuizPages = new LinkedList<>();
+        id = null;
     }
 
     public void appendSimpleQuizPage(SimpleQuizPage quizPage) {
@@ -30,6 +32,14 @@ public class Quiz {
 
     public void appendQuizPage(QuizPage page) {
         quizPages.add(page);
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public Unit getUnit() {

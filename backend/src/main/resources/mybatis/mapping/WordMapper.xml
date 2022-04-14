@@ -7,4 +7,8 @@
         INSERT INTO word(spell, explain, detail, root_id)
         VALUES (#{word.spell}, #{word.explain}, #{word.detail}, #{rootId})
     </insert>
+    <insert id="insertWordInSpecialSection" useGeneratedKeys="true" keyProperty="word.id" keyColumn="id">
+        INSERT INTO special_section_word(spell, explain, detail, unit_id)
+        VALUES (#{word.spell}, #{word.explain}, #{word.detail}, #{unitId})
+    </insert>
 </mapper>

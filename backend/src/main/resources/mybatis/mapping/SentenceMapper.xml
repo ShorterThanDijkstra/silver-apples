@@ -11,4 +11,11 @@
             (#{sentence.text}, #{wordId})
         </foreach>
     </insert>
+    <insert id="insertSentencesOfSpecialWord">
+        INSERT INTO sentence(text, special_word_id)
+        VALUES
+        <foreach collection="word.sentences" item="sentence" separator=",">
+            (#{sentence.text}, #{word.id})
+        </foreach>
+    </insert>
 </mapper>

@@ -1,6 +1,5 @@
 package com.github.maerd_zinbiel.backend;
 
-import com.github.maerd_zinbiel.backend.mwvb.mapper.TheIntroMapper;
 import com.github.maerd_zinbiel.backend.mwvb.parse.Book2Database;
 import com.github.maerd_zinbiel.backend.mwvb.parse.Book2Json;
 import com.github.maerd_zinbiel.backend.mwvb.parse.TheBookProcessor;
@@ -11,7 +10,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 @SpringBootApplication
 @EnableTransactionManagement

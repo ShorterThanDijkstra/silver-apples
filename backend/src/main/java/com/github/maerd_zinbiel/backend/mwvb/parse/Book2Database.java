@@ -1,9 +1,6 @@
 package com.github.maerd_zinbiel.backend.mwvb.parse;
 
-import com.github.maerd_zinbiel.backend.mwvb.domain.Root;
-import com.github.maerd_zinbiel.backend.mwvb.domain.TheIntro;
-import com.github.maerd_zinbiel.backend.mwvb.domain.Unit;
-import com.github.maerd_zinbiel.backend.mwvb.domain.Word;
+import com.github.maerd_zinbiel.backend.mwvb.domain.*;
 import com.github.maerd_zinbiel.backend.mwvb.mapper.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +28,43 @@ public class Book2Database implements BookWriter {
         unit.setIndex(unitIndex);
         unitMapper.insert(unit);
         insertRoots(unit);
+        insertQuiz(unit);
+        insertSpecialSection(unit);
+    }
+
+    private void insertSpecialSection(Unit unit) {
+        WordMapper wordMapper = sqlSession.getMapper(WordMapper.class);
+        SentenceMapper sentenceMapper = sqlSession.getMapper(SentenceMapper.class);
+        Integer unitId = unit.getId();
+        unit.getSpecialSection().forEach(
+                word -> {
+                    wordMapper.insertWordInSpecialSection(word, unitId);
+                    sentenceMapper.insertSentencesOfSpecialWord(word);
+                }
+        );
+    }
+
+
+    private void insertQuiz(Unit unit) {
+        QuizMapper quizMapper = sqlSession.getMapper(QuizMapper.class);
+        Integer unitId = unit.getId();
+        unit.getQuizzes().forEach(
+                quiz -> {
+                    quizMapper.insert(quiz, unitId);
+                    insertQuizPage(quiz);
+                }
+        );
+    }
+
+    private void insertQuizPage(Quiz quiz) {
+        SimpleQuizPageMapper pageMapper = sqlSession.getMapper(SimpleQuizPageMapper.class);
+        Integer quizId = quiz.getId();
+        quiz.getSimpleQuizPages().forEach(
+                page -> {
+                    pageMapper.insertContent(page, quizId);
+                    pageMapper.insertAnswers(page);
+                }
+        );
     }
 
     private void insertSentence(Word word) {

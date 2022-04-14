@@ -8,13 +8,23 @@ import java.util.Arrays;
 public class SimpleQuizPage {
     private String content;
     private String[] answers;
-
+    private Integer id;
     public SimpleQuizPage() {
+
     }
 
     public SimpleQuizPage(String content, String[] answers) {
         this.content = content;
         this.answers = answers;
+        this.id = null;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setContent(String content) {
