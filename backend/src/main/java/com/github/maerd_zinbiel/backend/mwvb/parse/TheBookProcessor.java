@@ -9,10 +9,7 @@ import org.jsoup.select.Elements;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -125,13 +122,7 @@ public class TheBookProcessor {
     }
 
     private Elements processSpecialSection(Elements unitsPages, Unit unit, int unitCount) {
-        if (unitCount == 14
-                || unitCount == 15
-                || unitCount == 17
-                || unitCount == 18
-                || unitCount == 19
-                || unitCount == 20
-                || unitCount == 26) {
+        if (unitCount == 14 || unitCount == 15 || unitCount == 17 || unitCount == 18 || unitCount == 19 || unitCount == 20 || unitCount == 26) {
             return processRootsInSpecialSection(unitsPages, unit, 2);
         }
         if (unitCount == 27 || unitCount == 28) {
@@ -158,10 +149,12 @@ public class TheBookProcessor {
         String explain = info[1];
 
         Sentence sentence = new Sentence(wordPage.child(sentenceIndex).text().substring(2));
+        List<Sentence> sentences = new ArrayList<>();
+        sentences.add(sentence);
 
         String detail = wordPage.child(detailIndex).text();
 
-        return new Word(spell, explain, sentence, detail);
+        return new Word(spell, explain, detail, sentences);
     }
 
     private Elements processWordInRoot(Elements unitsPages, Root root) {
@@ -217,9 +210,7 @@ public class TheBookProcessor {
             Element answerBlock = page.child(i);
             if (answerBlock.hasText()) {
                 String text = answerBlock.text();
-                if (text.startsWith("Unit ")
-                        || text.startsWith("Quiz ")
-                        || text.startsWith("Review Quizzes ")) {
+                if (text.startsWith("Unit ") || text.startsWith("Quiz ") || text.startsWith("Review Quizzes ")) {
                     continue;
                 }
                 result.addLast(extractAnswers(text));
@@ -236,10 +227,7 @@ public class TheBookProcessor {
             Element child = page.child(i);
             if (child.hasText()) {
                 String text = child.text();
-                if (text.startsWith("Answers")
-                        || text.startsWith("Quiz ")
-                        || text.startsWith("Review Quizzes ")
-                        || text.startsWith("Unit ")) {
+                if (text.startsWith("Answers") || text.startsWith("Quiz ") || text.startsWith("Review Quizzes ") || text.startsWith("Unit ")) {
                     continue;
                 }
                 contentBuilder.append(text);
@@ -270,12 +258,10 @@ public class TheBookProcessor {
     }
 
     private void showQuizAnswers(Deque<String[]> quizAnswers) {
-        quizAnswers.forEach(
-                answer -> {
-                    Arrays.stream(answer).forEach(s -> System.out.print(s + " "));
-                    System.out.println();
-                }
-        );
+        quizAnswers.forEach(answer -> {
+            Arrays.stream(answer).forEach(s -> System.out.print(s + " "));
+            System.out.println();
+        });
         System.out.println();
     }
 
@@ -306,8 +292,7 @@ public class TheBookProcessor {
     private Elements getAnswerPages() {
         Elements answerPages = this.pages;
         Element first = answerPages.first();
-        while (first != null
-                && !"answers".equals(first.attr("id"))) {
+        while (first != null && !"answers".equals(first.attr("id"))) {
             answerPages = answerPages.next();
             first = answerPages.first();
         }
@@ -388,13 +373,11 @@ public class TheBookProcessor {
         Element introHtml = pages.first();
         assert introHtml != null;
         Elements paragraphs = introHtml.children().next().next();
-        paragraphs.forEach(
-                paragraph -> {
-                    if (paragraph.hasText()) {
-                        intro.appendParagraph(paragraph.text());
-                    }
-                }
-        );
+        paragraphs.forEach(paragraph -> {
+            if (paragraph.hasText()) {
+                intro.appendParagraph(paragraph.text());
+            }
+        });
 
         assert intro.getParagraphs().size() == 14;
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.maerd_zinbiel.backend.mwvb.mapper.WordMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="word.id" keyColumn="id">
+        INSERT INTO word(spell, explain, detail, root_id)
+        VALUES (#{word.spell}, #{word.explain}, #{word.detail}, #{rootId})
+    </insert>
+</mapper>

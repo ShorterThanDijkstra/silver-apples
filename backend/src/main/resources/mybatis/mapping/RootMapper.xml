@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.maerd_zinbiel.backend.mwvb.mapper.RootMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="root.id" keyColumn="id">
+        INSERT INTO root(name, description, unit_id)
+        VALUES (#{root.name}, #{root.description}, #{unitId})
+    </insert>
+</mapper>

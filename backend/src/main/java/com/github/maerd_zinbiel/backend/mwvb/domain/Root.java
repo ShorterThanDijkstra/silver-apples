@@ -12,19 +12,28 @@ public class Root {
     private String name;
     private String description;
     private List<Word> words; // size: 4
-
+    private Integer id;
     public Root() {
-
+        id = null;
     }
 
     public Root(String name, String description) {
         this.name = name;
         this.description = description;
         this.words = new LinkedList<>();
+        this.id = null;
     }
 
     public void appendWord(Word word) {
         words.add(word);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setName(String name) {

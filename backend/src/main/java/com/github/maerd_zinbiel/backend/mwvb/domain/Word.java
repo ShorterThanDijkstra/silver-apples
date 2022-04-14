@@ -2,16 +2,18 @@ package com.github.maerd_zinbiel.backend.mwvb.domain;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class Word {
     private String spell;
     private String explain;
-    private Sentence sentence;
     private String detail;
     private Root root;
-
+    private Integer id;
+    private List<Sentence> sentences;
     public Word() {
-
+        id = null;
     }
 
     public void setSpell(String spell) {
@@ -22,19 +24,33 @@ public class Word {
         this.explain = explain;
     }
 
-    public void setSentence(Sentence sentence) {
-        this.sentence = sentence;
-    }
 
     public void setDetail(String detail) {
         this.detail = detail;
     }
 
-    public Word(String spell, String explain, Sentence sentence, String detail) {
+    public Word(String spell, String explain, String detail, List<Sentence> sentences) {
         this.spell = spell;
         this.explain = explain;
-        this.sentence = sentence;
         this.detail = detail;
+        this.sentences = sentences;
+        this.id = null;
+    }
+
+    public List<Sentence> getSentences() {
+        return sentences;
+    }
+
+    public void setSentences(List<Sentence> sentences) {
+        this.sentences = sentences;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getSpell() {
@@ -43,10 +59,6 @@ public class Word {
 
     public String getExplain() {
         return explain;
-    }
-
-    public Sentence getSentence() {
-        return sentence;
     }
 
     public String getDetail() {
@@ -63,12 +75,13 @@ public class Word {
 
     @Override
     public String toString() {
-        return "{" +
-                "\"spell\":\"" + spell + '\"' +
-                ",\"explain\":\"" + explain + '\"' +
-                ",\"sentence\":" + sentence +
-                ",\"detail\":\"" + detail + '\"' +
-                ",\"root\":" + root +
+        return "Word{" +
+                "spell='" + spell + '\'' +
+                ", explain='" + explain + '\'' +
+                ", detail='" + detail + '\'' +
+                ", root=" + root +
+                ", id=" + id +
+                ", sentences=" + sentences +
                 '}';
     }
 }

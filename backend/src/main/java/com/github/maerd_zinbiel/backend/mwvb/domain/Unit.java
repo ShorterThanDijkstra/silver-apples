@@ -11,6 +11,13 @@ public class Unit {
     private final List<Root> roots = new LinkedList<>(); // size: 8
     private final List<Word> specialSection = new LinkedList<>(); // size: 8
     private final List<Quiz> quizzes = new LinkedList<>(); // size:6
+    private Integer index;
+    private Integer id;
+
+    public Unit() {
+        id = null;
+        index = null;
+    }
 
     public void appendRoot(Root root) {
         roots.add(root);
@@ -34,6 +41,22 @@ public class Unit {
 
     public List<Quiz> getQuizzes() {
         return quizzes;
+    }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

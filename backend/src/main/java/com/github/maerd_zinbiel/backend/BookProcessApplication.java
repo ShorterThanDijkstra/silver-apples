@@ -8,10 +8,13 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @SpringBootApplication
+@EnableTransactionManagement
 public class BookProcessApplication {
     public static ConfigurableApplicationContext context;
 
@@ -21,15 +24,16 @@ public class BookProcessApplication {
         processor.processUnits();
     }
 
+
     public static void book2Database() throws IOException {
         Book2Database book2Database = new Book2Database();
 
         SqlSession session = context.getBean(SqlSession.class);
-        TheIntroMapper theIntroMapper = session.getMapper(TheIntroMapper.class);
-        book2Database.setTheIntroMapper(theIntroMapper);
+        book2Database.setSqlSession(session);
 
         TheBookProcessor processor = TheBookProcessor.getInstance(book2Database);
-        processor.processIntro();
+//        processor.processIntro();
+        processor.processUnits();
     }
 
     public static void main(String[] args) throws IOException {
