@@ -11,6 +11,7 @@ public class QuizPage {
     public QuizPage(String description) {
         this.description = description;
         this.quizItems = new LinkedList<>();
+        this.quiz = null;
     }
 
     public void appendQuizItem(QuizItem item) {

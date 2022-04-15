@@ -8,6 +8,7 @@ public class QuizItem {
     public QuizItem(String description, String  answer) {
         this.description = description;
         this.answer = answer;
+        this.quizPage = null;
     }
 
     public QuizPage getQuizPage() {

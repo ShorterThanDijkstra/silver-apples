@@ -1,48 +1,3 @@
-create table if not exists simple_quiz_page
-(
-    id      integer default nextval('simple_quiz_page_simple_quiz_page_id_seq'::regclass) not null
-        constraint simple_quiz_page_pk
-            primary key,
-    content varchar default ''::character varying                                         not null
-        constraint simple_quiz_page_pk_2
-            unique
-);
-
-alter table simple_quiz_page
-    owner to postgres;
-
-create unique index if not exists simple_quiz_page_simple_quiz_page_id_uindex
-    on simple_quiz_page (id);
-
-create table if not exists simple_quiz_page_answer
-(
-    id                  serial
-        constraint simple_quiz_page_answer_pk
-            primary key,
-    answer              varchar default ''::character varying not null,
-    simple_quiz_page_id serial
-        constraint simple_quiz_page_answer_simple_quiz_page_id_fk
-            references simple_quiz_page
-);
-
-alter table simple_quiz_page_answer
-    owner to postgres;
-
-create unique index if not exists simple_quiz_page_answer_id_uindex
-    on simple_quiz_page_answer (id);
-
-create table if not exists sentence
-(
-    id      serial
-        constraint sentence_pk
-            primary key,
-    text    varchar default ''::character varying not null,
-    word_id serial
-);
-
-alter table sentence
-    owner to postgres;
-
 create table if not exists the_intro
 (
     paragraph varchar default ''::character varying not null
@@ -53,9 +8,10 @@ alter table the_intro
 
 create table if not exists unit
 (
-    id serial
+    id    serial
         constraint unit_pk
-            primary key
+            primary key,
+    index integer default 0 not null
 );
 
 alter table unit
@@ -76,9 +32,6 @@ create table if not exists root
 alter table root
     owner to postgres;
 
-create unique index if not exists root_name_uindex
-    on root (name);
-
 create table if not exists quiz
 (
     id      serial
@@ -94,41 +47,89 @@ alter table quiz
 
 create table if not exists word
 (
-    id          serial
+    id      serial
         constraint word_pk
             primary key,
-    spell       varchar default ''::character varying not null,
-    explain     varchar default ''::character varying not null,
-    detail      varchar default ''::character varying,
-    root_id     serial
+    spell   varchar default ''::character varying not null,
+    explain varchar default ''::character varying not null,
+    detail  varchar default ''::character varying,
+    root_id serial
         constraint word_root_id_fk
-            references root,
-    sentence_id serial
-        constraint word_sentence_id_fk
-            references sentence
+            references root
 );
 
 alter table word
     owner to postgres;
 
+create table if not exists sentence
+(
+    id      serial
+        constraint sentence_pk
+            primary key,
+    text    varchar default ''::character varying not null,
+    word_id integer                               not null
+        constraint sentence_word_id_fk
+            references word
+);
+
 alter table sentence
-    add constraint sentence_word_id_fk
-        foreign key (word_id) references word;
+    owner to postgres;
 
 create table if not exists special_section_word
 (
-    id       serial
+    id      serial
         constraint special_section_word_pk
             primary key,
-    spell    varchar default ''::character varying not null,
-    explain  varchar default ''::character varying not null,
-    detail   varchar default ''::character varying not null,
-    sentence varchar default ''::character varying not null,
-    unit_id  serial
+    spell   varchar default ''::character varying not null,
+    explain varchar default ''::character varying not null,
+    detail  varchar default ''::character varying not null,
+    unit_id serial
         constraint special_section_word_unit_id_fk
             references unit
 );
 
 alter table special_section_word
+    owner to postgres;
+
+create table if not exists simple_quiz_page
+(
+    id      serial
+        constraint simple_quiz_page_pk
+            primary key,
+    content varchar default ''::character varying not null,
+    quiz_id serial
+        constraint simple_quiz_page_quiz_id_fk
+            references quiz
+);
+
+alter table simple_quiz_page
+    owner to postgres;
+
+create table if not exists simple_quiz_page_answer
+(
+    id      serial
+        constraint simple_quiz_page_answer_pk
+            primary key,
+    answer  varchar default ''::character varying not null,
+    page_id serial
+        constraint simple_quiz_page_answer_simple_quiz_page_id_fk
+            references simple_quiz_page
+);
+
+alter table simple_quiz_page_answer
+    owner to postgres;
+
+create table if not exists special_section_sentence
+(
+    id                      serial
+        constraint special_section_sentence_pk
+            primary key,
+    text                    varchar default ''::character varying not null,
+    special_section_word_id serial
+        constraint special_section_sentence_special_section_word_id_fk
+            references special_section_word
+);
+
+alter table special_section_sentence
     owner to postgres;
 

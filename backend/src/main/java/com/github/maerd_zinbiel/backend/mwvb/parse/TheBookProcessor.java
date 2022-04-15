@@ -145,6 +145,7 @@ public class TheBookProcessor {
     private Word extractWord(Element wordPage, int infoIndex, int sentenceIndex, int detailIndex) {
         assert wordPage != null;
         String[] info = wordPage.child(infoIndex).text().split(" ", 2);
+        // TODO: 2022/4/15 bug: some entries contains two words
         String spell = info[0];
         String explain = info[1];
 

@@ -14,6 +14,10 @@ public class Root {
     private List<Word> words; // size: 4
     private Integer id;
     public Root() {
+        unit = null;
+        name = null;
+        description = null;
+        words = null;
         id = null;
     }
 
@@ -22,6 +26,7 @@ public class Root {
         this.description = description;
         this.words = new LinkedList<>();
         this.id = null;
+        this.unit = null;
     }
 
     public void appendWord(Word word) {

@@ -10,7 +10,9 @@ public class SimpleQuizPage {
     private String[] answers;
     private Integer id;
     public SimpleQuizPage() {
-
+        content = null;
+        answers = null;
+        id = null;
     }
 
     public SimpleQuizPage(String content, String[] answers) {

@@ -100,7 +100,6 @@ public class Book2Database implements BookWriter {
     public void writeUnit(Unit unit) throws IOException {
         unitIndex++;
         insertUnit(unit);
-        System.exit(0);
     }
 
     @Override

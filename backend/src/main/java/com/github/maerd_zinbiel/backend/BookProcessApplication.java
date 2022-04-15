@@ -13,6 +13,7 @@ import java.io.IOException;
 
 @SpringBootApplication
 @EnableTransactionManagement
+// TODO: 2022/4/15 这不应该是一个web application
 public class BookProcessApplication {
     public static ConfigurableApplicationContext context;
 
@@ -30,7 +31,7 @@ public class BookProcessApplication {
         book2Database.setSqlSession(session);
 
         TheBookProcessor processor = TheBookProcessor.getInstance(book2Database);
-//        processor.processIntro();
+        processor.processIntro();
         processor.processUnits();
     }
 

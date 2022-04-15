@@ -12,8 +12,8 @@ public class Word {
     private Root root;
     private Integer id;
     private List<Sentence> sentences;
+
     public Word() {
-        id = null;
     }
 
     public void setSpell(String spell) {
@@ -35,6 +35,7 @@ public class Word {
         this.detail = detail;
         this.sentences = sentences;
         this.id = null;
+        this.root = null;
     }
 
     public List<Sentence> getSentences() {

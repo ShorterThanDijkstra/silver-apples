@@ -20,7 +20,8 @@ public class Sentence {
     }
 
     public Sentence() {
-
+        this.text = null;
+        this.word = null;
     }
 
     public Sentence(String text) {
@@ -29,6 +30,7 @@ public class Sentence {
 
     public void setText(String text) {
         this.text = text;
+        this.word = null;
     }
 
     @Override

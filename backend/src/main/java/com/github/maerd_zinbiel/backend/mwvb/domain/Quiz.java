@@ -16,6 +16,7 @@ public class Quiz {
         quizPages = new LinkedList<>();
         simpleQuizPages = new LinkedList<>();
         id = null;
+        unit = null;
     }
 
     public void appendSimpleQuizPage(SimpleQuizPage quizPage) {

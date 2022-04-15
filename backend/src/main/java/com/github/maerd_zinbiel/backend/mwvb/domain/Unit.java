@@ -8,13 +8,16 @@ import java.util.List;
 @Repository
 public class Unit {
     // TODO: 2022/4/6 List -> Array
-    private final List<Root> roots = new LinkedList<>(); // size: 8
-    private final List<Word> specialSection = new LinkedList<>(); // size: 8
-    private final List<Quiz> quizzes = new LinkedList<>(); // size:6
+    private final List<Root> roots; // size: 8
+    private final List<Word> specialSection; // size: 8
+    private final List<Quiz> quizzes; // size:6
     private Integer index;
     private Integer id;
 
     public Unit() {
+        roots = new LinkedList<>();
+        specialSection = new LinkedList<>();
+        quizzes = new LinkedList<>();
         id = null;
         index = null;
     }

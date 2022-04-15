@@ -7,8 +7,13 @@ import java.util.List;
 
 @Repository
 public class TheIntro {
-    private static final String TITLE = "INTRODUCTION to the Second Edition";
-    private final List<String> paragraphs = new LinkedList<>();
+    private final String TITLE;
+    private final List<String> paragraphs;
+
+    public TheIntro() {
+        TITLE = "INTRODUCTION to the Second Edition";
+        paragraphs = new LinkedList<>();
+    }
 
     public void appendParagraph(String paragraph) {
         paragraphs.add(paragraph);
