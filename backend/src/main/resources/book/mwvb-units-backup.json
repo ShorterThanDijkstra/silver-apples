@@ -1006,8 +1006,8 @@
                         ]
                     },
                     {
-                        "spell": "non",
-                        "explain": "sequitur A statement that does not follow logically from anything previously said.",
+                        "spell": "non sequitur",
+                        "explain": "A statement that does not follow logically from anything previously said.",
                         "detail": "Non sequitur is actually a complete sentence in Latin, meaning “It does not follow”—that is, something said or written doesn't logically follow what came before it. It was Aristotle who identified the non sequitur as one of the basic fallacies of logic—that is, one of the ways in which a person's reasoning may go wrong. For Aristotle, the non sequitur is usually a conclusion that doesn't actually result from the reasoning and evidence presented. Sometime when you're listening to politicians answering questions, see how many non sequiturs you can spot.",
                         "sentences": [
                             {
@@ -1464,8 +1464,8 @@
                         ]
                     },
                     {
-                        "spell": "British",
-                        "explain": "thermal unit The quantity of heat required to raise the temperature of one pound of water one degree Fahrenheit at a specified temperature.",
+                        "spell": "British thermal unit",
+                        "explain": "The quantity of heat required to raise the temperature of one pound of water one degree Fahrenheit at a specified temperature.",
                         "detail": "Despite its name, the British thermal unit, or BTU, may be more widely used in North America than in Britain. Air conditioners, furnaces, and stoves are generally rated by BTUs. (Though “BTUs” is often short for “BTUs per hour”; in air-conditioner ratings, for instance, “BTUs” really means “BTUs of cooling capacity per hour.”) Fuels such as natural gas and propane are also compared using BTUs. The BTU first appeared in 1876 and isn't part of the metric system—the metric unit of energy is the much smaller joule—so it isn't much used by scientists, but its practicality keeps it popular for consumer goods and fuels. A better-known heat unit is the calorie; a BTU is equal to about 252 calories. (Since the familiar food calorie is actually a kilocalorie, a BTU equals only about a quarter of a food calorie.)",
                         "sentences": [
                             {
@@ -1662,8 +1662,8 @@
         ],
         "specialSection": [
             {
-                "spell": "ad",
-                "explain": "hoc Formed or used for a particular purpose or for immediate needs.",
+                "spell": "ad hoc",
+                "explain": "Formed or used for a particular purpose or for immediate needs.",
                 "detail": "Ad hoc literally means “for this” in Latin, and in English this almost always means “for this specific purpose.” Issues that come up in the course of a project often require immediate, ad hoc solutions. An ad hoc investigating committee is authorized to look into a matter of limited scope. An ad hoc ruling by an athletic council is intended to settle a particular case, and is not meant to serve as a model for later rulings. If an organization deals with too many things on an ad hoc basis, it may mean someone hasn't been doing enough planning.",
                 "sentences": [
                     {
@@ -1672,8 +1672,8 @@
                 ]
             },
             {
-                "spell": "ad",
-                "explain": "hominem Marked by an attack on an opponent's character rather than by an answer to the arguments made or the issues raised.",
+                "spell": "ad hominem",
+                "explain": "Marked by an attack on an opponent's character rather than by an answer to the arguments made or the issues raised.",
                 "detail": "Ad hominem in Latin means “to the man”—that is, “against the other person.” The term comes from the field of rhetoric (the art of speaking and writing). If you have a weak argument, one easy way to defend yourself has always been to attack your opponent verbally in a personal way. Since such attacks require neither truth nor logic to be effective, their popularity has never waned.",
                 "sentences": [
                     {
@@ -1682,8 +1682,8 @@
                 ]
             },
             {
-                "spell": "alter",
-                "explain": "ego (1) A trusted friend or personal representative. (2) The opposite side of a personality.",
+                "spell": "alter ego",
+                "explain": "(1) A trusted friend or personal representative. (2) The opposite side of a personality.",
                 "detail": "In Latin, alter ego literally means “second I.” An alter ego can be thought of as a person's clone or second self. A professional alter ego might be a trusted aide who knows exactly what the boss wants done. A personal alter ego might be a close friend who is almost like a twin. Alter ego can also refer to the second, hidden side of one's own self. In Robert Louis Stevenson's classic The Strange Case of Doctor Jekyll and Mr. Hyde, Dr. Jekyll is a good- hearted, honorable man; but after taking a potion, his alter ego, the loathsome and diabolical Mr. Hyde, takes over his personality.",
                 "sentences": [
                     {
@@ -1692,8 +1692,8 @@
                 ]
             },
             {
-                "spell": "de",
-                "explain": "facto Being such in practice or effect, although not formally recognized; actual.",
+                "spell": "de facto",
+                "explain": "Being such in practice or effect, although not formally recognized; actual.",
                 "detail": "Literally meaning “from the fact,” de facto in English can be applied to anything that has the substance of something without its formal name. A de facto government is one that operates with all of the power of a regular government but without official recognition. De facto segregation isn't the result of laws, but can be just as real and deep-rooted as legally enforced segregation. The de facto leader of a group is just the one who all the rest seem to follow. (Compare de jure.)",
                 "sentences": [
                     {
@@ -1702,8 +1702,8 @@
                 ]
             },
             {
-                "spell": "quid",
-                "explain": "pro quo Something given or received for something else.",
+                "spell": "quid pro quo",
+                "explain": "Something given or received for something else.",
                 "detail": "In Latin, quid pro quo means literally “something for something.” Originally, the phrase was used to mean the substitution of an inferior medicine for a good one. Today it often doesn't suggest anything negative; for most people, it just means “a favor for a favor.” But in politics the phrase is often used when, for example, a wealthy corporation gives a lot of money to a candidate and expects to get a big favor in return. In such cases, some of us may prefer to describe the money as a bribe and the quid pro quo as a payoff.",
                 "sentences": [
                     {
@@ -1712,8 +1712,8 @@
                 ]
             },
             {
-                "spell": "ex",
-                "explain": "post facto Done, made, or formulated after the fact.",
+                "spell": "ex post facto",
+                "explain": "Done, made, or formulated after the fact.",
                 "detail": "Ex post facto is Latin for “from a thing done afterward.” Approval for a project that's given ex post facto—after the project already has been begun or completed—may just have been given in order to save face. An ex post facto law is one that declares someone's action to be criminal only after it was committed—a procedure forbidden by our Constitution.",
                 "sentences": [
                     {
@@ -1722,8 +1722,8 @@
                 ]
             },
             {
-                "spell": "modus",
-                "explain": "operandi A usual way of doing something.",
+                "spell": "modus operandi",
+                "explain": "A usual way of doing something.",
                 "detail": "Modus operandi is Latin for “method of operating.” The term is often associated with police work, and it's a favorite of mystery writers. In speech and dialogue, it's often abbreviated to “m.o.” (as in “We're beginning to get a handle on the killer's m.o., but we can't go public with it yet”). But it's not only used in criminal contexts. So a frequent gambler who likes to play the horses may have a particular modus operandi for picking winners. And the familiar modus operandi of a cutthroat retailer may be to undersell competitors, drive them out of business, and then raise prices afterwards.",
                 "sentences": [
                     {
@@ -1732,8 +1732,8 @@
                 ]
             },
             {
-                "spell": "modus",
-                "explain": "vivendi (1) A practical compromise or arrangement that is acceptable to all concerned. (2) A way of life.",
+                "spell": "modus vivendi",
+                "explain": "(1) A practical compromise or arrangement that is acceptable to all concerned. (2) A way of life.",
                 "detail": "Modus vivendi literally means “manner of living” in Latin, and it sometimes has that meaning in English as well. Usually, though, a modus vivendi is a working arrangement that disputing parties can live with, at least until a more permanent solution can be found. Typically, a modus vivendi is an arrangement that ignores differences and difficulties. So, for example, two people going through a bitter divorce may be able to arrive at a modus vivendi that allows them to at least maintain an appearance of civility and dignity.",
                 "sentences": [
                     {
@@ -2952,8 +2952,8 @@
         ],
         "specialSection": [
             {
-                "spell": "a",
-                "explain": "fortiori All the more certainly.",
+                "spell": "a fortiori",
+                "explain": "All the more certainly.",
                 "detail": "A fortiori in Latin literally means “from the stronger (argument).” The term is used when drawing a conclusion that's even more obvious or convincing than the one just drawn. Thus, if teaching English grammar to native speakers is difficult, then, a fortiori, teaching English grammar to nonnative speakers will be even more challenging.",
                 "sentences": [
                     {
@@ -2962,8 +2962,8 @@
                 ]
             },
             {
-                "spell": "a",
-                "explain": "posteriori Relating to or derived by reasoning from known or observed facts.",
+                "spell": "a posteriori",
+                "explain": "Relating to or derived by reasoning from known or observed facts.",
                 "detail": "A posteriori, Latin for “from the latter,” is a term from logic, which usually refers to reasoning that works backward from an effect to its causes. This kind of reasoning can sometimes lead to false conclusions. The fact that sunrise follows the crowing of a rooster, for example, doesn't necessarily mean that the rooster's crowing caused the sun to rise.",
                 "sentences": [
                     {
@@ -2972,8 +2972,8 @@
                 ]
             },
             {
-                "spell": "a",
-                "explain": "priori Relating to or derived by reasoning from self-evident propositions.",
+                "spell": "a priori",
+                "explain": "Relating to or derived by reasoning from self-evident propositions.",
                 "detail": "A priori, Latin for “from the former,” is traditionally contrasted with a posteriori (see above). The term usually describes lines of reasoning or arguments that proceed from the general to the particular, or from causes to effects. Whereas a posteriori knowledge is knowledge based solely on experience or personal observation, a priori knowledge is knowledge that comes from the power of reasoning based on self-evident truths. So, for example, “Every mother has had a child” is an a priori statement, since it shows simple logical reasoning and isn't a statement of fact about a specific case (such as “This woman is the mother of five children”) that the speaker knew about from experience.",
                 "sentences": [
                     {
@@ -2982,8 +2982,8 @@
                 ]
             },
             {
-                "spell": "bona",
-                "explain": "fide (1) Made in good faith, without deceit. (2) Authentic or genuine.",
+                "spell": "bona fide",
+                "explain": "(1) Made in good faith, without deceit. (2) Authentic or genuine.",
                 "detail": "Bona fide means “in good faith” in Latin. When applied to business deals and the like, it stresses the absence of fraud or deception. A bona fide sale of securities is an entirely aboveboard transaction. Outside of business and law, bona fide implies mere sincerity and earnestness. A bona fide promise is one that the person has every intention of keeping. A bona fide proposal of marriage is one made by a suitor who isn't kidding around. Bona fide also has the noun form bona fides; when someone asks about someone else's bona fides, it usually means evidence of their qualifications or achievements.",
                 "sentences": [
                     {
@@ -2992,8 +2992,8 @@
                 ]
             },
             {
-                "spell": "carpe",
-                "explain": "diem Enjoy the pleasures or opportunities of the moment without concern about the future.",
+                "spell": "carpe diem",
+                "explain": "Enjoy the pleasures or opportunities of the moment without concern about the future.",
                 "detail": "Carpe diem, a phrase that comes from the Roman poet Horace, means literally “Pluck the day,” though it's usually translated as “Seize the day.” A free translation might be “Enjoy yourself while you have the chance.” For some people, Carpe diem serves as the closest thing to a philosophy of life as they'll ever have.",
                 "sentences": [
                     {
@@ -3002,8 +3002,8 @@
                 ]
             },
             {
-                "spell": "caveat",
-                "explain": "emptor Let the buyer beware.",
+                "spell": "caveat emptor",
+                "explain": "Let the buyer beware.",
                 "detail": "“Without a warranty, the buyer must take the risk” is the basic meaning of the phrase caveat emptor. In the days when buying and selling was carried on in the local marketplace, the rule was a practical one. Buyer and seller knew each other and were on equal footing. The nature of modern commerce and technology placed the buyer at a disadvantage, however, so a stack of regulations have been written by federal, state, and local agencies to protect the consumer against dangerous or defective products, fraudulent practices, and the like. But the principle that a buyer needs a warranty if he is to avoid risk remains an important legal concept. Note that a caveat is a small warning or explanation intended to avoid misinterpretation.",
                 "sentences": [
                     {
@@ -3012,8 +3012,8 @@
                 ]
             },
             {
-                "spell": "corpus",
-                "explain": "delicti (1) The substantial and basic fact or facts necessary to prove that a crime has been committed. (2) The material substance, such as the murdered body, on which a crime has been committed.",
+                "spell": "corpus delicti",
+                "explain": "(1) The substantial and basic fact or facts necessary to prove that a crime has been committed. (2) The material substance, such as the murdered body, on which a crime has been committed.",
                 "detail": "Corpus delicti literally means “body of the crime” in Latin. In its original sense, the body in question refers not to a corpse but to the body of essential facts that, taken together, prove that a crime has been committed. In popular usage, corpus delicti also refers to the actual physical object upon which a crime has been committed. In a case of arson, it would be a ruined building; in a murder case, the victim's corpse.",
                 "sentences": [
                     {
@@ -3022,8 +3022,8 @@
                 ]
             },
             {
-                "spell": "curriculum",
-                "explain": "vitae A short summary of one's career and qualifications, typically prepared by an applicant for a position; résumé.",
+                "spell": "curriculum vitae",
+                "explain": "A short summary of one's career and qualifications, typically prepared by an applicant for a position; résumé.",
                 "detail": "The Latin phrase curriculum vitae, often abbreviated CV, literally means “the course of one's life.” The term is usually used for applications for jobs in the sciences and medicine and for teaching positions in colleges and universities. A shorter term is simply vita, meaning “life.” In other fields, résumé is more commonly used in the U.S.; in England, however, curriculum vitae is the usual term for any job application.",
                 "sentences": [
                     {
@@ -3604,8 +3604,8 @@
         ],
         "specialSection": [
             {
-                "spell": "Augean",
-                "explain": "stable A condition or place marked by great accumulation of filth or corruption.",
+                "spell": "Augean stable",
+                "explain": "A condition or place marked by great accumulation of filth or corruption.",
                 "detail": "Augeus, the mythical king of Elis, kept great stables that held 3,000 oxen and had not been cleaned for thirty years when Hercules was assigned the job as one of his famous “twelve labors.” This task was enormous even for someone so mighty, so Hercules shifted the course of two rivers to make them pour through the stables. Augean by itself has come to mean “extremely difficult or distasteful”, and to “clean the Augean stable” usually means either to clear away corruption or to perform a large and unpleasant task that has long called for attention. So today we refer to “Augean tasks,” “Augean labor,” or even “Augean clutter.” And the British firm Augean PLC is—what else?—a waste-management company.",
                 "sentences": [
                     {
@@ -3624,8 +3624,8 @@
                 ]
             },
             {
-                "spell": "dragon's",
-                "explain": "teeth Seeds of conflict.",
+                "spell": "dragon's teeth",
+                "explain": "Seeds of conflict.",
                 "detail": "The Phoenician prince Cadmus once killed a dragon, and was instructed by the goddess Athena to plant its teeth in the ground. From the many teeth, there immediately sprang up an army of fierce armed men. The goddess then directed him to throw a precious stone into their midst, and they proceeded to slaughter each other until only the five greatest warriors were left; these became Cadmus's generals, with whom he constructed the great city-state of Thebes. When we “sow dragon's teeth,” we're creating the conditions for future trouble.",
                 "sentences": [
                     {
@@ -3654,8 +3654,8 @@
                 ]
             },
             {
-                "spell": "Midas",
-                "explain": "touch The talent for making money in every venture.",
+                "spell": "Midas touch",
+                "explain": "The talent for making money in every venture.",
                 "detail": "Midas was a legendary king of Phrygia (in modern-day Turkey). In return for a good deed, he was granted one wish by the god Dionysus, and asked for the power to turn everything he touched into gold. When he discovered to his horror that his touch had turned his food and drink—and even his daughter— to gold, he begged Dionysus to take back the gift, and Dionysus agreed to do so. When “Midas touch” is used today, the moral of this tale of greed is usually ignored.",
                 "sentences": [
                     {
@@ -3664,8 +3664,8 @@
                 ]
             },
             {
-                "spell": "Pyrrhic",
-                "explain": "victory A victory won at excessive cost.",
+                "spell": "Pyrrhic victory",
+                "explain": "A victory won at excessive cost.",
                 "detail": "In 279 B.C. Pyrrhus, the king of Epirus, a country in northwest Greece, defeated the Romans at the Battle of Ausculum, but lost all of his best officers and many men. He is said to have exclaimed after the battle, “One more such victory and we are lost.” Pyrrhic victories are more common than we tend to think. Whenever we win an argument but in so doing manage to offend the friend we were arguing with, or whenever a country invades another country but rouses widespread opposition in surrounding countries in the process, it's probably a Pyrrhic victory that has been achieved.",
                 "sentences": [
                     {
@@ -4246,8 +4246,8 @@
         ],
         "specialSection": [
             {
-                "spell": "Achilles'",
-                "explain": "heel A vulnerable point.",
+                "spell": "Achilles' heel",
+                "explain": "A vulnerable point.",
                 "detail": "When the hero Achilles was an infant, his sea-nymph mother dipped him into the river Styx to make him immortal. But since she held him by one heel, this spot did not touch the water and so remained mortal and vulnerable, and it was here that Achilles was eventually mortally wounded. Today, the tendon that stretches up the calf from the heel is called the Achilles tendon. But the term Achilles' heel isn't used in medicine; instead, it's only used with the general meaning “weak point”—for instance, to refer to a section of a country's borders that aren't militarily protected, or to a Jeopardy contestant's ignorance in the Sports category.",
                 "sentences": [
                     {
@@ -4316,8 +4316,8 @@
                 ]
             },
             {
-                "spell": "Trojan",
-                "explain": "horse Someone or something that works from within to weaken or defeat.",
+                "spell": "Trojan horse",
+                "explain": "Someone or something that works from within to weaken or defeat.",
                 "detail": "After besieging the walls of Troy for ten years, the Greeks built a huge, hollow wooden horse, secretly filled it with armed warriors, and presented it to the Trojans as a gift for the goddess Athena, and the Trojans took the horse inside the city's walls. That night, the armed Greeks swarmed out and captured and burned the city. A Trojan horse is thus anything that looks innocent but, once accepted, has power to harm or destroy—for example, a computer program that seems helpful but ends up corrupting or demolishing the computer's software.",
                 "sentences": [
                     {
@@ -4895,8 +4895,8 @@
         ],
         "specialSection": [
             {
-                "spell": "aeolian",
-                "explain": "harp A box-shaped instrument with strings that produce musical sounds when the wind blows on them.",
+                "spell": "aeolian harp",
+                "explain": "A box-shaped instrument with strings that produce musical sounds when the wind blows on them.",
                 "detail": "According to the ancient Greeks, Aeolus was the king or guardian of the winds. He lived in a cave with his many, many sons and daughters, and sent forth whatever wind Zeus asked for. When Odysseus stopped there on his way home from Troy, he received a bag of winds to fill his sails. But while he was asleep, his men, thinking it contained treasure, opened the bag and released the raging winds, which blew their ships all the way back to their starting point. An aeolian harp produces enchanting harmonies when the wind passes over it. According to Homer, it was the god Hermes who invented the harp, by having the wind blow over the dried sinews attached to the shell of a dead tortoise.",
                 "sentences": [
                     {
@@ -5607,8 +5607,8 @@
                 ]
             },
             {
-                "spell": "Pandora's",
-                "explain": "box A source of many troubles.",
+                "spell": "Pandora's box",
+                "explain": "A source of many troubles.",
                 "detail": "The god Prometheus stole fire from heaven to give to the human race, which originally consisted only of men. To punish humanity, the other gods created the first woman, the beautiful Pandora. As a gift, Zeus gave her a box, which she was told never to open. However, as soon as he was out of sight she took off the lid, and out swarmed all the troubles of the world, never to be recaptured. Only Hope was left in the box, stuck under the lid. Anything that looks ordinary but may produce unpredictable harmful results can thus be called a Pandora's box.",
                 "sentences": [
                     {
@@ -5617,8 +5617,8 @@
                 ]
             },
             {
-                "spell": "Scylla",
-                "explain": "and Charybdis Two equally dangerous alternatives.",
+                "spell": "Scylla and",
+                "explain": "Charybdis Two equally dangerous alternatives.",
                 "detail": "The Strait of Messina is the narrow passage between the island of Sicily and the “toe” of Italy's “boot.” In Greek mythology, two monsters hovered on either side of the strait. Scylla, a female monster with six snake-like heads, each with pointed teeth, barked like a dog from the rocks on the Italian side. Charybdis, on the Sicilian side, caused a whirlpool by swallowing the waters of the sea three times a day. When Odysseus attempted to sail between them, he encountered disaster on both sides. Being caught between Scylla and Charybdis is a lot like being between a rock and a hard place.",
                 "sentences": [
                     {
@@ -6539,8 +6539,8 @@
                         ]
                     },
                     {
-                        "spell": "lingua",
-                        "explain": "franca A language used as a common or commercial language among peoples who speak different languages.",
+                        "spell": "lingua franca",
+                        "explain": "A language used as a common or commercial language among peoples who speak different languages.",
                         "detail": "In the Middle Ages, the Arabs of the eastern Mediterranean referred to all Europeans as Franks (the name of the tribe that once occupied the land we call France). Since there was plenty of Arab-European trade, the traders in the Mediterranean ports eventually developed a trading language combining Italian, Arabic, and other languages, which almost everyone could more or less understand, and it became known as the “Frankish language,” or lingua franca. Some languages actually succeed in becoming lingua francas without changing much. So, when the Roman empire became vast and mighty, Latin became the important lingua franca; and at a meeting between Japanese and Vietnamese businesspeople today, English may well be the only language spoken.",
                         "sentences": [
                             {
@@ -6714,7 +6714,7 @@
                     },
                     {
                         "spell": "devolve",
-                        "explain": "((1) To pass (responsibility, power, etc.) from one person or group to another person or group at a lower level of authority. (2) To gradually go from an advanced state to a less advanced state.",
+                        "explain": "(1) To pass (responsibility, power, etc.) from one person or group to another person or group at a lower level of authority. (2) To gradually go from an advanced state to a less advanced state.",
                         "detail": "With its de- prefix (see DE), devolution implies moving backward. Once powers have been centralized in a unified government, giving any powers back—that is, devolving the power—to a smaller governmental unit can seem to be reversing a natural development. In a somewhat similar way, a job that your boss doesn't want to do may devolve upon you. But devolve and devolution are also treated nowadays as the opposites of evolve and evolution. So we may also speak of moral devolution, such as occurred in Germany in the 1930s, when a country with an extraordinary culture became a brutal dictatorship. And parents may watch their slacker teenager and wonder if devolution is occurring right in front of their eyes.",
                         "sentences": [
                             {
@@ -7474,8 +7474,8 @@
                         ]
                     },
                     {
-                        "spell": "vox",
-                        "explain": "populi Popular sentiment or opinion.",
+                        "spell": "vox populi",
+                        "explain": "Popular sentiment or opinion.",
                         "detail": "Dating from at least the time of Charlemagne, the Latin saying “Vox populi, vox Dei” means literally “The voice of the people is the voice of God”—in other words, the people's voice is sacred, or the people are always right. Today, by means of modern opinion polls, we seem to hear the vox populi (or vox pop for short) year-round on every possible issue. But maybe we should occasionally keep in mind that full Charlemagne-era quotation: “Those people should not be listened to who keep saying the voice of the people is the voice of God, since the riotousness of the crowd is always very close to madness.”",
                         "sentences": [
                             {
@@ -7846,8 +7846,8 @@
                         ]
                     },
                     {
-                        "spell": "mea",
-                        "explain": "culpa An admission of personal fault or error.",
+                        "spell": "mea culpa",
+                        "explain": "An admission of personal fault or error.",
                         "detail": "Mea culpa, Latin for “through my fault,” comes from the prayer in the Catholic mass in which, back when Latin was still the language of the mass, one would confess to having sinned “mea culpa, mea culpa, mea maxima culpa” (“through my fault, through my fault, through my most grievous fault”). When we say “Mea culpa” today, it means “I apologize” or “It was my fault.” But mea culpa is also common as a noun. So, for instance, a book may be a long mea culpa for the author's past treatment of women, or an oil company may issue a mea culpa after a tanker runs aground.",
                         "sentences": [
                             {
@@ -11460,8 +11460,8 @@
                         ]
                     },
                     {
-                        "spell": "de",
-                        "explain": "jure Based on or according to the law.",
+                        "spell": "de jure",
+                        "explain": "Based on or according to the law.",
                         "detail": "Coming straight from Latin, de jure is a term used mostly, but not always, in legal writing. Sometimes it's not enough to have something written into law; if a law isn't enforced, it might as well not exist. And if ordinary citizens are too scared of what would happen to them if they exercised their rights, then they don't really have those rights at all. Unfortunately, many countries have constitutions and laws that sound good but turn out not to have much effect. So de jure is almost always used in contrast to something else; its opposite is de facto (see de facto).",
                         "sentences": [
                             {
@@ -13521,8 +13521,8 @@
         ],
         "specialSection": [
             {
-                "spell": "in",
-                "explain": "memoriam In memory of.",
+                "spell": "in memoriam",
+                "explain": "In memory of.",
                 "detail": "Since the days of the Roman empire, the words In memoriam, followed by a name, have been found on monuments and gravestones. They may also appear in the dedication of a book or poem; Alfred Tennyson's greatest poem is his immense In Memoriam, written over a period of 17 years to mourn the death of his dear friend Arthur Hallam.",
                 "sentences": [
                     {
@@ -13531,8 +13531,8 @@
                 ]
             },
             {
-                "spell": "magnum",
-                "explain": "opus A great work, especially the greatest achievement of an artist, composer, or writer.",
+                "spell": "magnum opus",
+                "explain": "A great work, especially the greatest achievement of an artist, composer, or writer.",
                 "detail": "The greatest work of a great artist may be hard to agree on. Many would pick Rembrandt's The Night Watch, Mozart's Don Giovanni, Ovid's Metamorphoses, Dante's Divine Comedy, Wren's St. Paul's Cathedral, and Michelangelo's Sistine Chapel murals. But for Shakespeare, would it be Hamlet or King Lear? For Mahler, The Song of the Earth or the Ninth Symphony? For the Marx Brothers, A Day at the Races or A Night at the Opera?",
                 "sentences": [
                     {
@@ -13541,8 +13541,8 @@
                 ]
             },
             {
-                "spell": "memento",
-                "explain": "mori A reminder of mortality, especially a human skull symbolizing death.",
+                "spell": "memento mori",
+                "explain": "A reminder of mortality, especially a human skull symbolizing death.",
                 "detail": "Memento mori literally means “Remember you must die.” The early Puritan settlers were particularly aware of death and fearful of what it might mean, so a Puritan tombstone will often display a memento mori intended for the living. These death's-heads or skulls may strike us as ghoulish, but they helped keep the living on the straight and narrow for fear of eternal punishment. In earlier centuries, an educated European might place an actual skull on his desk to keep the idea of death always present in his mind.",
                 "sentences": [
                     {
@@ -13551,8 +13551,8 @@
                 ]
             },
             {
-                "spell": "habeas",
-                "explain": "corpus An order to bring a jailed person before a judge or court to find out if that person should really be in jail.",
+                "spell": "habeas corpus",
+                "explain": "An order to bring a jailed person before a judge or court to find out if that person should really be in jail.",
                 "detail": "The literal meaning of habeas corpus is “You shall have the body”—that is, the judge must have the person charged with a crime brought into the courtroom to hear what he's been charged with. Through much of human history, and in many countries still today, a person may be imprisoned on the orders of someone in the government and kept behind bars for years without ever getting a chance to defend himself, or even knowing what he's done wrong. In England, the right to be brought before a judge to hear the charges and answer them was written into law over 300 years ago, and the U.S. adopted the British practice in its Constitution.",
                 "sentences": [
                     {
@@ -13561,8 +13561,8 @@
                 ]
             },
             {
-                "spell": "rigor",
-                "explain": "mortis The temporary rigidity of muscles that sets in after death.",
+                "spell": "rigor mortis",
+                "explain": "The temporary rigidity of muscles that sets in after death.",
                 "detail": "Rigor mortis, which translates from Latin as “stiffness of death,” sets in quickly and usually ends three or four days after death. The condition results from a lack of certain chemicals in the muscles; it may be affected by muscular activity before death as well as the external temperature. Mystery writers frequently make use of rigor mortis as a means by which the detective or the examiner can determine the time of the victim's death, which often turns out to be all-important in solving the case.",
                 "sentences": [
                     {
@@ -13571,8 +13571,8 @@
                 ]
             },
             {
-                "spell": "sine",
-                "explain": "qua non An essential thing.",
+                "spell": "sine qua non",
+                "explain": "An essential thing.",
                 "detail": "Sine qua non can be translated literally as “Without which, not.” Though this may sound like gibberish, it means more or less “Without (something), (something else) won't be possible.” Sine qua non sounds slightly literary, and it shouldn't be used just anywhere. But it actually shows up in many contexts, including business (“A solid customer base is the sine qua non to success”), show business (“A good agent is a sine qua non for an actor's career”), and politics (“His support was really the sine qua non for her candidacy”).",
                 "sentences": [
                     {
@@ -13581,8 +13581,8 @@
                 ]
             },
             {
-                "spell": "tabula",
-                "explain": "rasa (1) The mind in its blank or unmarked state before receiving any impressions from outside. (2) Something existing in its original pure state.",
+                "spell": "tabula rasa",
+                "explain": "(1) The mind in its blank or unmarked state before receiving any impressions from outside. (2) Something existing in its original pure state.",
                 "detail": "In ancient Rome, a student in class would write on a wax-covered wooden tablet, or tabula, using a sticklike implement. At the end of the day, the marks could be scraped off, leaving a fresh, unmarked tablet—a tabula rasa —for the next day's lessons. But even before the Romans, the Greek philosopher Aristotle had called the mind at birth an “unmarked tablet.” We still use the term today, but usually not very seriously; with what we know about biology and genetics, most of us don't really think there's nothing in a mind at birth.",
                 "sentences": [
                     {
@@ -13591,8 +13591,8 @@
                 ]
             },
             {
-                "spell": "terra",
-                "explain": "incognita An unexplored country or field of knowledge.",
+                "spell": "terra incognita",
+                "explain": "An unexplored country or field of knowledge.",
                 "detail": "When Roman mapmakers drew a land area that no one had yet explored, they often labeled it “Terra Incognita”—that is, “Unknown Territory”—and the term continued to be used for centuries afterward. When Columbus and his successors first crossed the Atlantic, they entered upon terra incognita, a land that came to be called the “New World.” But the term is just as useful for mental exploration. For most of us, subjects such as particle physics, French 17th-century drama, and soil mechanics are terra incognita, and we can only hope to live long enough to be able to explore some of them someday.",
                 "sentences": [
                     {
@@ -14047,8 +14047,8 @@
                         ]
                     },
                     {
-                        "spell": "bon",
-                        "explain": "vivant A sociable person with a love of excellent food and drink.",
+                        "spell": "bon vivant",
+                        "explain": "A sociable person with a love of excellent food and drink.",
                         "detail": "Bon vivant comes straight from French, where it means literally “good liver,” and is still pronounced in the French way, though we've actually been using it in English since the 17th century. A proper bon vivant has some money and lots of friends and plenty of style and knows a good wine and can tell a great story and loves to laugh. Because of all these requirements, true bons vivants are rather rare—but that doesn't mean there aren't plenty of people who hope to be one someday.",
                         "sentences": [
                             {
@@ -14213,8 +14213,8 @@
                 ]
             },
             {
-                "spell": "hoi",
-                "explain": "polloi The general population; the masses.",
+                "spell": "hoi polloi",
+                "explain": "The general population; the masses.",
                 "detail": "In Greek, hoi polloi means simply “the many.” (Even though hoi itself means “the,” in English we almost always say “the hoi polloi.”) It comes originally from the famous Funeral Oration by Pericles, where it was actually used in a positive way. Today it's generally used by people who think of themselves as superior—though it's also sometimes used in Pericles' democratic spirit. By the way, it has no relation to hoity-toity, meaning “stuck-up,” which starts with the same sound but has nothing to do with Greek.",
                 "sentences": [
                     {
@@ -14581,8 +14581,8 @@
                         ]
                     },
                     {
-                        "spell": "autism",
-                        "explain": "\\ A condition that begins in childhood and causes problems in forming social relationships and in communicating with others and includes behavior in which certain activities are constantly repeated.",
+                        "spell": "autism \\",
+                        "explain": "A condition that begins in childhood and causes problems in forming social relationships and in communicating with others and includes behavior in which certain activities are constantly repeated.",
                         "detail": "Autism, in its strict sense, becomes evident before the age of 3. The autistic child generally refuses to talk, becomes obsessive about toys, resists any change vehemently, and sometimes flies into unexplained rages. Autism is believed to be biological in origin, and seems to be related to several milder conditions such as Asperger's syndrome. As many as 1 in 100 children, mostly boys, may have autism, Asperger's, or a related condition. About one in ten autistic children turns out to have a remarkable mental gift, such as the ability to play a difficult piece on the piano after a single hearing or repair a complex machine without any training. Many autistic children seem to grow out of it as they become adults, and some autistic adults manage to live independently. Autistic is sometimes used loosely to describe a much more common kind of psychological withdrawal in adults.",
                         "sentences": [
                             {
@@ -14865,8 +14865,8 @@
                 ]
             },
             {
-                "spell": "per",
-                "explain": "se By, of, or in itself; as such.",
+                "spell": "per se",
+                "explain": "By, of, or in itself; as such.",
                 "detail": "We generally use per se to distinguish between something in its narrow sense and some larger thing that it represents. Thus, you may have no objection to educational testing per se, but rather to the way testing is done. An opposition party may attack a president's policy not because they dislike the policy per se but because they want to weaken the president. And when New York's police chief decided to crack down on small crimes, it wasn't the small crimes per se that were his target, but instead the larger crimes which he believed would be reduced because of this new approach.",
                 "sentences": [
                     {
@@ -17955,8 +17955,8 @@
                         ]
                     },
                     {
-                        "spell": "pro",
-                        "explain": "bono Being, involved in, or doing professional work, and especially legal work, donated for the public good.",
+                        "spell": "pro bono",
+                        "explain": "Being, involved in, or doing professional work, and especially legal work, donated for the public good.",
                         "detail": "In Latin, pro bono publico means “for the public good”; in English we generally shorten the phrase to pro bono. Donating free legal help to those who need it has long been a practice of American law firms; the American Bar Association actually recommends that all lawyers donate 50 hours a year. Pro bono work is sometimes donated by nonlegal firms as well. For example, an advertising firm might produce a 60-second video for an environmental or educational organization, or a strategic-planning firm might prepare a start-up plan for a charity that funds shelters for battered women.",
                         "sentences": [
                             {
@@ -17975,8 +17975,8 @@
                         ]
                     },
                     {
-                        "spell": "pro",
-                        "explain": "forma Done or existing as something that is required but that has little true meaning or importance.",
+                        "spell": "pro forma",
+                        "explain": "Done or existing as something that is required but that has little true meaning or importance.",
                         "detail": "A lot of things are done for the sake of appearances. A teacher might get officially observed and evaluated every three years, even though everyone knows she's terrific and the whole thing is strictly pro forma. A critic might say that a orchestral conductor gave a pro forma performance, since his heart wasn't in it. A business owner might make a pro forma appearance at the funeral of a politician's mother, never having met her but maybe hoping for a favor from her son sometime in the future. In business, pro forma has some special meanings; a pro forma invoice, for example, will list all the items being sent but, unlike a true invoice, won't be an actual bill.",
                         "sentences": [
                             {

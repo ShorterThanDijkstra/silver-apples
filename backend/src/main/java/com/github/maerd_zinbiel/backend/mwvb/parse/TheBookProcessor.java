@@ -144,10 +144,22 @@ public class TheBookProcessor {
 
     private Word extractWord(Element wordPage, int infoIndex, int sentenceIndex, int detailIndex) {
         assert wordPage != null;
-        String[] info = wordPage.child(infoIndex).text().split(" ", 2);
-        // TODO: 2022/4/15 bug: some entries contains two words
-        String spell = info[0];
-        String explain = info[1];
+        String info = wordPage.child(infoIndex).text();
+        int end = 1;
+        while (end < info.length()) {
+            char c = info.charAt(end);
+            if (c == '(') {
+                assert info.charAt(end + 1) == '1';
+                assert info.charAt(end + 2) == ')';
+                break;
+            }
+            if (Character.isUpperCase(c)) {
+                break;
+            }
+            end++;
+        }
+        String spell = info.substring(0, end).trim();
+        String explain = info.substring(end);
 
         Sentence sentence = new Sentence(wordPage.child(sentenceIndex).text().substring(2));
         List<Sentence> sentences = new ArrayList<>();
