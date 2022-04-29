@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <package name="com.github.maerd_zinbiel.backend.mwvb.domain"/>
+        <package name="backend.mwvb.entity"/>
     </typeAliases>
-
 </configuration>

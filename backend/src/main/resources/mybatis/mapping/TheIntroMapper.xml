@@ -2,16 +2,6 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.maerd_zinbiel.backend.mwvb.mapper.TheIntroMapper">
-    <insert id="insert">
-        INSERT INTO the_intro(paragraph)
-        VALUES
-        <foreach collection="intro.paragraphs" item="paragraph" separator=",">
-            (#{paragraph})
-        </foreach>
-    </insert>
-    <select id="getAllParagraphs" resultType="java.lang.String">
-        SELECT paragraph
-        FROM the_intro;
-    </select>
+<mapper namespace="backend.mwvb.mapper.TheIntroMapper">
+
 </mapper>
