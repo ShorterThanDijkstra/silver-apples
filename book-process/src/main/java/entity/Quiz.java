@@ -1,6 +1,8 @@
 package entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,10 +11,14 @@ public class Quiz {
     private final List<QuizPage> quizPages;
     private final List<SimpleQuizPage> simpleQuizPages;
 
+    @JsonIgnore
+    private Integer id;
+
     public Quiz() {
         quizPages = new LinkedList<>();
         simpleQuizPages = new LinkedList<>();
         unit = null;
+        id = null;
     }
 
     public void appendSimpleQuizPage(SimpleQuizPage quizPage) {
@@ -21,6 +27,14 @@ public class Quiz {
 
     public void appendQuizPage(QuizPage page) {
         quizPages.add(page);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public List<SimpleQuizPage> getSimpleQuizPages() {

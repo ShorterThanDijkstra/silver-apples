@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.SentenceMapper">
+
+    <insert id="insertSentences">
+        INSERT INTO sentence(text, word_id)
+        VALUES
+        <foreach collection="sentences" item="sentence" separator=",">
+            (#{sentence.text}, #{wordId})
+        </foreach>
+    </insert>
+    <insert id="insertSentencesOfSpecialWord">
+        INSERT INTO special_section_sentence(text, special_section_word_id)
+        VALUES
+        <foreach collection="word.sentences" item="sentence" separator=",">
+            (#{sentence.text}, #{word.id})
+        </foreach>
+    </insert>
+</mapper>

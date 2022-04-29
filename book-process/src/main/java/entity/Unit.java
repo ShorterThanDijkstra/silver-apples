@@ -14,11 +14,15 @@ public class Unit {
     @JsonIgnore
     private final int index;
 
+    @JsonIgnore
+    private Integer id;
+
     public Unit(int index) {
-        roots = new LinkedList<>();
-        specialSection = new LinkedList<>();
-        quizzes = new LinkedList<>();
+        this.roots = new LinkedList<>();
+        this.specialSection = new LinkedList<>();
+        this.quizzes = new LinkedList<>();
         this.index = index;
+        this.id = null;
     }
 
     public void appendRoot(Root root) {
@@ -31,6 +35,14 @@ public class Unit {
 
     public void appendQuiz(Quiz quiz) {
         quizzes.add(quiz);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public List<Root> getRoots() {

@@ -1,22 +1,19 @@
-package com.github.maerd_zinbiel.backend.mwvb.parse;
+package process;
 
-import com.github.maerd_zinbiel.backend.mwvb.domain.*;
-import com.github.maerd_zinbiel.backend.mwvb.mapper.*;
+
+import entity.*;
+import mapper.*;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 
 public class Book2Database implements BookWriter {
-    private int unitIndex = 0;
-    private SqlSession sqlSession;
+    private final SqlSession sqlSession;
 
-    public void setSqlSession(SqlSession sqlSession) {
-        this.sqlSession = sqlSession;
+    public Book2Database(SqlSession session) {
+        sqlSession = session;
     }
 
-
-    @Transactional
     @Override
     public void writeIntro(TheIntro intro) throws IOException {
         TheIntroMapper theIntroMapper = sqlSession.getMapper(TheIntroMapper.class);
@@ -25,7 +22,6 @@ public class Book2Database implements BookWriter {
 
     private void insertUnit(Unit unit) {
         UnitMapper unitMapper = sqlSession.getMapper(UnitMapper.class);
-        unit.setIndex(unitIndex);
         unitMapper.insert(unit);
         insertRoots(unit);
         insertQuiz(unit);
@@ -95,15 +91,15 @@ public class Book2Database implements BookWriter {
         );
     }
 
-    @Transactional
     @Override
     public void writeUnit(Unit unit) throws IOException {
-        unitIndex++;
         insertUnit(unit);
     }
 
     @Override
     public void writeUnitsDone() throws IOException {
-
+        if (sqlSession != null) {
+            sqlSession.close();
+        }
     }
 }

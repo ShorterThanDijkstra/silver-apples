@@ -1,4 +1,6 @@
 package entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public class Word {
@@ -7,7 +9,8 @@ public class Word {
     private final String detail;
     private final List<Sentence> sentences;
     private  Root root;
-
+    @JsonIgnore
+    private Integer id;
 
     public Word(final String spell, final String explain, final String detail, final List<Sentence> sentences) {
         this.spell = spell;
@@ -15,6 +18,15 @@ public class Word {
         this.detail = detail;
         this.sentences = sentences;
         this.root = null;
+        this.id = null;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setRoot(Root root) {

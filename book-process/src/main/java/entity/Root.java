@@ -1,5 +1,7 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,7 +10,8 @@ public class Root {
     private final String name;
     private final String description;
     private final List<Word> words; // size: 4
-
+    @JsonIgnore
+    private Integer id;
     public Root(final String name, final String description) {
         this.name = name;
         this.description = description;
@@ -20,6 +23,13 @@ public class Root {
         words.add(word);
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public void setUnit(Unit unit) {
         this.unit = unit;
     }

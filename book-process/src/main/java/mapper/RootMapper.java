@@ -1,6 +1,6 @@
-package com.github.maerd_zinbiel.backend.mwvb.mapper;
+package mapper;
 
-import com.github.maerd_zinbiel.backend.mwvb.domain.Root;
+import entity.Root;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
