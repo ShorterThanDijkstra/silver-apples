@@ -2,9 +2,6 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.maerd_zinbiel.backend.mwvb.mapper.QuizMapper">
-    <insert id="insert" useGeneratedKeys="true" keyProperty="quiz.id" keyColumn="id">
-        INSERT INTO quiz(unit_id)
-        VALUES (#{unitId})
-    </insert>
+<mapper namespace="backend.mwvb.mapper.QuizMapper">
+
 </mapper>

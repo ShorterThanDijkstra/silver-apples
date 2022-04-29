@@ -2,15 +2,6 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.maerd_zinbiel.backend.mwvb.mapper.SimpleQuizPageMapper">
-    <insert id="insertContent" useGeneratedKeys="true" keyProperty="page.id" keyColumn="id">
-        INSERT INTO simple_quiz_page(content, quiz_id)
-        VALUES (#{page.content}, #{quizId})
-    </insert>
-    <insert id="insertAnswers">
-        INSERT INTO simple_quiz_page_answer(answer, page_id) VALUES
-        <foreach collection="page.answers" item="answer" separator=",">
-            (#{answer}, #{page.id})
-        </foreach>
-    </insert>
+<mapper namespace="backend.mwvb.mapper.SimpleQuizPageMapper">
+
 </mapper>
