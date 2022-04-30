@@ -10,5 +10,5 @@ public class Unit {
     private final int index;
 
     @JsonIgnore
-    private Integer id;
+    private final Integer id;
 }

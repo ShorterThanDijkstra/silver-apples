@@ -9,5 +9,5 @@ public class SimpleQuizPage {
     private final String content;
     private String[] answers;
     @JsonIgnore
-    private Integer id;
+    private final Integer id;
 }
