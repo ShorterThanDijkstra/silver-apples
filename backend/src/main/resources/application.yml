@@ -6,9 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
 
 mybatis:
-  mapper-locations: classpath:mybatis/mapping/*.xml
-  config-location: classpath:mybatis/mybatis-config.xml
-
+  type-aliases-package: backend.mwvb.entity
 logging:
   level:
     com.github.maerd_zinbiel.backend.mwvb.mapper : debug
