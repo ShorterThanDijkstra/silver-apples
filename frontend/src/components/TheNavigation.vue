@@ -7,22 +7,23 @@
     active-text-color="#ffd04b"
     @select="handleSelect"
   >
-    <el-sub-menu index="1">
-      <template #title>Reading</template>
-      <el-menu-item index="1-1">Unit 1</el-menu-item>
-      <el-menu-item index="1-2">Unit 2</el-menu-item>
-      <el-menu-item index="1-3">Unit 3</el-menu-item>
-    </el-sub-menu>
-    <el-sub-menu index="2">
-      <template #title>Volcabulary</template>
-      <el-menu-item index="2-1">Unit 1</el-menu-item>
-      <el-menu-item index="2-2">Unit 2</el-menu-item>
-      <el-menu-item index="2-3">Unit 3</el-menu-item>
+    <el-sub-menu v-for="(group, i) in 6" :key="i" :index="i">
+      <template #title>Units {{ group * 5 - 4 }}-{{ group * 5 }}</template>
+      <el-menu-item
+        v-for="unit_index in 5"
+        :key="unit_index"
+        :index="String(group * 5 + unit_index - 5 )"
+      >
+        unit {{ group * 5 + unit_index - 5 }}
+      </el-menu-item>
     </el-sub-menu>
   </el-menu>
+  
 </template>
 <script lang="ts" setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
 const handleSelect = (key: string, keyPath: string[]) => {
-  console.log("key: ", key, " keyPath: ", keyPath)
-}
+  router.push("/unit/" + key);
+};
 </script>
