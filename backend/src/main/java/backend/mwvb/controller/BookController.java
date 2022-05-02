@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1.0")
 public class BookController {
@@ -25,10 +25,9 @@ public class BookController {
         return Response.success(roots);
     }
 
-    @PostMapping("/words")
-    public Response<List<Word>> wordsInRoot(@RequestBody Root root) {
-        // TODO: 2022/4/30 validate root
-        List<Word> words = bookService.wordsInRoot(root.getId());
+    @GetMapping("/words/{rootId}")
+    public Response<List<Word>> wordsInRoot(@PathVariable("rootId") Integer rootId) {
+        List<Word> words = bookService.wordsInRoot(rootId);
         return Response.success(words);
     }
 }
