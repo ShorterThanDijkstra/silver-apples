@@ -7,8 +7,8 @@
     <div class="card-body">
       <div>
         <div @click="hideOrShow('explain')">
-          <span v-if="explainShow">解释:（隐藏）</span>
-          <span v-else>解释:（显示）</span>
+          <span v-if="explainShow">解释:（点击隐藏）</span>
+          <span v-else>解释:（点击显示）</span>
         </div>
         <p v-show="explainShow">{{ word.explain }}</p>
         <hr />
@@ -16,8 +16,8 @@
 
       <div>
         <div @click="hideOrShow('detail')">
-          <span v-if="detailShow">背景:（隐藏）</span>
-          <span v-else>背景:（显示）</span>
+          <span v-if="detailShow">背景:（点击隐藏）</span>
+          <span v-else>背景:（点击显示）</span>
         </div>
         <p v-show="detailShow">{{ word.detail }}</p>
         <hr />
@@ -25,8 +25,8 @@
 
       <div>
         <div @click="hideOrShow('sentences')">
-          <span v-if="sentencesShow">例句:（隐藏）</span>
-          <span v-else>例句:（显示）</span>
+          <span v-if="sentencesShow">例句:（点击隐藏）</span>
+          <span v-else>例句:（点击显示）</span>
         </div>
         <div v-show="sentencesShow">
           <p v-for="(sentence, index) in word.sentences" :key="index">

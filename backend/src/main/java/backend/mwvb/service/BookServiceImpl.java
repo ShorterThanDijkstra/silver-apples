@@ -1,7 +1,9 @@
 package backend.mwvb.service;
 
+import backend.mwvb.entity.Quiz;
 import backend.mwvb.entity.Root;
 import backend.mwvb.entity.Word;
+import backend.mwvb.mapper.QuizMapper;
 import backend.mwvb.mapper.RootMapper;
 import backend.mwvb.mapper.WordMapper;
 import lombok.Data;
@@ -16,6 +18,7 @@ public class BookServiceImpl implements BookService {
     private final RootMapper rootMapper;
     private final WordMapper wordMapper;
 
+    private final QuizMapper quizMapper;
     @Override
     public List<Root> rootsInUnit(Integer index) {
         return rootMapper.rootsInUnit(index);
@@ -24,5 +27,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Word> wordsInRoot(Integer rootId) {
         return wordMapper.wordsInRoot(rootId);
+    }
+
+    @Override
+    public List<Quiz> quizzesInUnit(Integer unitId) {
+        return quizMapper.quizzesInUnit(unitId);
     }
 }

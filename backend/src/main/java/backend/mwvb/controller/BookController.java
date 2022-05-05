@@ -1,5 +1,6 @@
 package backend.mwvb.controller;
 
+import backend.mwvb.entity.Quiz;
 import backend.mwvb.entity.Root;
 import backend.mwvb.entity.Word;
 import backend.mwvb.service.BookService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1.0")
@@ -29,5 +31,11 @@ public class BookController {
     public Response<List<Word>> wordsInRoot(@PathVariable("rootId") Integer rootId) {
         List<Word> words = bookService.wordsInRoot(rootId);
         return Response.success(words);
+    }
+
+    @GetMapping("/quizzes/{unitId}")
+    public Response<List<Quiz>> quizzesInUnit(@PathVariable("unitId") Integer unitId) {
+        List<Quiz> quizzes = bookService.quizzesInUnit(unitId);
+        return Response.success(quizzes);
     }
 }

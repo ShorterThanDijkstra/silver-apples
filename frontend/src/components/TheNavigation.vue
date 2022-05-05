@@ -7,8 +7,8 @@
     active-text-color="#ffd04b"
     @select="handleSelect"
   >
-    <el-sub-menu v-for="(group, i) in 6" :key="i" :index="i">
-      <template #title>Units {{ group * 5 - 4 }}-{{ group * 5 }}</template>
+    <el-sub-menu v-for="(group, i) in 6" :key="i" :index="String(i)">
+      <template #title>Unit {{ group * 5 - 4 }}-{{ group * 5 }}</template>
       <el-menu-item
         v-for="unit_index in 5"
         :key="unit_index"
