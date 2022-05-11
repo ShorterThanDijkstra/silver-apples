@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
     {
-        path: '/unit/:id',
+        path: '/roots',
         name: 'Unit',
         component: () => import('@/views/Unit.vue'),
         props: true,
     },
     {
-        path: '/root/:id/:name',
+        path: '/words',
         name: 'Root',
         component: () => import('@/views/Root.vue'),
         props: true

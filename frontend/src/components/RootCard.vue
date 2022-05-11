@@ -2,7 +2,7 @@
   <el-card class="box-card">
     <div class="card-header">
       <span>{{ root.name }}</span>
-      <el-button class="button" @click="words_of_root" type="text"
+      <el-button class="button" @click="wordsOfRoot" type="text"
         >Words</el-button
       >
     </div>
@@ -13,15 +13,21 @@
   </el-card>
 </template>
 <script>
+import { mapMutations } from 'vuex';
 export default {
   props: {
     root: {
+      type: Object,
       required: true,
     },
   },
   methods: {
-    words_of_root() {
-      this.$router.push("/root/" + this.root.id + "/" + this.root.name);
+    ...mapMutations(['setCurrentRoot']),
+    wordsOfRoot() {
+      this.setCurrentRoot(this.root)
+      this.$router.push({
+        name: "Root"
+      });
     },
   },
 };
@@ -32,5 +38,4 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
-
 </style>

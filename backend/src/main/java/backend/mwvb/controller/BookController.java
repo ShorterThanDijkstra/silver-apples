@@ -21,6 +21,12 @@ public class BookController {
         bookService = service;
     }
 
+    @GetMapping("/roots")
+    public Response<List<List<Root>>> allRoots() {
+        List<List<Root>> allRoots = bookService.allRoots();
+        return Response.success(allRoots);
+    }
+
     @GetMapping("/roots/{index}")
     public Response<List<Root>> rootsInUnit(@PathVariable("index") Integer index) {
         List<Root> roots = bookService.rootsInUnit(index);

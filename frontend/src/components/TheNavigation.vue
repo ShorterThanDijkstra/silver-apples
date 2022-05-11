@@ -12,18 +12,24 @@
       <el-menu-item
         v-for="unit_index in 5"
         :key="unit_index"
-        :index="String(group * 5 + unit_index - 5 )"
+        :index="String(group * 5 + unit_index - 5)"
       >
         unit {{ group * 5 + unit_index - 5 }}
       </el-menu-item>
     </el-sub-menu>
   </el-menu>
-  
 </template>
-<script lang="ts" setup>
-import { useRouter } from "vue-router";
-const router = useRouter();
-const handleSelect = (key: string, keyPath: string[]) => {
-  router.push("/unit/" + key);
+<script>
+import { mapMutations } from "vuex";
+export default {
+  methods: {
+    ...mapMutations(["setCurrentUnit"]),
+    handleSelect(key, keyPath) {
+      this.setCurrentUnit(key);
+      this.$router.push({
+        name: "Unit",
+      });
+    },
+  },
 };
 </script>

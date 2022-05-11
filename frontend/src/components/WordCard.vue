@@ -73,6 +73,7 @@ const handleChange = (val: string[]) => {
   border-radius: 16px !important;
 }
 .center {
+  /* text-align: center; */
   margin-left: 5%;
   font-size: 22px;
   /* margin-right: 5%; */
