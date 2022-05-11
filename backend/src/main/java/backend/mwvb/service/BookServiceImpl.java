@@ -10,6 +10,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -17,8 +18,17 @@ import java.util.List;
 public class BookServiceImpl implements BookService {
     private final RootMapper rootMapper;
     private final WordMapper wordMapper;
-
     private final QuizMapper quizMapper;
+
+    @Override
+    public List<List<Root>> allRoots() {
+        List<List<Root>> allRoots = new LinkedList<>();
+        for (int unit = 1; unit <= UNIT_COUNT; unit++) {
+            allRoots.add(rootsInUnit(unit));
+        }
+        return allRoots;
+    }
+
     @Override
     public List<Root> rootsInUnit(Integer index) {
         return rootMapper.rootsInUnit(index);
