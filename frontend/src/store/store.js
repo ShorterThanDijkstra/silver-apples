@@ -5,27 +5,32 @@ const store = createStore({
     state() {
         return {
             backend: "http://localhost:8080/api/v1.0",
-            
+
             currentUnit: {},
 
-            currentRoot:{}
+            currentRoot: {}
         }
     },
     mutations: {
         setCurrentUnit(state, unit) {
             state.currentUnit = unit;
         },
-        setCurrentRoot(state, root){
+        setCurrentRoot(state, root) {
             state.currentRoot = root;
         }
     },
     actions: {
         async getUnitByIndex(context, index) {
-            const url = this.state.backend + "/unit/"+index
+            const url = this.state.backend + "/unit/" + index
             let data = await axios.get(url)
             context.commit("setCurrentUnit", data.data.data)
         }
     },
+    getters: {
+        quizzesOfCurrentUnit: (state) => (_) => state.currentUnit.quizzes
+        
+
+    }
 })
 
 export default store;

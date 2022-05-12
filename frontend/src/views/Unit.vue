@@ -2,7 +2,8 @@
   <div>
     <div class="center">
       <h1 class="title">
-        Unit {{ currentUnit.index }} <button class="button" role="button">exercises</button>
+        Unit {{ currentUnit.index }} 
+        <button @click="exercise" class="button" role="button">exercises</button>
       </h1>
       <RootCard
         class="card"
@@ -22,6 +23,13 @@ export default {
   computed: {
     ...mapState(["currentUnit"]),
   },
+  methods:{
+    exercise(){
+      this.$router.push({
+        name:'Exercise'
+      })
+    }
+  }
 };
 </script>
 
