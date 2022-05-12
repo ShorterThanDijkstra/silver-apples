@@ -2,8 +2,8 @@
 import TheNavigation from "@/components/TheNavigation.vue"
 export default {
   components: {
-    TheNavigation: TheNavigation
-  }
+    'TheNavigation': TheNavigation
+  },
 }
 </script>
 
