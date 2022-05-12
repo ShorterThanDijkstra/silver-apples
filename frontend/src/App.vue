@@ -1,16 +1,9 @@
 <script>
 import TheNavigation from "@/components/TheNavigation.vue"
-import { mapActions } from "vuex"
 export default {
   components: {
     'TheNavigation': TheNavigation
   },
-  methods:{
-    ...mapActions(["allRoots"])
-  },
-  mounted(){
-    this.allRoots();
-  }
 }
 </script>
 

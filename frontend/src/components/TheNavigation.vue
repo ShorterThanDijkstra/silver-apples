@@ -20,12 +20,12 @@
   </el-menu>
 </template>
 <script>
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
   methods: {
-    ...mapMutations(["setCurrentUnit"]),
+    ...mapActions(["getUnitByIndex"]),
     handleSelect(key, keyPath) {
-      this.setCurrentUnit(key);
+      this.getUnitByIndex(key);
       this.$router.push({
         name: "Unit",
       });

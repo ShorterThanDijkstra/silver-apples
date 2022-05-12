@@ -33,7 +33,7 @@ export default {
 };
 </script>
 <style>
-.card-header {
+.card-header  {
   display: flex;
   justify-content: space-between;
   align-items: center;

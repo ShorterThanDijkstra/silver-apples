@@ -2,6 +2,7 @@ package backend.mwvb.controller;
 
 import backend.mwvb.entity.Quiz;
 import backend.mwvb.entity.Root;
+import backend.mwvb.entity.Unit;
 import backend.mwvb.entity.Word;
 import backend.mwvb.service.BookService;
 import backend.mwvb.util.Response;
@@ -39,9 +40,21 @@ public class BookController {
         return Response.success(words);
     }
 
-    @GetMapping("/quizzes/{unitId}")
-    public Response<List<Quiz>> quizzesInUnit(@PathVariable("unitId") Integer unitId) {
-        List<Quiz> quizzes = bookService.quizzesInUnit(unitId);
+    @GetMapping("/quizzes/{unitIndex}")
+    public Response<List<Quiz>> quizzesInUnit(@PathVariable("unitIndex") Integer unitIndex) {
+        List<Quiz> quizzes = bookService.quizzesInUnit(unitIndex);
         return Response.success(quizzes);
+    }
+
+    @GetMapping("/quizzes")
+    public Response<List<List<Quiz>>> allQuizzes() {
+        List<List<Quiz>> allQuizzes = bookService.allQuizzes();
+        return Response.success(allQuizzes);
+    }
+
+    @GetMapping("/unit/{unitIndex}")
+    public Response<Unit> unit(@PathVariable("unitIndex") Integer unitIndex) {
+        Unit unit = bookService.unit(unitIndex);
+        return Response.success(unit);
     }
 }

@@ -7,8 +7,12 @@
     <div class="card-body">
       <div>
         <div @click="hideOrShow('explain')">
-          <span v-if="explainShow">explain: (hide)</span>
-          <span v-else>explain: (show)</span>
+          <span v-if="explainShow"
+            >explain:   <button class="button" role="button">hide</button></span
+          >
+          <span v-else
+            >explain:   <button class="button" role="button">show</button></span
+          >
         </div>
         <p v-show="explainShow">{{ word.explain }}</p>
         <hr />
@@ -16,8 +20,12 @@
 
       <div>
         <div @click="hideOrShow('detail')">
-          <span v-if="detailShow">more: (hide)</span>
-          <span v-else>more: (show)</span>
+          <span v-if="detailShow"
+            >more:   <button class="button" role="button">hide</button></span
+          >
+          <span v-else
+            >more:   <button class="button" role="button">show</button></span
+          >
         </div>
         <p v-show="detailShow">{{ word.detail }}</p>
         <hr />
@@ -25,8 +33,12 @@
 
       <div>
         <div @click="hideOrShow('sentences')">
-          <span v-if="sentencesShow">sentences: (hide)</span>
-          <span v-else>sentences: (show)</span>
+          <span v-if="sentencesShow"
+            >sentences:   <button class="button" role="button">hide</button></span
+          >
+          <span v-else
+            >sentences:   <button class="button" role="button">show</button></span
+          >
         </div>
         <div v-show="sentencesShow">
           <p v-for="(sentence, index) in word.sentences" :key="index">
