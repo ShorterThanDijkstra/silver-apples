@@ -7,6 +7,7 @@
     active-text-color="#ffd04b"
     @select="handleSelect"
   >
+    <p @click="intro" class="intro">Introduction</p>
     <el-sub-menu v-for="(group, i) in 6" :key="i" :index="String(i)">
       <template #title>Unit {{ group * 5 - 4 }}-{{ group * 5 }}</template>
       <el-menu-item
@@ -30,6 +31,21 @@ export default {
         name: "Unit",
       });
     },
+    intro(){
+      
+      this.$router.push({
+        name: "Introduction",
+      });
+    }
   },
 };
 </script>
+<style scoped>
+.intro {
+  background-color: #545c64;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 7rem;
+}
+</style>

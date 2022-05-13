@@ -8,7 +8,9 @@ const store = createStore({
 
             currentUnit: {},
 
-            currentRoot: {}
+            currentRoot: {},
+
+            theIntro: null
         }
     },
     mutations: {
@@ -17,6 +19,9 @@ const store = createStore({
         },
         setCurrentRoot(state, root) {
             state.currentRoot = root;
+        },
+        setTheIntro(state, intro) {
+            state.theIntro = intro;
         }
     },
     actions: {
@@ -24,6 +29,15 @@ const store = createStore({
             const url = this.state.backend + "/units/" + index
             let data = await axios.get(url)
             context.commit("setCurrentUnit", data.data.data)
+        },
+
+        async getTheIntro(context) {
+            if (context.state.theIntro === null) {
+                const url = this.state.backend + "/intro"
+                let data = await axios.get(url)
+                console.log("get data from " + this.state.backend + "/intro")
+                context.commit("setTheIntro", data.data.data)
+            }
         }
     },
     getters: {

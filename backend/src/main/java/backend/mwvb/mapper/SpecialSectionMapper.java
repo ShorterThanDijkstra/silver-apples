@@ -5,10 +5,11 @@ import backend.mwvb.entity.WordOfSpecialSection;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+
 @Mapper
 public interface SpecialSectionMapper {
-    @Select(" SELECT id, spell, explain, detail FROM special_section_word WHERE unit_id IN "+
-    " (SELECT id FROM unit WHERE index=#{unitIndex}) ")
+    @Select(" SELECT id, spell, explain, detail FROM special_section_word WHERE unit_id IN " +
+            " (SELECT id FROM unit WHERE index=#{unitIndex}) ")
     @Results(
             @Result(
                     property = "sentences",

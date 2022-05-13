@@ -53,7 +53,7 @@
         </div>
         <div v-show="sentencesShow">
           <p v-for="(sentence, index) in word.sentences" :key="index">
-            {{ sentence }}
+            {{ sentence.text }}
           </p>
         </div>
       </div>
