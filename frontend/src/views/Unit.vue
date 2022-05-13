@@ -2,8 +2,8 @@
   <div>
     <div class="center">
       <h1 class="title">
-        Unit {{ currentUnit.index }} 
-        <button @click="exercise" class="button" role="button">exercises</button>
+        <span style="margin-right:34%">Unit {{ currentUnit.index }} </span>
+        <button @click="exercise" class="button" role="button">quizzes</button>
       </h1>
       <RootCard
         class="card"

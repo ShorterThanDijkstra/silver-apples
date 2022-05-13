@@ -7,12 +7,18 @@
     <div class="card-body">
       <div>
         <div @click="hideOrShow('explain')">
-          <span v-if="explainShow"
-            >explain:   <button class="button" role="button">hide</button></span
-          >
-          <span v-else
-            >explain:   <button class="button" role="button">show</button></span
-          >
+          <div v-if="explainShow">
+            <span>explain:</span>
+            <button style="margin-left: 5rem" class="button" role="button">
+              hide
+            </button>
+          </div>
+          <div v-else>
+            <span>explain:</span>
+            <button style="margin-left: 5rem" class="button" role="button">
+              show
+            </button>
+          </div>
         </div>
         <p v-show="explainShow">{{ word.explain }}</p>
         <hr />
@@ -20,25 +26,30 @@
 
       <div>
         <div @click="hideOrShow('detail')">
-          <span v-if="detailShow"
-            >more:   <button class="button" role="button">hide</button></span
-          >
-          <span v-else
-            >more:   <button class="button" role="button">show</button></span
-          >
+          <div v-if="detailShow">
+            <span>more: </span
+            ><button style="margin-left:5.8rem" class="button" role="button">hide</button>
+          </div>
+          <div v-else>
+            <span>more: </span
+            ><button  style="margin-left:5.8rem" class="button" role="button">show</button>
+          </div>
         </div>
+        <div></div>
         <p v-show="detailShow">{{ word.detail }}</p>
         <hr />
       </div>
 
       <div>
         <div @click="hideOrShow('sentences')">
-          <span v-if="sentencesShow"
-            >sentences:   <button class="button" role="button">hide</button></span
-          >
-          <span v-else
-            >sentences:   <button class="button" role="button">show</button></span
-          >
+          <div v-if="sentencesShow">
+            <span>sentences: </span
+            ><button style="margin-left:3.4rem" class="button" role="button">hide</button>
+          </div>
+          <div v-else>
+            <span>sentences: </span>
+            <button style="margin-left:3.4rem" class="button" role="button">show</button>
+          </div>
         </div>
         <div v-show="sentencesShow">
           <p v-for="(sentence, index) in word.sentences" :key="index">
@@ -69,25 +80,6 @@ const hideOrShow = (item: String) => {
     explainShow.value = !explainShow.value;
   }
 };
-
-const handleChange = (val: string[]) => {
-  console.log(val);
-};
 </script>
-<style>
-.card {
-  width: 45%;
-  display: inline-grid;
-  margin: 10px;
-  height: 300px;
-  border: 1px solid #ccc !important;
-  padding: 14px;
-  border-radius: 16px !important;
-}
-.center {
-  /* text-align: center; */
-  margin-left: 5%;
-  font-size: 22px;
-  /* margin-right: 5%; */
-}
+<style scoped>
 </style>
