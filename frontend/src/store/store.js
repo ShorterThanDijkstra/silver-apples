@@ -21,14 +21,14 @@ const store = createStore({
     },
     actions: {
         async getUnitByIndex(context, index) {
-            const url = this.state.backend + "/unit/" + index
+            const url = this.state.backend + "/units/" + index
             let data = await axios.get(url)
             context.commit("setCurrentUnit", data.data.data)
         }
     },
     getters: {
-        quizzesOfCurrentUnit: (state) => (_) => state.currentUnit.quizzes
-        
+        quizzesOfCurrentUnit: (state) => (_) => state.currentUnit.quizzes,
+        specialSectionOfCurrentUnit: (state) => (_) => state.currentUnit.specialSectionWords
 
     }
 })

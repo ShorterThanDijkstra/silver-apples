@@ -21,6 +21,11 @@ const routes = [
         path: '/quizzes',
         name:'Exercise',
         component:() => import('@/views/Exercise.vue')
+    },
+    {
+        path: '/special',
+        name:'SpecialSection',
+        component:() => import('@/views/SpecialSection.vue')
     }
 
 ]
