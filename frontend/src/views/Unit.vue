@@ -2,8 +2,34 @@
   <div>
     <div class="center">
       <h1 class="title">
-        <span style="margin-right:34%">Unit {{ currentUnit.index }} </span>
-        <button @click="exercise" class="button" role="button">quizzes</button>
+        <span>Unit {{ currentUnit.index }}</span>
+        <button
+          v-if="currentUnit.index < 10"
+          style="margin-left: 11.4rem"
+          class="button"
+          role="button"
+          @click="specialSection"
+        >
+          special section
+        </button>
+        <button
+          v-else
+          style="margin-left: 10rem"
+          class="button"
+          role="button"
+          @click="specialSection"
+        >
+          special section
+        </button>
+
+        <button
+          style="margin-left: 16rem"
+          @click="exercise"
+          class="button"
+          role="button"
+        >
+          quizzes
+        </button>
       </h1>
       <RootCard
         class="card"
@@ -23,13 +49,18 @@ export default {
   computed: {
     ...mapState(["currentUnit"]),
   },
-  methods:{
-    exercise(){
+  methods: {
+    exercise() {
       this.$router.push({
-        name:'Exercise'
-      })
-    }
-  }
+        name: "Exercise",
+      });
+    },
+    specialSection() {
+      this.$router.push({
+        name: "SpecialSection",
+      });
+    },
+  },
 };
 </script>
 
@@ -56,14 +87,15 @@ export default {
   justify-content: right;
   appearance: none;
   background-color: #2ea44f;
-  border: 1px solid rgba(27, 31, 35, .15);
+  border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 6px;
-  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
@@ -88,19 +120,19 @@ export default {
 }
 
 .button:focus {
-  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  box-shadow: rgba(46, 164, 79, 0.4) 0 0 0 3px;
   outline: none;
 }
 
 .button:disabled {
   background-color: #94d3a2;
-  border-color: rgba(27, 31, 35, .1);
-  color: rgba(255, 255, 255, .8);
+  border-color: rgba(27, 31, 35, 0.1);
+  color: rgba(255, 255, 255, 0.8);
   cursor: default;
 }
 
 .button:active {
   background-color: #298e46;
-  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+  box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
 }
 </style>

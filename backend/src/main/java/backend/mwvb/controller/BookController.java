@@ -52,7 +52,7 @@ public class BookController {
         return Response.success(allQuizzes);
     }
 
-    @GetMapping("/unit/{unitIndex}")
+    @GetMapping("/units/{unitIndex}")
     public Response<Unit> unit(@PathVariable("unitIndex") Integer unitIndex) {
         Unit unit = bookService.unit(unitIndex);
         return Response.success(unit);
