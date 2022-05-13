@@ -1,13 +1,7 @@
 package backend.mwvb.service;
 
-import backend.mwvb.entity.Quiz;
-import backend.mwvb.entity.Root;
-import backend.mwvb.entity.Unit;
-import backend.mwvb.entity.Word;
-import backend.mwvb.mapper.QuizMapper;
-import backend.mwvb.mapper.RootMapper;
-import backend.mwvb.mapper.UnitMapper;
-import backend.mwvb.mapper.WordMapper;
+import backend.mwvb.entity.*;
+import backend.mwvb.mapper.*;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +14,9 @@ public class BookServiceImpl implements BookService {
     private final RootMapper rootMapper;
     private final WordMapper wordMapper;
     private final QuizMapper quizMapper;
-
     private final UnitMapper unitMapper;
+
+    private final TheIntroMapper theIntroMapper;
 
     @Override
     public List<List<Root>> allRoots() {
@@ -59,5 +54,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public Unit unit(Integer unitIndex) {
         return unitMapper.unit(unitIndex);
+    }
+
+    @Override
+    public TheIntro intro() {
+        return new TheIntro(theIntroMapper.paragraphs());
     }
 }

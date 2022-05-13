@@ -1,9 +1,6 @@
 package backend.mwvb.controller;
 
-import backend.mwvb.entity.Quiz;
-import backend.mwvb.entity.Root;
-import backend.mwvb.entity.Unit;
-import backend.mwvb.entity.Word;
+import backend.mwvb.entity.*;
 import backend.mwvb.service.BookService;
 import backend.mwvb.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +19,10 @@ public class BookController {
         bookService = service;
     }
 
+    @GetMapping("/intro")
+    public Response<TheIntro>  intro(){
+        return Response.success(bookService.intro());
+    }
     @GetMapping("/roots")
     public Response<List<List<Root>>> allRoots() {
         List<List<Root>> allRoots = bookService.allRoots();

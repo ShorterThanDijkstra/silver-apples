@@ -26,6 +26,11 @@ const routes = [
         path: '/special',
         name:'SpecialSection',
         component:() => import('@/views/SpecialSection.vue')
+    },
+    {
+        path:'/intro',
+        name:'Introduction',
+        component:() => import('@/views/TheIntroduction.vue')
     }
 
 ]
