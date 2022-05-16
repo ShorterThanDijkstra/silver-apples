@@ -4,9 +4,12 @@ spring:
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver
+springdoc:
+  api-docs:
+    path: /api-docs
 
 mybatis:
   type-aliases-package: backend.mwvb.entity
 logging:
   level:
-    com.github.maerd_zinbiel.backend.mwvb.mapper : debug
+    com.github.maerd_zinbiel.backend.mwvb.mapper: debug

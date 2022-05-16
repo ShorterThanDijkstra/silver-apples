@@ -21,15 +21,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<List<Root>> allRoots() {
         List<List<Root>> allRoots = new LinkedList<>();
-        for (int unit = 1; unit <= UNIT_COUNT; unit++) {
+        for (int unit = 1; unit <= Unit.UNIT_COUNT; unit++) {
             allRoots.add(rootsInUnit(unit));
         }
         return allRoots;
     }
 
     @Override
-    public List<Root> rootsInUnit(Integer index) {
-        return rootMapper.rootsInUnit(index);
+    public List<Root> rootsInUnit(Integer unitIndex) {
+        return rootMapper.rootsInUnit(unitIndex);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<List<Quiz>> allQuizzes() {
         List<List<Quiz>> allQuizzes = new LinkedList<>();
-        for (int unit = 1; unit <= UNIT_COUNT; unit++) {
+        for (int unit = 1; unit <= Unit.UNIT_COUNT; unit++) {
             allQuizzes.add(quizzesInUnit(unit));
         }
         return allQuizzes;
