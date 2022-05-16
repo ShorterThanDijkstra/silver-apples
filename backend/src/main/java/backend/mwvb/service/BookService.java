@@ -5,11 +5,10 @@ import backend.mwvb.entity.*;
 import java.util.List;
 
 public interface BookService {
-    int UNIT_COUNT = 30;
 
     List<List<Root>> allRoots();
 
-    List<Root> rootsInUnit(Integer index);
+    List<Root> rootsInUnit(Integer unitIndex);
 
     List<Word> wordsInRoot(Integer rootId);
 
