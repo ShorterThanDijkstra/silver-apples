@@ -1,6 +1,7 @@
 package backend.mwvb.controller;
 
 import backend.mwvb.entity.*;
+import backend.mwvb.exception.IllegalRequestException;
 import backend.mwvb.service.BookService;
 import backend.mwvb.util.Response;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,8 +22,15 @@ public class BookController {
         bookService = service;
     }
 
-    private void validateUnitIndex(Integer unitIndex) {
+    private void validateUnitIndex(Integer unitIndex) throws IllegalRequestException {
 
+        if (unitIndex < 1 || unitIndex > Unit.UNIT_COUNT) {
+            throw new IllegalRequestException(
+                    "unit index should be less or equal than "
+                            + Unit.UNIT_COUNT
+                            + " and greater than 0"
+            );
+        }
     }
 
     @GetMapping("/intro")
@@ -40,7 +48,8 @@ public class BookController {
 
     @GetMapping("/roots/{unitIndex}")
     @ApiResponse(content = @Content(mediaType = "application/json"))
-    public Response<List<Root>> rootsInUnit(@PathVariable("unitIndex") Integer unitIndex) {
+    public Response<List<Root>> rootsInUnit(@PathVariable("unitIndex") Integer unitIndex) throws IllegalRequestException {
+        validateUnitIndex(unitIndex);
         List<Root> roots = bookService.rootsInUnit(unitIndex);
         return Response.success(roots);
     }
@@ -54,7 +63,8 @@ public class BookController {
 
     @GetMapping("/quizzes/{unitIndex}")
     @ApiResponse(content = @Content(mediaType = "application/json"))
-    public Response<List<Quiz>> quizzesInUnit(@PathVariable("unitIndex") Integer unitIndex) {
+    public Response<List<Quiz>> quizzesInUnit(@PathVariable("unitIndex") Integer unitIndex) throws IllegalRequestException {
+        validateUnitIndex(unitIndex);
         List<Quiz> quizzes = bookService.quizzesInUnit(unitIndex);
         return Response.success(quizzes);
     }
@@ -68,7 +78,8 @@ public class BookController {
 
     @GetMapping("/units/{unitIndex}")
     @ApiResponse(content = @Content(mediaType = "application/json"))
-    public Response<Unit> unit(@PathVariable("unitIndex") Integer unitIndex) {
+    public Response<Unit> unit(@PathVariable("unitIndex") Integer unitIndex) throws IllegalRequestException {
+        validateUnitIndex(unitIndex);
         Unit unit = bookService.unit(unitIndex);
         return Response.success(unit);
     }

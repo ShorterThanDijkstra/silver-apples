@@ -17,4 +17,13 @@ public class Response<T> {
         return new Response<>(HttpStatus.OK.value(), data);
     }
 
+    public static Response<String> fail(Integer code, String msg) {
+        return new Response<>(code, msg);
+    }
+    public static Response<String> fail( String msg) {
+        return new Response<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg);
+    }
+    public static Response<String> fail() {
+        return new Response<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Unknown error");
+    }
 }
