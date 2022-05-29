@@ -5,6 +5,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -15,6 +16,7 @@ class TheBookProcessorTest {
     public static final String INTRO_BACKUP = "src/main/resources/book/mwvb-intro-backup.json";
     public static final String UNITS_BACKUP = "src/main/resources/book/mwvb-units-backup.json";
 
+    @Disabled
     @Test
     public void book2Json() throws IOException {
         TheBookProcessor processor = TheBookProcessor.getInstance(new Book2Json());
@@ -26,6 +28,7 @@ class TheBookProcessorTest {
     }
 
     @Test
+    @Disabled
     public void book2Database() throws IOException {
         InputStream stream = Resources.getResourceAsStream("mybatis-config.xml");
         SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();

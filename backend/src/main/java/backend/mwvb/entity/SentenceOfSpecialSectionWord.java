@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class SentenceOfSpecialSectionWord {
-    private final String text;
+    private String text;
 }

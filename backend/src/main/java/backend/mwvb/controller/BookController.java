@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1.0")
+@RequestMapping("/api/v1.0/book")
 public class BookController {
     private final BookService bookService;
 

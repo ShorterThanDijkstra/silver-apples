@@ -13,6 +13,9 @@ public class ControllerExceptionHandler {
         if (ex instanceof IllegalRequestException) {
             return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         }
-         return Response.fail(HttpStatus.BAD_REQUEST.value(), "Unknown exception");
+        if (ex instanceof IllegalUserInfoException) {
+            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        }
+        return Response.fail(HttpStatus.BAD_REQUEST.value(), "Unknown exception");
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import static org.hamcrest.Matchers.*;
 
 class BookControllerTest {
-    private static final String API = "http://localhost:8080/api/v1.0";
+    private static final String API = "http://localhost:8080/api/v1.0/book";
 
     @Test
     void intro() {

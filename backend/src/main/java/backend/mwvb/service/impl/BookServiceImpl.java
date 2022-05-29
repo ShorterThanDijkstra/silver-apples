@@ -1,7 +1,8 @@
-package backend.mwvb.service;
+package backend.mwvb.service.impl;
 
 import backend.mwvb.entity.*;
 import backend.mwvb.mapper.*;
+import backend.mwvb.service.BookService;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
