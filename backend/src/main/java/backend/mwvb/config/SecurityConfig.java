@@ -22,6 +22,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/api/v1.0/user/register").anonymous()
+                .antMatchers("/**").anonymous()
                 .anyRequest().authenticated();
         return http.build();
     }

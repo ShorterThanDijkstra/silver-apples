@@ -19,18 +19,23 @@ const routes = [
     },
     {
         path: '/quizzes',
-        name:'Exercise',
-        component:() => import('@/views/Exercise.vue')
+        name: 'Exercise',
+        component: () => import('@/views/Exercise.vue')
     },
     {
         path: '/special',
-        name:'SpecialSection',
-        component:() => import('@/views/SpecialSection.vue')
+        name: 'SpecialSection',
+        component: () => import('@/views/SpecialSection.vue')
     },
     {
-        path:'/intro',
-        name:'Introduction',
-        component:() => import('@/views/TheIntroduction.vue')
+        path: '/intro',
+        name: 'Introduction',
+        component: () => import('@/views/TheIntroduction.vue')
+    },
+    {
+        path: '/register',
+        name: 'Register',
+        component: () => import('@/views/SignUp.vue')
     }
 
 ]

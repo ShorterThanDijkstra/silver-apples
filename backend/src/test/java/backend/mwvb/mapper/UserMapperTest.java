@@ -1,10 +1,14 @@
 package backend.mwvb.mapper;
 
 import backend.mwvb.entity.User;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @SpringBootTest
 class UserMapperTest {
@@ -14,13 +18,23 @@ class UserMapperTest {
     @Test
     @Transactional
     void register() {
-        User user = User.builder()
-                .name("test")
-                .password("password")
-                .email("email@gmail.com")
-                .isActive(false)
-                .nickName("nickName")
-                .build();
+        User user = User.builder().name("test").password("password").email("email@gmail.com").isActive(false).nickName("nickName").build();
         userMapper.insert(user);
+    }
+
+    @Test
+    @Disabled
+    void usernameExist() {
+        boolean result = userMapper.usernameExist("test");
+        System.out.println(result);
+        assertThat(result, is(true));
+    }
+
+    @Test
+    @Disabled
+    void emailExist() {
+        boolean result = userMapper.emailExist("dhlidj@qq.com");
+        System.out.println(result);
+        assertThat(result, is(true));
     }
 }

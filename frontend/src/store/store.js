@@ -26,16 +26,15 @@ const store = createStore({
     },
     actions: {
         async getUnitByIndex(context, index) {
-            const url = this.state.backend + "/units/" + index
+            const url = this.state.backend + "/book/units/" + index
             let data = await axios.get(url)
             context.commit("setCurrentUnit", data.data.data)
         },
 
         async getTheIntro(context) {
             if (context.state.theIntro === null) {
-                const url = this.state.backend + "/intro"
+                const url = this.state.backend + "/book/intro"
                 let data = await axios.get(url)
-                console.log("get data from " + this.state.backend + "/intro")
                 context.commit("setTheIntro", data.data.data)
             }
         }

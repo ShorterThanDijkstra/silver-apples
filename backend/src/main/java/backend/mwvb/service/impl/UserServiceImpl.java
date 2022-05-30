@@ -19,26 +19,48 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(User user) throws IllegalUserInfoException {
-        if (!isValidUser(user)) {
-            throw new IllegalUserInfoException("用户信息填写错误");
-        }
+        validateUser(user);
         String rawPassword = user.getPassword();
         String encoded = passwordEncoder.encode(rawPassword);
         user.setPassword(encoded);
-        user.setIsActive(false);
         userMapper.insert(user);
     }
 
-    private boolean isValidUser(User user) {
-        if (user.getName() == null ||
-                user.getPassword() == null ||
-                user.getNickName() == null ||
-                user.getEmail() == null) {
-            return false;
+    @Override
+    public boolean emailExist(String email) {
+        return userMapper.emailExist(email);
+    }
+
+    @Override
+    public boolean usernameExist(String username) {
+        return userMapper.usernameExist(username);
+    }
+
+    private boolean emptyOrNull(String str) {
+        return str == null || str.trim().equals("");
+    }
+
+    private void validateUser(User user) throws IllegalUserInfoException {
+        if (emptyOrNull(user.getName()) ||
+                emptyOrNull(user.getPassword()) ||
+                emptyOrNull(user.getNickName()) ||
+                emptyOrNull(user.getEmail()) ||
+                emptyOrNull(user.getConfirmPassword())) {
+            throw new IllegalUserInfoException("用户信息填写不全");
+        }
+        if (user.getName().trim().length() < 5) {
+            throw new IllegalUserInfoException("用户名长度至少为5");
+
+        }
+        if (user.getPassword().trim().length() < 10) {
+            throw new IllegalUserInfoException("密码长度至少为10");
+
         }
         if (!emailValidator.matcher(user.getEmail()).matches()) {
-            return false;
+            throw new IllegalUserInfoException("邮箱格式不正确");
         }
-        return true;
+        if (!user.getConfirmPassword().equals(user.getPassword())) {
+            throw new IllegalUserInfoException("两次密码输入不一致");
+        }
     }
 }
