@@ -18,6 +18,12 @@
         unit {{ group * 5 + unit_index - 5 }}
       </el-menu-item>
     </el-sub-menu>
+
+    <!-- <el-sub-menu index="user">
+      <template #title>User</template>
+      <el-menu-item index="sign_in">sign in</el-menu-item>
+      <el-menu-item index="sign_up">sign up</el-menu-item>
+    </el-sub-menu> -->
   </el-menu>
 </template>
 <script>
@@ -26,17 +32,24 @@ export default {
   methods: {
     ...mapActions(["getUnitByIndex"]),
     handleSelect(key, keyPath) {
+      // if(key==="sign_in"){
+      //   this.signIn()
+      //   return
+      // }
+      // if(key==="sign_up"){
+      //   this.signUp()
+      //   return
+      // }
       this.getUnitByIndex(key);
       this.$router.push({
         name: "Unit",
       });
     },
-    intro(){
-      
+    intro() {
       this.$router.push({
         name: "Introduction",
       });
-    }
+    },
   },
 };
 </script>

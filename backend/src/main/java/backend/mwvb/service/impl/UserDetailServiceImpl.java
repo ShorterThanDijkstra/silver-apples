@@ -30,14 +30,14 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     private void validateUser(User user) throws UserLoginException {
         if (Objects.isNull(user)) {
-            throw new UserLoginException("数据库不存在此用户");
+            throw new UserLoginException("Bad credentials");
         }
         if (user.getId() == null ||
                 user.getName() == null ||
                 user.getPassword() == null ||
                 user.getEmail() == null ||
                 user.getNickName() == null) {
-            throw new UserLoginException("查询用户失败");
+            throw new UserLoginException("登录失败，未知原因");
         }
     }
 }
