@@ -1,8 +1,11 @@
 package backend.mwvb.controller;
 
+import backend.mwvb.entity.LoginInfo;
 import backend.mwvb.entity.User;
-import backend.mwvb.exception.IllegalUserInfoException;
-import backend.mwvb.service.UserService;
+import backend.mwvb.exception.UserRegisterException;
+import backend.mwvb.exception.UserLoginException;
+import backend.mwvb.service.UserRegisterService;
+import backend.mwvb.service.UserLoginService;
 import backend.mwvb.util.Response;
 import lombok.Data;
 import org.springframework.web.bind.annotation.*;
@@ -14,23 +17,29 @@ import javax.validation.Valid;
 @Data
 @CrossOrigin
 public class UserController {
-    private final UserService userService;
+    private final UserLoginService loginService;
+    private final UserRegisterService registerService;
 
     @PostMapping("/register")
-    public Response<String> register(@Valid @RequestBody User user) throws IllegalUserInfoException {
-        userService.register(user);
+    public Response<String> register(@Valid @RequestBody User user) throws UserRegisterException {
+        registerService.register(user);
         return Response.success("创建用户成功");
+    }
+
+    @PostMapping("/login")
+    public Response<String> login(@RequestBody LoginInfo loginInfo) throws UserLoginException {
+        return loginService.login(loginInfo);
     }
 
     @GetMapping("/register/email/{email}")
     public Response<Boolean> emailExist(@PathVariable("email") String email) {
-        boolean isUnique = userService.emailExist(email);
+        boolean isUnique = registerService.emailExist(email);
         return Response.success(isUnique);
     }
 
     @GetMapping("/register/username/{username}")
     public Response<Boolean> usernameExist(@PathVariable("username") String username) {
-        boolean isUnique = userService.usernameExist(username);
+        boolean isUnique = registerService.usernameExist(username);
         return Response.success(isUnique);
     }
 }

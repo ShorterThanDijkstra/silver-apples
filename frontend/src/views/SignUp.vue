@@ -1,51 +1,53 @@
 <template>
-  <div>
+  <div class="box">
     <form @submit.prevent="handleSubmit">
-      <label>User Name :</label>
-      <input
-        type="text"
-        v-model="username"
-        placeholder=" at least 5 characters, must be unique"
-        required
-      />
-      <div v-if="usernameLengthError" class="error">
-        {{ usernameLengthError }}
-      </div>
-      <div v-if="usernameUniqueError" class="error">
-        {{ usernameUniqueError }}
-      </div>
+      <div class="center">
+        <label>User Name :</label>
+        <input
+          type="text"
+          v-model="username"
+          placeholder=" at least 5 characters, must be unique"
+          required
+        />
+        <div v-if="usernameLengthError" class="error">
+          {{ usernameLengthError }}
+        </div>
+        <div v-if="usernameUniqueError" class="error">
+          {{ usernameUniqueError }}
+        </div>
 
-      <label>Nick Name :</label>
-      <input type="text" v-model="nickname" required />
-      <div v-if="nicknameError" class="error">
-        {{ nicknameError }}
-      </div>
-      <label>Email :</label>
-      <input type="text" v-model="email" required />
-      <div v-if="emailError" class="error">
-        {{ emailError }}
-      </div>
-      <div v-if="emailUniqueError" class="error">
-        {{ emailUniqueError }}
-      </div>
-      <label>Password :</label>
-      <input
-        type="password"
-        v-model="password"
-        required
-        placeholder=" at least 10 characters"
-      />
-      <div v-if="passwordError" class="error">{{ passwordError }}</div>
+        <label>Nick Name :</label>
+        <input type="text" v-model="nickname" required />
+        <div v-if="nicknameError" class="error">
+          {{ nicknameError }}
+        </div>
+        <label>Email :</label>
+        <input type="text" v-model="email" required />
+        <div v-if="emailError" class="error">
+          {{ emailError }}
+        </div>
+        <div v-if="emailUniqueError" class="error">
+          {{ emailUniqueError }}
+        </div>
+        <label>Password :</label>
+        <input
+          type="password"
+          v-model="password"
+          required
+          placeholder=" at least 10 characters"
+        />
+        <div v-if="passwordError" class="error">{{ passwordError }}</div>
 
-      <label>Confirm Your Password :</label>
-      <input type="password" v-model="confirmPassword" required />
-      <div v-if="confirmPasswordError" class="error">
-        {{ confirmPasswordError }}
-      </div>
+        <label>Confirm Your Password :</label>
+        <input type="password" v-model="confirmPassword" required />
+        <div v-if="confirmPasswordError" class="error">
+          {{ confirmPasswordError }}
+        </div>
 
-      <br />
-      <div class="button">
-        <button class="submit" type="submit">Sign up here</button>
+        <br />
+        <div class="button">
+          <button class="submit" type="submit">Sign up here</button>
+        </div>
       </div>
     </form>
   </div>
@@ -165,7 +167,7 @@ export default {
 </script>
 <style scoped>
 form {
-  max-width: 500px;
+  max-width: 600px;
   margin: 30px auto;
   background: #fff;
   text-align: left;
@@ -178,11 +180,18 @@ label {
   display: inline-block;
   margin: 25px 0 15px;
 }
-
+.box {
+  margin-top: 5rem;
+  font-size: larger;
+}
+.center {
+  width: 80%;
+  margin-left: 10%;
+}
 input,
 select {
   display: block;
-  padding: 10px -0px;
+  padding: 10px 0px;
   width: 100%;
   box-sizing: bordre-box;
   border: 2px solid;
@@ -190,24 +199,6 @@ select {
   font-size: larger;
   /* border-bottom: 1px solid #ddd; */
   color: #555;
-}
-
-input[type="checkbox"] {
-  display: inline-block;
-  width: 16px;
-  margin: 0 10px 0;
-  position: relative;
-  top: 2px;
-}
-
-.pill {
-  display: inline-block;
-  margin: 20px 10px 0 0;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  cursor: pointer;
-  background: #eee;
 }
 
 button {

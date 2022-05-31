@@ -1,10 +1,7 @@
 package backend.mwvb.mapper;
 
 import backend.mwvb.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
@@ -18,4 +15,21 @@ public interface UserMapper {
 
     @Select(" SELECT EXISTS(SELECT email FROM sys_user WHERE email=#{email}) ")
     boolean emailExist(@Param("email") String email);
+
+    @Select(" SELECT id, name, password, email, is_active, nick_name FROM sys_user WHERE name=#{username} ")
+    @Results(id = "userMap", value = {
+            @Result(id = true, column = "id", property = "id"),
+            @Result(column = "name", property = "name"),
+            @Result(column = "password", property = "password"),
+            @Result(column = "email", property = "email"),
+            @Result(column = "is_active", property = "isActive"),
+            @Result(column = "nick_name", property = "nickName"),
+    })
+    User queryUserByName(@Param("username") String username);
+
+
+    @Select(" SELECT id, name, password, email, is_active, nick_name FROM sys_user WHERE email=#{email} ")
+    @ResultMap({"userMap"})
+    User queryUserByEmail(@Param("email") String email);
+
 }

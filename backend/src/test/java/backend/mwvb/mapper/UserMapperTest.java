@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @SpringBootTest
@@ -36,5 +36,32 @@ class UserMapperTest {
         boolean result = userMapper.emailExist("dhlidj@qq.com");
         System.out.println(result);
         assertThat(result, is(true));
+    }
+
+    @Test
+    @Disabled
+    void queryUser() {
+        User user = userMapper.queryUserByName("dewdew");
+        assertThat(user, notNullValue());
+        assertThat(user.getId(), notNullValue());
+        assertThat(user.getName(), notNullValue());
+        assertThat(user.getEmail(), notNullValue());
+        assertThat(user.getIsActive(), notNullValue());
+        assertThat(user.getNickName(), notNullValue());
+        assertThat(user.getConfirmPassword(), nullValue());
+    }
+
+    @Test
+    @Disabled
+    void queryUserByEmail() {
+        User user = userMapper.queryUserByEmail("ssssss@qq.com");
+        System.out.println(user);
+        assertThat(user, notNullValue());
+        assertThat(user.getId(), notNullValue());
+        assertThat(user.getName(), notNullValue());
+        assertThat(user.getEmail(), notNullValue());
+        assertThat(user.getIsActive(), notNullValue());
+        assertThat(user.getNickName(), notNullValue());
+        assertThat(user.getConfirmPassword(), nullValue());
     }
 }
