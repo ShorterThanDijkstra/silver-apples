@@ -4,6 +4,10 @@ spring:
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver
+  mail:
+    host: smtp.163.com
+    username: buildvocabulary@163.com
+    password: YIXJPSUDNYVFHXPA
 
 springdoc:
   api-docs:
@@ -20,3 +24,4 @@ mybatis:
 logging:
   level:
     com.github.maerd_zinbiel.backend.mwvb.mapper: debug
+

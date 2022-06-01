@@ -12,8 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 @Data
 public class UserLoginServiceImpl implements UserLoginService {
@@ -37,14 +35,9 @@ public class UserLoginServiceImpl implements UserLoginService {
     }
 
     private AuthUser loginByEmail(String email, String password) throws UserLoginException {
-        UsernamePasswordAuthenticationToken authenticateToken =
-                new UsernamePasswordAuthenticationToken(email, password);
-        Authentication authenticate = authenticationManager.authenticate(authenticateToken);
-
-        if (Objects.isNull(authenticate)) {
-            throw new UserLoginException("登录失败");
-        }
-        return (AuthUser) authenticate.getPrincipal();
+        UsernamePasswordAuthenticationToken authIn = new UsernamePasswordAuthenticationToken(email, password);
+        Authentication authOut = authenticationManager.authenticate(authIn);
+        return (AuthUser) authOut.getPrincipal();
     }
 
 }
