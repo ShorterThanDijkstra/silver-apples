@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-encrypt.sh
+src/main/resources/jasypt/*.pem

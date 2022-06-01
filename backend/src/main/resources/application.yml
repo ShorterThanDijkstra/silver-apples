@@ -1,13 +1,22 @@
+jasypt:
+  encryptor:
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    algorithm: PBEWithMD5AndDES
+    private-key-format: pem
+    private-key-location: classpath:jasypt/privatepkcs8.pem
+    public-key-format: pem
+    public-key-location: classpath:jasypt/public.pem
+
 spring:
   datasource:
     url: jdbc:postgresql://172.17.0.2:5432/mwvb
-    username: postgres
-    password: password
+    username: ENC(goyhs+uhm5NJePGeuSlC4/q9yma9o2aa4SYkOuXPzYcxKSMOLi2HaLDZIsyaOhjZS4+ktJ1oZNeQfqo5GWNBs4mwPJY4bg4C/5a7TVyiZ5PWdZ9niz53cYLF5j5x71wUzUFLGOAMZ8ft8w5fOfyR30ht5Thlu/7BoVeTHkPDQi3DXY11b4Xlf8YLxp9lB1MclJV/qzVO24Wbdt2po47sx5WqCGe0B+9f7vKrmJfHAFux5Sfne14iMdYZ1gC/3x163QfDd8SHPCQdRQD7zx1ye2ehe5MTZz5Bf25kQvCxv1u35q962nRGbbAt1XfLaAwtxE5YqEGWyygN1IjkS9BVig==)
+    password: ENC(VGkoVi/hTXrZXs94R/b3wR7djy7555J6xHnkkRC7tLx49uwKvGl+ponZHyXunjfEoVCIP/B1a1bui7ExyTmeS0UT/+n00+cisDMUqwOQMUqvqOq3Pfi6ZKpe/M4H9QyoolH7ylvNPifDyr9dlHpv4UVF4YFnVEHaRCCZAgJKemt9LNGpukxIvuMLCGIL82CarPALtL3//LDnbJZyUMu5MEcVWZoMqIeYLbXeXh3FrJRlmoMVkDvwhTWKCsPUsL/os7FbA8Kux9M7n4jU9JHqmMybEN0SnSDhzuL+JVjjWeNk/m5RLBMVN+PG5ElQDBbyAZk0f6aqMoVGFeMIruF7gw==)
     driver-class-name: org.postgresql.Driver
   mail:
     host: smtp.163.com
     username: buildvocabulary@163.com
-    password: YIXJPSUDNYVFHXPA
+    password: ENC(IVh1tJFkoHk0/rB03rO0pr43cSYjx63g6vlglHKUECyRAenzlSJDP+hrdntJqAtFkBLkLmS7XhxluDTz3HsssZGWKVqsUcPlToouI7BP+MsnVsDE37JavLfFSoMZYSURdP/3viEiVPDJPpXe93DVwJD2NAkQK9KukhsCE8HJ8oORA0OrfKtSN3bGwea7qoEHxSxtV2zyoVWRjtonvUg5QaeELWIKAhM6epyNIEywvYWoSFi4jEgOGmA/3dy2F7zpc2xsZPw9A8DsRMGMn4A8lNJXuzlJ2Af00lbHTVj2L1CT/D8vWW3bcROIVHRHkW91L8BGFyeyEbTGfn4tcOEcEQ==)
 
 springdoc:
   api-docs:
