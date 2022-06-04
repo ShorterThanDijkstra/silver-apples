@@ -4,7 +4,6 @@ import backend.mwvb.entity.Email;
 import backend.mwvb.service.EmailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.mail.MessagingException;
@@ -13,15 +12,6 @@ import javax.mail.MessagingException;
 class EmailServiceImplTest {
     private EmailService emailService;
 
-    @Value("${spring.datasource.username}")
-    String dbUsername;
-
-    @Value("${spring.datasource.password}")
-    String dbPassword;
-
-    @Value("${spring.mail.password}")
-    String emailPassword;
-
     @Autowired
     public void setEmailService(EmailService emailService) {
         this.emailService = emailService;
@@ -29,13 +19,12 @@ class EmailServiceImplTest {
 
     @Test
     void send() throws MessagingException {
-        System.out.println(dbUsername);
-        System.out.println(dbPassword);
-        System.out.println(emailPassword);
         String content = """
                 <html>
                 <body>
-                <h3>Hello! This is a welcome email!</h3>
+                <p>Hello!</p>
+                <p>To complete your registration, click the link below:
+                </p>
                 </body>
                 </html>
                 """;

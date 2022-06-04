@@ -1,45 +1,32 @@
 package backend.mwvb.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.time.OffsetDateTime;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class User {
     private Integer id;
 
-    @NotNull
-    @NotBlank
-    @Size(min = 5)
     private String name;
 
-    @NotNull
-    @Size(min = 10)
-    @NotBlank
     private String password;
 
-    @NotNull
-    @Email
-    @NotBlank
     private String email;
 
-    private Boolean isActive;
+    private OffsetDateTime createTime;
 
-    @NotNull
-    @NotBlank
-    private String nickName;
-
-    @NotNull
-    @NotBlank
-    private String confirmPassword;
+    public static User fromRegisterInfo(RegisterInfo info) {
+        User user = new User();
+        user.setName(info.username());
+        user.setPassword(info.password());
+        user.setEmail(info.email());
+        return user;
+    }
 }

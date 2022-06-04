@@ -1,29 +1,75 @@
 package backend.mwvb.service.impl;
 
+import backend.mwvb.entity.RegisterInfo;
 import backend.mwvb.entity.User;
 import backend.mwvb.exception.UserRegisterException;
 import backend.mwvb.mapper.UserMapper;
+import backend.mwvb.service.EmailService;
 import backend.mwvb.service.UserRegisterService;
+import backend.mwvb.util.CommonJWTUtils;
+import backend.mwvb.util.RegisterRedisCache;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.regex.Pattern;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 @Service
 @Data
 public class UserRegisterServiceImpl implements UserRegisterService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
-    private final Pattern emailValidator;
+
+    private final EmailService emailService;
+
+    private final RegisterRedisCache registerRedisCache;
+
+    @Value("${com.maerd_zinbiel.silver-apples.jwt.password}")
+    private String jwtKey;
 
     @Override
-    public void register(User user) throws UserRegisterException {
-        validateUser(user);
-        String rawPassword = user.getPassword();
-        String encoded = passwordEncoder.encode(rawPassword);
-        user.setPassword(encoded);
+    public void register(RegisterInfo info) throws UserRegisterException {
+        validateRegisterInfo(info);
+
+        String rawPasswd = info.password();
+        String encodedPasswd = passwordEncoder.encode(rawPasswd);
+
+        User user = User.fromRegisterInfo(info);
+        user.setPassword(encodedPasswd);
         userMapper.insert(user);
+    }
+
+    @Override
+    public void request(RegisterInfo info) throws UserRegisterException, MessagingException {
+        validateRegisterInfo(info);
+
+        String subject = info.email();
+        String jwtToken = CommonJWTUtils.create(
+                subject,
+                jwtKey,
+                REGISTER_INFO_EXPIRE
+        );
+
+        User user = User.fromRegisterInfo(info);
+        encodeUserPasswd(user);
+
+        registerRedisCache.cacheRegisterRequestUser(
+                jwtToken,
+                user,
+                REGISTER_INFO_EXPIRE);
+
+        emailService.sendRegisterCompleteEmail(jwtToken, info.email(), info.username());
+
+    }
+
+    private void encodeUserPasswd(User user) {
+        String rawPasswd = user.getPassword();
+        String encodedPasswd = passwordEncoder.encode(rawPasswd);
+        user.setPassword(encodedPasswd);
     }
 
     @Override
@@ -36,37 +82,43 @@ public class UserRegisterServiceImpl implements UserRegisterService {
         return userMapper.usernameExist(username);
     }
 
-    private boolean emptyOrNull(String str) {
-        return str == null || str.trim().equals("");
+    private void validateEmail(String email) throws UserRegisterException {
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException e) {
+            throw new UserRegisterException("邮箱格式不正确");
+        }
+        if (userMapper.emailExist(email)) {
+            throw new UserRegisterException("此邮箱已经被注册");
+        }
     }
 
-    private void validateUser(User user) throws UserRegisterException {
-        if (emptyOrNull(user.getName()) ||
-                emptyOrNull(user.getPassword()) ||
-                emptyOrNull(user.getNickName()) ||
-                emptyOrNull(user.getEmail()) ||
-                emptyOrNull(user.getConfirmPassword())) {
-            throw new UserRegisterException("用户信息填写不全");
-        }
-        if (user.getName().trim().length() < 5) {
+    private void validateUsername(String username) throws UserRegisterException {
+        if (username.length() < 5) {
             throw new UserRegisterException("用户名长度至少为5");
-
         }
-        if (user.getPassword().trim().length() < 10) {
+        if (userMapper.usernameExist(username)) {
+            throw new UserRegisterException("此用户名已经被注册");
+        }
+    }
+
+    private void validatePasswords(String password, String confirmedPassword) throws UserRegisterException {
+        if (password.length() < 10) {
             throw new UserRegisterException("密码长度至少为10");
 
         }
-        if (!emailValidator.matcher(user.getEmail()).matches()) {
-            throw new UserRegisterException("邮箱格式不正确");
-        }
-        if (!user.getConfirmPassword().equals(user.getPassword())) {
+        if (!confirmedPassword.equals(password)) {
             throw new UserRegisterException("两次密码输入不一致");
         }
-        if (userMapper.emailExist(user.getEmail())){
-            throw new UserRegisterException("此邮箱已经被注册");
+    }
+
+    private void validateRegisterInfo(RegisterInfo info) throws UserRegisterException {
+        if (StringUtils.isAnyEmpty(info.email(), info.username(), info.password(), info.confirmedPassword())) {
+            throw new UserRegisterException("用户信息填写不全");
         }
-        if (userMapper.usernameExist(user.getName())){
-            throw new UserRegisterException("此用户名已经被注册");
-        }
+        validateEmail(info.email());
+        validateUsername(info.username());
+        validatePasswords(info.password(), info.confirmedPassword());
     }
 }

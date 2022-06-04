@@ -54,7 +54,7 @@ public class BookController {
     @ApiResponse(content = @Content(mediaType = "application/json"))
 
     public Response<List<Root>> rootsInUnit(@Parameter(description = "should be in range [1,30]", required = true)
-                                            @Valid Integer unitIndex) throws IllegalRequestException {
+                                            @PathVariable("unitIndex") Integer unitIndex) throws IllegalRequestException {
         validateUnitIndex(unitIndex);
         List<Root> roots = bookService.rootsInUnit(unitIndex);
         return Response.success(roots);

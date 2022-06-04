@@ -36,7 +36,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 user.getName() == null ||
                 user.getPassword() == null ||
                 user.getEmail() == null ||
-                user.getNickName() == null) {
+                user.getCreateTime() == null) {
             throw new UserLoginException("登录失败，未知原因");
         }
     }

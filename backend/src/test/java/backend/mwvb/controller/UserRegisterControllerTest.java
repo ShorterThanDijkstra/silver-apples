@@ -12,8 +12,8 @@ import java.util.Map;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-class UserControllerTest {
-    private static final String API = "http://localhost:8080/api/v1.0/user";
+class UserRegisterControllerTest {
+    private static final String API = "http://localhost:8080/api/v1.0/user/register";
 
     @Test
     @Disabled

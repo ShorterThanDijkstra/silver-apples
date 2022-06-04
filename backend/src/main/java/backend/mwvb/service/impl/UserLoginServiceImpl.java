@@ -31,10 +31,10 @@ public class UserLoginServiceImpl implements UserLoginService {
     public Response<String> login(LoginInfo command) throws UserLoginException {
         validate(command);
         AuthUser authUser = loginByEmail(command.getEmail(), command.getPassword());
-        return Response.success(authUser.getPassword());
+        return Response.success(authUser.getUsername());
     }
 
-    private AuthUser loginByEmail(String email, String password) throws UserLoginException {
+    private AuthUser loginByEmail(String email, String password) {
         UsernamePasswordAuthenticationToken authIn = new UsernamePasswordAuthenticationToken(email, password);
         Authentication authOut = authenticationManager.authenticate(authIn);
         return (AuthUser) authOut.getPrincipal();

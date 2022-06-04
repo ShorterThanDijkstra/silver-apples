@@ -1,43 +1,42 @@
 package backend.mwvb.controller;
 
-import backend.mwvb.entity.LoginInfo;
-import backend.mwvb.entity.User;
+import backend.mwvb.entity.RegisterInfo;
 import backend.mwvb.exception.UserRegisterException;
-import backend.mwvb.exception.UserLoginException;
-import backend.mwvb.service.UserRegisterService;
 import backend.mwvb.service.UserLoginService;
+import backend.mwvb.service.UserRegisterService;
 import backend.mwvb.util.Response;
 import lombok.Data;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import javax.mail.MessagingException;
 
 @RestController
-@RequestMapping("/api/v1.0/user")
+@RequestMapping("/api/v1.0/user/register")
 @Data
 @CrossOrigin
-public class UserController {
+public class UserRegisterController {
     private final UserLoginService loginService;
     private final UserRegisterService registerService;
 
-    @PostMapping("/register")
-    public Response<String> register(@Valid @RequestBody User user) throws UserRegisterException {
-        registerService.register(user);
+    @PostMapping("/request")
+    public Response<String> request(@RequestBody RegisterInfo info) throws UserRegisterException, MessagingException {
+        registerService.request(info);
+        return Response.success("请查收邮件，激活帐号");
+    }
+
+    @PostMapping("/complete")
+    public Response<String> complete(@RequestBody RegisterInfo info) throws UserRegisterException {
+        registerService.register(info);
         return Response.success("创建用户成功");
     }
 
-    @PostMapping("/login")
-    public Response<String> login(@RequestBody LoginInfo loginInfo) throws UserLoginException {
-        return loginService.login(loginInfo);
-    }
-
-    @GetMapping("/register/email/{email}")
+    @GetMapping("/email-exist/{email}")
     public Response<Boolean> emailExist(@PathVariable("email") String email) {
         boolean isUnique = registerService.emailExist(email);
         return Response.success(isUnique);
     }
 
-    @GetMapping("/register/username/{username}")
+    @GetMapping("/username-exist/{username}")
     public Response<Boolean> usernameExist(@PathVariable("username") String username) {
         boolean isUnique = registerService.usernameExist(username);
         return Response.success(isUnique);

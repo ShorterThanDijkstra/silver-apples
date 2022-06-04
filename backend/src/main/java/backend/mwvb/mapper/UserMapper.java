@@ -2,34 +2,36 @@ package backend.mwvb.mapper;
 
 import backend.mwvb.entity.User;
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
+
+import java.time.OffsetDateTime;
 
 @Mapper
 public interface UserMapper {
     @Insert(" INSERT INTO sys_user " +
-            " (name, email,password, is_active, nick_name) " +
-            " VALUES ( #{user.name}, #{user.email}, #{user.password}, false, #{user.nickName}) ")
+            " (username, email, passwd, create_time) " +
+            " VALUES ( #{user.name}, #{user.email}, #{user.password}, #{user.createTime}) ")
     void insert(@Param("user") User user);
 
-    @Select(" SELECT EXISTS(SELECT name FROM sys_user WHERE name=#{username}) ")
+    @Select(" SELECT EXISTS(SELECT username FROM sys_user WHERE username=#{username}) ")
     boolean usernameExist(@Param("username") String username);
 
     @Select(" SELECT EXISTS(SELECT email FROM sys_user WHERE email=#{email}) ")
     boolean emailExist(@Param("email") String email);
 
-    @Select(" SELECT id, name, password, email, is_active, nick_name FROM sys_user WHERE name=#{username} ")
+    @Select(" SELECT id, username, passwd, email, create_time FROM sys_user WHERE email=#{email} ")
     @Results(id = "userMap", value = {
-            @Result(id = true, column = "id", property = "id"),
-            @Result(column = "name", property = "name"),
-            @Result(column = "password", property = "password"),
-            @Result(column = "email", property = "email"),
-            @Result(column = "is_active", property = "isActive"),
-            @Result(column = "nick_name", property = "nickName"),
+            @Result(id = true, column = "id", property = "id", javaType = Integer.class, jdbcType = JdbcType.INTEGER),
+            @Result(column = "username", property = "name", javaType = String.class, jdbcType = JdbcType.VARCHAR),
+            @Result(column = "passwd", property = "password", javaType = String.class, jdbcType = JdbcType.VARCHAR),
+            @Result(column = "email", property = "email", javaType = String.class, jdbcType = JdbcType.VARCHAR),
+            @Result(column = "create_time", property = "createTime", javaType = OffsetDateTime.class, jdbcType = JdbcType.TIMESTAMP_WITH_TIMEZONE),
     })
+    User queryUserByEmail(@Param("email") String email);
+
+    @Select(" SELECT id, username, passwd, email, create_time FROM sys_user WHERE username=#{username} ")
+    @ResultMap({"userMap"})
     User queryUserByName(@Param("username") String username);
 
-
-    @Select(" SELECT id, name, password, email, is_active, nick_name FROM sys_user WHERE email=#{email} ")
-    @ResultMap({"userMap"})
-    User queryUserByEmail(@Param("email") String email);
 
 }
