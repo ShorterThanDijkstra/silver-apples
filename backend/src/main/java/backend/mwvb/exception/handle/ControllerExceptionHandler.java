@@ -17,7 +17,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public Response<String> handler(Exception ex) {
-        log.error(ex.getClass().getName() + ":" + ex.getMessage());
+        log.error(ex.getClass().getName() + ": " + ex.getMessage());
         if (ex instanceof IllegalRequestException) {
             return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         }

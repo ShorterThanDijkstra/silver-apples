@@ -68,15 +68,21 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     }
 
     private void validateEmail(String email) throws UserRegisterException {
+        if (StringUtils.isEmpty(email)){
+            throw new UserRegisterException("email不能为空");
+        }
         try {
             InternetAddress emailAddr = new InternetAddress(email);
             emailAddr.validate();
         } catch (AddressException e) {
-            throw new UserRegisterException("邮箱格式不正确");
+            throw new UserRegisterException("邮箱格式不正确: "+email);
         }
         if (emailExist(email)) {
-            throw new UserRegisterException("此邮箱已经被注册");
+            throw new UserRegisterException("此邮箱已经被注册: "+email);
         }
+    }
+    private void validateEmail(RegisterInfo info){
+        validateEmail(info.getEmail());
     }
 
     private void validateUsername(RegisterInfo info) throws UserRegisterException {
@@ -102,10 +108,16 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     }
 
     private void validateRegisterInfo(RegisterInfo info) throws UserRegisterException {
-        if (StringUtils.isAnyEmpty(info.getToken(), info.getUsername(), info.getPassword(), info.getConfirmedPassword())) {
+        if (StringUtils.isAnyEmpty(
+                info.getToken(),
+                info.getUsername(),
+                info.getPassword(),
+                info.getConfirmedPassword())) {
+            System.out.println(info);
             throw new UserRegisterException("用户信息填写不全");
         }
         validateToken(info);
+        validateEmail(info);
         validateUsername(info);
         validatePasswords(info);
     }
@@ -115,6 +127,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
             Claims claims = CommonJWTUtils.parse(info.getToken(), jwtKey);
             String email = claims.getSubject();
             info.setEmail(email);
+
         } catch (JwtException e) {
             throw new UserRegisterException("Bad Token");
         }

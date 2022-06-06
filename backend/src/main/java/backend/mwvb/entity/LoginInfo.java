@@ -11,7 +11,6 @@ import java.util.Arrays;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginInfo {
-    private String username;
     private String email;
     @NotNull
     private String password;

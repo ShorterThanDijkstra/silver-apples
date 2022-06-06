@@ -1,23 +1,15 @@
 <template>
   <div class="box">
-    <form @submit.prevent="login">
+    <form @submit.prevent="handle">
       <div class="center">
         <label>Email :</label>
         <input type="email" v-model="email" required />
-        <div v-if="emailError" class="error">
-          {{ emailError }}
+        <div v-if="emailPatternError" class="error">
+          {{ emailPatternError }}
         </div>
-
-        <label>Password :</label>
-        <input type="password" v-model="password" required />
-        <div v-if="passwordError" class="error">{{ passwordError }}</div>
-
         <br />
         <div class="button">
-          <button class="submit" type="submit">Sign in</button>
-          <button class="new" @click="newAccount" type="button">
-            create a new account
-          </button>
+          <button class="submit" type="submit">Create New Account</button>
         </div>
         <div></div>
       </div>
@@ -32,18 +24,12 @@ export default {
   data() {
     return {
       email: "",
-      password: "",
     };
   },
 
   computed: {
     ...mapState(["backend"]),
-    passwordError() {
-      return this.password.length >= 10
-        ? ""
-        : "Password should be at least 10 characters long!";
-    },
-    emailError() {
+    emailPatternError() {
       return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)
         ? ""
         : "invalid email address";
@@ -55,31 +41,34 @@ export default {
     },
     success() {
       ElMessage({
-        message: "Congrats, you are successfully logged in.",
+        message: "请前往邮箱查收邮件。",
         type: "success",
       });
-      this.$router.push({
-        name: "Home",
-      });
+      this.email=""
     },
-    login() {
-      if (this.passwordError === "" && this.emailError === "") {
-        const login = {
-          email: this.email,
-          password: this.password,
-        };
-        axios.post(this.backend + "/user/login", login).then((response) => {
-          if (response.data.code !== 200) {
-            this.fail(response.data.data);
-          } else {
-            this.success();
-          }
-        });
+    handle() {
+      if (this.emailPatternError === "") {
+        axios
+          .get(this.backend + "/user/register/email-exist/" + this.email)
+          .then((response) => {
+            if (response.data.data === false) {
+              this.registerRequest();
+            } else {
+              this.fail("this email has aready been taken");
+            }
+          });
       }
     },
-    newAccount() {
-      this.$router.push({
-        name: "RegisterRequest",
+    registerRequest() {
+      const config = { headers: { "Content-Type": "text/plain" } };
+      const data = this.email;
+      const url = this.backend + "/user/register/request";
+      axios.post(url, data, config).then((response) => {
+        if (response.data.code !== 200) {
+          this.fail(response.data.data);
+        } else {
+          this.success();
+        }
       });
     },
   },

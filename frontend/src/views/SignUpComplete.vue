@@ -16,19 +16,6 @@
           {{ usernameUniqueError }}
         </div>
 
-        <label>Nick Name :</label>
-        <input type="text" v-model="nickname" required />
-        <div v-if="nicknameError" class="error">
-          {{ nicknameError }}
-        </div>
-        <label>Email :</label>
-        <input type="text" v-model="email" required />
-        <div v-if="emailError" class="error">
-          {{ emailError }}
-        </div>
-        <div v-if="emailUniqueError" class="error">
-          {{ emailUniqueError }}
-        </div>
         <label>Password :</label>
         <input
           type="password"
@@ -55,17 +42,14 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
-import { ElMessageBox } from "element-plus";
+import { ElMessage } from "element-plus";
 export default {
   data() {
     return {
-      email: "",
       username: "",
-      nickname: "",
       password: "",
       confirmPassword: "",
       usernameUniqueError: "",
-      emailUniqueError: "",
     };
   },
 
@@ -86,81 +70,53 @@ export default {
         ? ""
         : "Passwords must match";
     },
-    nicknameError() {
-      return this.nickname.trim() != "" ? "" : "nick name should not be empty";
-    },
-    emailError() {
-      return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)
-        ? ""
-        : "invalid email address";
-    },
   },
   methods: {
-    checkEmail() {
-      axios
-        .get(this.backend + "/user/register/email/" + this.email)
-        .then((data) => {
-          if (data.data.data) {
-            this.emailUniqueError = "This username has already been taken";
-          } else {
-            this.emailUniqueError = "";
-          }
-          this.checkUsername();
-        });
+    fail(msg) {
+      ElMessage.error(msg);
     },
-    checkUsername() {
-      axios
-        .get(this.backend + "/user/register/username/" + this.username)
-        .then((data) => {
-          if (data.data.data) {
-            this.usernameUniqueError = "This username has already been taken";
-          } else {
-            this.usernameUniqueError = "";
-          }
-          this.register();
-        });
+    success(){
+       ElMessage({
+        message: "注册成功，请登录",
+        type: "success",
+      });
+      this.$router.push({
+        name:'Login'
+      })
     },
-    register() {
+    handleSubmit() {
       if (
         this.passwordError === "" &&
         this.usernameLengthError === "" &&
-        this.confirmPasswordError === "" &&
-        this.nicknameError === "" &&
-        this.usernameUniqueError === "" &&
-        this.emailUniqueError === ""
+        this.confirmPasswordError === ""
       ) {
-        const user = {
-          email: this.email,
-          name: this.username,
-          nickName: this.nickname,
-          password: this.password,
-          confirmPassword: this.confirmPassword,
-        };
         axios
-          .post(this.backend + "/user/register", user)
-          .then((response) => this.finish(response.data));
+          .get(this.backend + "/user/register/username-exist/" + this.username)
+          .then((data) => {
+            if (data.data.data) {
+              this.fail("This username has already been taken");
+            } else {
+              this.register();
+            }
+          });
       }
     },
-    msg(msg, title, callback) {
-      ElMessageBox.alert(msg, title, {
-        confirmButtonText: "OK",
-        callback: (action) => {
-          callback();
-        },
-      });
-    },
-    finish(data) {
-      if (data.code === 200) {
-        this.msg(data.data, "success", () =>
-          this.$router.push({ name: "Home" })
-        );
-      } else {
-        this.msg(data.data, "error", () => this.$router.go());
-      }
-    },
-
-    handleSubmit() {
-      this.checkEmail();
+    register() {
+      const info = {
+        username: this.username,
+        password: this.password,
+        confirmedPassword: this.confirmPassword,
+        token: this.$route.query.token,
+      };
+      axios
+        .post(this.backend + "/user/register/complete", info)
+        .then((response) => {
+          if(response.data.code === 200){
+            this.success()
+          }else{
+            this.fail(response.data.data)
+          }
+        });
     },
   },
 };

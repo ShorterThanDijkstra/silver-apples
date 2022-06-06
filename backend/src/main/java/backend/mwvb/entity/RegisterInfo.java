@@ -1,5 +1,6 @@
 package backend.mwvb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -15,9 +16,6 @@ public class RegisterInfo {
 
     @NotNull
     @NotBlank
-    private String token;
-    @NotNull
-    @NotBlank
     @Size(min = 10)
     private String password;
 
@@ -26,7 +24,12 @@ public class RegisterInfo {
     @Size(min = 10)
     private String confirmedPassword;
 
-    private String email;
+    @NotNull
+    @NotBlank
+    private String token;
 
+
+    @JsonIgnore
+    private String email;
 
 }

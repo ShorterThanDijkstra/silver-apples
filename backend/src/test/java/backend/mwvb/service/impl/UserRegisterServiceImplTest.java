@@ -43,7 +43,14 @@ class UserRegisterServiceImplTest {
     void requestError() throws MessagingException {
         String email = randomEmail();
         registerService.request(email);
-        assertThrows(UserRegisterException.class, () -> registerService.request(email), "此邮箱已经被注册");
+
+        RegisterInfo info = genRegisterInfo();
+        String jwtToken = CommonJWTUtils.lastToken();
+        info.setToken(jwtToken);
+
+        registerService.complete(info);
+
+        assertThrows(UserRegisterException.class, () -> registerService.complete(info), "此邮箱已经被注册");
     }
 
     private String randomEmail() {
@@ -88,15 +95,5 @@ class UserRegisterServiceImplTest {
         info.setToken(jwtToken);
         assertThrows(UserRegisterException.class, () -> registerService.complete(info));
 
-    }
-    @Test
-    void jwtTest(){
-        String email = "1544928966@qq.com";
-        String jwtToken = CommonJWTUtils.create(email, jwtKey, REGISTER_INFO_EXPIRE);
-        System.out.println(jwtToken);
-
-        String hackedToken = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlMGRlNjViNi1jZWZhLTRjMDctYjI2Mi0wYjE0N2FmNTVmM2IiLCJzdWIiOiIxNTQ0OTI4OTQ0ODhAcXEuY29tIiwiaWF0IjoxNjU0NTEzMzA5LCJleHAiOjE2NTQ1OTk3MDl9.3s3zvL5RkqRrQECv4mWCDUypz_6t3T4MFxMTYZNmXEk";
-        Claims claims = CommonJWTUtils.parse(hackedToken, jwtKey);
-        System.out.println(claims.getSubject());
     }
 }
