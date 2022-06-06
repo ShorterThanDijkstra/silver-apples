@@ -20,6 +20,8 @@ spring:
 com:
   maerd_zinbiel:
     silver-apples:
+      email:
+        activation: http://localhost:3000/register-complete
       jwt:
         password: ENC(ZQPFHxQCti4/Wi9HpPS1qWvaRalfgwBfuEV7ftcVlHspOxcEBZXwkfIoRw9SpGAFpZ3coDP1X3/ATv9L74FN3MsFiYj28ddD8nGx+23PsH6dLr5NwB0qTZSRigngsjfPu5tZidGJ4/lVgiGtJaTO8czIC+oE+nMYUk6eazeG3whHOnQP1xXSrRI2/tnE8dsx980eHT9m3g5nQWlIfP8bTinNw/8eFO61BQgpofVUO2uD4umKAtSForr7a/kGAh/rOkId5097H47FmoL5dY6BI3XdSl/SNLRc24dkJoRAelVRBgA3IWcjQBDOGddlz2sRMC6BYHuJG93kOAhrDfHSNQ==)
 

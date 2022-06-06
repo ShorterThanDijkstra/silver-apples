@@ -19,14 +19,14 @@ public class UserRegisterController {
     private final UserRegisterService registerService;
 
     @PostMapping("/request")
-    public Response<String> request(@RequestBody RegisterInfo info) throws UserRegisterException, MessagingException {
-        registerService.request(info);
+    public Response<String> request(@RequestBody String email) throws UserRegisterException, MessagingException {
+        registerService.request(email);
         return Response.success("请查收邮件，激活帐号");
     }
 
     @PostMapping("/complete")
     public Response<String> complete(@RequestBody RegisterInfo info) throws UserRegisterException {
-        registerService.register(info);
+        registerService.complete(info);
         return Response.success("创建用户成功");
     }
 

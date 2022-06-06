@@ -26,7 +26,7 @@ public class CommonJWTUtils {
         lastToken = jwtToken;
     }
 
-    public static String lastToken(){
+    public static String lastToken() {
         return lastToken;
     }
 
@@ -47,13 +47,11 @@ public class CommonJWTUtils {
         return new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
     }
 
-    public static Claims parse(String jwt, String jwtKey) {
+    public static Claims parse(String jwtToken, String jwtKey) {
         SecretKey secretKey = secretKey(jwtKey);
         return Jwts.parser()
                 .setSigningKey(secretKey)
-                .parseClaimsJws(jwt)
+                .parseClaimsJws(jwtToken)
                 .getBody();
     }
-
-
 }

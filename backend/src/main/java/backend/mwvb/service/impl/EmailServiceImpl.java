@@ -23,7 +23,9 @@ public class EmailServiceImpl implements EmailService {
     @Value("${spring.mail.username}")
     private String mailFrom;
 
-    @Override
+    @Value("${com.maerd_zinbiel.silver-apples.email.activation}")
+    private String emailActivationBaseUrl;
+
     public void sendHtmlEmail(Email email) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -36,13 +38,13 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private String buildActivationUrl(String jwtToken) {
-        return "http://localhost:8080/api/v1.0/user/register/" + jwtToken;
+        return emailActivationBaseUrl + jwtToken;
     }
 
-    private Email buildRegisterCompleteEmail(String jwtToken, String emailAddr, String username) {
+    private Email buildRegisterCompleteEmail(String jwtToken, String emailAddr) {
         String url = buildActivationUrl(jwtToken);
         String content = body(
-                p("Hello, " + username + "!"),
+                p("Welcome!"),
                 div(
                         p("To complete your registration, click the link below: "),
                         a("Confirm your account").withHref(url)
@@ -57,8 +59,8 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     @Async
-    public void sendRegisterCompleteEmail(String jwtToken, String emailAddr, String username) throws MessagingException {
-        Email email = buildRegisterCompleteEmail(jwtToken, emailAddr, username);
+    public void sendRegisterCompleteEmail(String jwtToken, String emailAddr) throws MessagingException {
+        Email email = buildRegisterCompleteEmail(jwtToken, emailAddr);
         sendHtmlEmail(email);
     }
 }

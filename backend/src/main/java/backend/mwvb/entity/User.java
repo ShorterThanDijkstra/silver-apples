@@ -24,9 +24,10 @@ public class User {
 
     public static User fromRegisterInfo(RegisterInfo info) {
         User user = new User();
-        user.setName(info.username());
-        user.setPassword(info.password());
-        user.setEmail(info.email());
+        user.setName(info.getUsername());
+        user.setPassword(info.getPassword());
+        user.setEmail(info.getEmail());
+        user.createTime = OffsetDateTime.now();
         return user;
     }
 }
