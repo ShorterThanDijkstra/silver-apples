@@ -31,10 +31,13 @@ public class UserRegisterServiceImpl implements UserRegisterService {
 
     private String registerEmail;
 
+
     @Override
     public void complete(RegisterInfo info) throws UserRegisterException {
         validateRegisterInfo(info);
-        User user = User.fromRegisterInfo(info);
+        String email = parseToken(info);
+//        validateEmail(email);        // 别人不能修改jwt。邮箱在request()里已经验证过了。
+        User user = User.build(info, email);
         encodePassword(user);
         userMapper.insert(user);
     }
@@ -68,21 +71,18 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     }
 
     private void validateEmail(String email) throws UserRegisterException {
-        if (StringUtils.isEmpty(email)){
+        if (StringUtils.isEmpty(email)) {
             throw new UserRegisterException("email不能为空");
         }
         try {
             InternetAddress emailAddr = new InternetAddress(email);
             emailAddr.validate();
         } catch (AddressException e) {
-            throw new UserRegisterException("邮箱格式不正确: "+email);
+            throw new UserRegisterException("邮箱格式不正确: " + email);
         }
         if (emailExist(email)) {
-            throw new UserRegisterException("此邮箱已经被注册: "+email);
+            throw new UserRegisterException("此邮箱已经被注册: " + email);
         }
-    }
-    private void validateEmail(RegisterInfo info){
-        validateEmail(info.getEmail());
     }
 
     private void validateUsername(RegisterInfo info) throws UserRegisterException {
@@ -113,21 +113,16 @@ public class UserRegisterServiceImpl implements UserRegisterService {
                 info.getUsername(),
                 info.getPassword(),
                 info.getConfirmedPassword())) {
-            System.out.println(info);
             throw new UserRegisterException("用户信息填写不全");
         }
-        validateToken(info);
-        validateEmail(info);
         validateUsername(info);
         validatePasswords(info);
     }
 
-    private void validateToken(RegisterInfo info) throws UserRegisterException {
+    private String parseToken(RegisterInfo info) throws UserRegisterException {
         try {
             Claims claims = CommonJWTUtils.parse(info.getToken(), jwtKey);
-            String email = claims.getSubject();
-            info.setEmail(email);
-
+            return claims.getSubject();
         } catch (JwtException e) {
             throw new UserRegisterException("Bad Token");
         }

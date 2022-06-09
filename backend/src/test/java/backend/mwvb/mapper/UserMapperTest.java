@@ -33,7 +33,7 @@ class UserMapperTest {
         String email = emailPrefix + "@" + emailSuffix;
         OffsetDateTime now = OffsetDateTime.now();
         return User.builder()
-                .name(name)
+                .username(name)
                 .password(password)
                 .email(email)
                 .createTime(now)
@@ -43,14 +43,13 @@ class UserMapperTest {
     @Test
     @Order(1)
     public void register() {
-        System.out.println(user);
         userMapper.insert(user);
     }
 
     @Test
     @Order(2)
     public void usernameExist() {
-        boolean result = userMapper.usernameExist(user.getName());
+        boolean result = userMapper.usernameExist(user.getUsername());
         System.out.println(result);
         assertThat(result, is(true));
     }
@@ -69,7 +68,7 @@ class UserMapperTest {
         User user = userMapper.queryUserByEmail(UserMapperTest.user.getEmail());
         assertThat(user, notNullValue());
         assertThat(user.getId(), notNullValue());
-        assertThat(user.getName(), notNullValue());
+        assertThat(user.getUsername(), notNullValue());
         assertThat(user.getEmail(), notNullValue());
         assertThat(user.getCreateTime(), notNullValue());
     }
@@ -77,10 +76,10 @@ class UserMapperTest {
     @Test
     @Order(4)
     public void queryUserByName() {
-        User user = userMapper.queryUserByName(UserMapperTest.user.getName());
+        User user = userMapper.queryUserByName(UserMapperTest.user.getUsername());
         assertThat(user, notNullValue());
         assertThat(user.getId(), notNullValue());
-        assertThat(user.getName(), notNullValue());
+        assertThat(user.getUsername(), notNullValue());
         assertThat(user.getEmail(), notNullValue());
         assertThat(user.getCreateTime(), notNullValue());
     }

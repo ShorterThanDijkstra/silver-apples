@@ -1,14 +1,28 @@
 package backend.mwvb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties({
+        "enabled",
+        "accountNonExpired",
+        "accountNonLocked",
+        "credentialsNonExpired",
+        "authorities",
+        "password",
+        "username"
+})
 public class AuthUser implements UserDetails {
-    private final User user;
+    private User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -22,7 +36,7 @@ public class AuthUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getName();
+        return user.getUsername();
     }
 
     @Override

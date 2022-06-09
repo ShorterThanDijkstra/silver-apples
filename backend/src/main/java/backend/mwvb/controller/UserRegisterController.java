@@ -6,20 +6,24 @@ import backend.mwvb.service.UserLoginService;
 import backend.mwvb.service.UserRegisterService;
 import backend.mwvb.util.Response;
 import lombok.Data;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 
 @RestController
 @RequestMapping("/api/v1.0/user/register")
 @Data
 @CrossOrigin
+@Validated
 public class UserRegisterController {
     private final UserLoginService loginService;
     private final UserRegisterService registerService;
 
     @PostMapping("/request")
-    public Response<String> request(@RequestBody String email) throws UserRegisterException, MessagingException {
+    public Response<String> request(@RequestBody @Valid @Email String email) throws UserRegisterException, MessagingException {
         registerService.request(email);
         return Response.success("请查收邮件，激活帐号");
     }
@@ -31,7 +35,7 @@ public class UserRegisterController {
     }
 
     @GetMapping("/email-exist/{email}")
-    public Response<Boolean> emailExist(@PathVariable("email") String email) {
+    public Response<Boolean> emailExist(@PathVariable("email")  @Valid @Email String email) {
         boolean isUnique = registerService.emailExist(email);
         return Response.success(isUnique);
     }

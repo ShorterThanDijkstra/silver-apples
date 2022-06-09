@@ -1,9 +1,6 @@
 package backend.mwvb.exception.handle;
 
-import backend.mwvb.exception.IllegalRequestException;
-import backend.mwvb.exception.UserLoginException;
-import backend.mwvb.exception.UserQueryException;
-import backend.mwvb.exception.UserRegisterException;
+import backend.mwvb.exception.*;
 import backend.mwvb.util.Response;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -28,6 +25,9 @@ public class ControllerExceptionHandler {
             return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         }
         if (ex instanceof UserLoginException) {
+            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        }
+        if (ex instanceof UserAuthenticationException) {
             return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         }
         if (ex instanceof InternalAuthenticationServiceException) {

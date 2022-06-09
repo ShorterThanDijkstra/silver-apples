@@ -23,8 +23,10 @@ public class EmailServiceImpl implements EmailService {
     @Value("${spring.mail.username}")
     private String mailFrom;
 
-    @Value("${com.maerd_zinbiel.silver-apples.email.activation}")
+    @Value("${com.maerd_zinbiel.silver-apples.email.url}")
     private String emailActivationBaseUrl;
+    @Value("${com.maerd_zinbiel.silver-apples.email.test}")
+    private Boolean randomTest;
 
     public void sendHtmlEmail(Email email) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
@@ -60,6 +62,10 @@ public class EmailServiceImpl implements EmailService {
     @Override
     @Async
     public void sendRegisterCompleteEmail(String jwtToken, String emailAddr) throws MessagingException {
+
+        if (randomTest) {
+            return;
+        }
         Email email = buildRegisterCompleteEmail(jwtToken, emailAddr);
         sendHtmlEmail(email);
     }

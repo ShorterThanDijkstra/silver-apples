@@ -29,7 +29,4 @@ public class RegisterInfo {
     private String token;
 
 
-    @JsonIgnore
-    private String email;
-
 }

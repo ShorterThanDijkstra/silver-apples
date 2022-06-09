@@ -33,7 +33,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
             throw new UserLoginException("Bad credentials");
         }
         if (user.getId() == null ||
-                user.getName() == null ||
+                user.getUsername() == null ||
                 user.getPassword() == null ||
                 user.getEmail() == null ||
                 user.getCreateTime() == null) {

@@ -15,10 +15,23 @@ public class CommonJWTUtils {
     private static String lastToken;
 
     public static String create(String subject, String jwtKey, Long expireMillis) {
-        JwtBuilder builder = commonBuilder(subject, jwtKey, expireMillis);
+        JwtBuilder builder = commonBuilder(subject, jwtKey);
+        Date expire = new Date(System.currentTimeMillis() + expireMillis);
+        builder.setExpiration(expire);
 
         String jwtToken = builder.compact();
+
         cacheToken(jwtToken);
+        return jwtToken;
+    }
+
+    public static String create(String subject, String jwtKey) {
+        JwtBuilder builder = commonBuilder(subject, jwtKey);
+
+        String jwtToken = builder.compact();
+
+        cacheToken(jwtToken);
+
         return jwtToken;
     }
 
@@ -30,16 +43,14 @@ public class CommonJWTUtils {
         return lastToken;
     }
 
-    public static JwtBuilder commonBuilder(String subject, String jwtKey, Long expireMillis) {
+    public static JwtBuilder commonBuilder(String subject, String jwtKey) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         SecretKey secretKey = secretKey(jwtKey);
-        Date expire = new Date(System.currentTimeMillis() + expireMillis);
         return Jwts.builder()
                 .setId(UUID.randomUUID().toString())
                 .setSubject(subject)
                 .setIssuedAt(new Date())
-                .signWith(signatureAlgorithm, secretKey)
-                .setExpiration(expire);
+                .signWith(signatureAlgorithm, secretKey);
     }
 
     private static SecretKey secretKey(String key) {

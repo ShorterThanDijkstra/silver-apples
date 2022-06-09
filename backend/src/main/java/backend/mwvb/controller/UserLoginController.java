@@ -7,6 +7,8 @@ import backend.mwvb.util.Response;
 import lombok.Data;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1.0/user")
 @Data
@@ -15,7 +17,7 @@ public class UserLoginController {
     private final UserLoginService loginService;
 
     @PostMapping("/login")
-    public Response<String> login(@RequestBody LoginInfo loginInfo) throws UserLoginException {
+    public Response<Map<String, String>> login(@RequestBody LoginInfo loginInfo) throws UserLoginException {
         return loginService.login(loginInfo);
     }
 

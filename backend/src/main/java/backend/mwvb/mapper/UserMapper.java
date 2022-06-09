@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 public interface UserMapper {
     @Insert(" INSERT INTO sys_user " +
             " (username, email, passwd, create_time) " +
-            " VALUES ( #{user.name}, #{user.email}, #{user.password}, #{user.createTime}) ")
+            " VALUES ( #{user.username}, #{user.email}, #{user.password}, #{user.createTime}) ")
     void insert(@Param("user") User user);
 
     @Select(" SELECT EXISTS(SELECT username FROM sys_user WHERE username=#{username}) ")
@@ -22,7 +22,7 @@ public interface UserMapper {
     @Select(" SELECT id, username, passwd, email, create_time FROM sys_user WHERE email=#{email} ")
     @Results(id = "userMap", value = {
             @Result(id = true, column = "id", property = "id", javaType = Integer.class, jdbcType = JdbcType.INTEGER),
-            @Result(column = "username", property = "name", javaType = String.class, jdbcType = JdbcType.VARCHAR),
+            @Result(column = "username", property = "username", javaType = String.class, jdbcType = JdbcType.VARCHAR),
             @Result(column = "passwd", property = "password", javaType = String.class, jdbcType = JdbcType.VARCHAR),
             @Result(column = "email", property = "email", javaType = String.class, jdbcType = JdbcType.VARCHAR),
             @Result(column = "create_time", property = "createTime", javaType = OffsetDateTime.class, jdbcType = JdbcType.TIMESTAMP_WITH_TIMEZONE),

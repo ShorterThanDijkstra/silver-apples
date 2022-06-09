@@ -1,36 +1,69 @@
 package backend.mwvb.controller;
 
+import backend.mwvb.entity.RegisterInfo;
+import backend.mwvb.entity.User;
+import backend.mwvb.service.UserRegisterService;
+import backend.mwvb.util.CommonJWTUtils;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Disabled;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.mail.MessagingException;
 
+import static backend.mwvb.test_util.UserTestUtil.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class UserRegisterControllerTest {
     private static final String API = "http://localhost:8080/api/v1.0/user/register";
+    @Autowired
+    private UserRegisterService userRegisterService;
 
-    @Test
-    @Disabled
-    void register0() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", "admin12");
-        map.put("password", "Test12qqsssq7123");
-        map.put("email", "abc1qq@gmail.com");
-        map.put("nickName", "nickName");
-        map.put("confirmPassword", "Test12qqq7123");
+    private RegisterInfo request() {
+        User user = randomUser();
 
         RestAssured.given().
                 accept(ContentType.JSON).
                 contentType(ContentType.JSON).
-                body(map).
+                body(user.getEmail()).
                 when().
-                post(API + "/register")
+                post(API + "/request");
+
+        String token = CommonJWTUtils.lastToken();
+        return use2registerInfo(user, token);
+
+    }
+
+    @Test
+    void register0() {
+        User user = randomUser();
+
+        RestAssured.given().
+                accept(ContentType.JSON).
+                contentType(ContentType.JSON).
+                body(user.getEmail()).
+                when().
+                post(API + "/request")
+                .then()
+                .assertThat()
+                .statusCode(equalTo(HttpStatus.OK.value()))
+                .and()
+                .body("data", is("请查收邮件，激活帐号"));
+
+        String token = CommonJWTUtils.lastToken();
+        RegisterInfo registerInfo = use2registerInfo(user, token);
+
+        RestAssured.given().
+                accept(ContentType.JSON).
+                contentType(ContentType.JSON).
+                body(registerInfo).
+                when().
+                post(API + "/complete")
                 .then()
                 .assertThat()
                 .statusCode(equalTo(HttpStatus.OK.value()))
@@ -40,19 +73,14 @@ class UserRegisterControllerTest {
 
     @Test
     void registerError0() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", "adwqwmin");
-        map.put("password", "Teswqwsst127123");
-        map.put("email", "abc@gmail.com");
-        map.put("nickName", "nickName");
-        map.put("confirmPassword", "Test1271");
-
+        RegisterInfo registerInfo = request();
+        registerInfo.setConfirmedPassword(RandomStringUtils.randomAlphanumeric(10, 15));
         RestAssured.given().
                 accept(ContentType.JSON).
                 contentType(ContentType.JSON).
-                body(map).
+                body(registerInfo).
                 when().
-                post(API + "/register")
+                post(API + "/complete")
                 .then()
                 .assertThat()
                 .statusCode(equalTo(HttpStatus.OK.value()))
@@ -61,44 +89,18 @@ class UserRegisterControllerTest {
                 .body("data", is("两次密码输入不一致"));
     }
 
+
     @Test
     void registerError1() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", "adwqwsq    s   min");
-        map.put("password", "Teswqwsst127123");
-        map.put("email", "abcgmail.com");
-        map.put("nickName", "nickName");
-        map.put("confirmPassword", "Teswqwsst127123");
+        RegisterInfo registerInfo = request();
+        registerInfo.setPassword(null);
 
         RestAssured.given().
                 accept(ContentType.JSON).
                 contentType(ContentType.JSON).
-                body(map).
+                body(registerInfo).
                 when().
-                post(API + "/register")
-                .then()
-                .assertThat()
-                .statusCode(equalTo(HttpStatus.OK.value()))
-                .and()
-                .body("code", is(400))
-                .body("data", is("邮箱格式不正确"));
-    }
-
-    @Test
-    void registerError2() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", "");
-        map.put("password", "Teswqwsst127123");
-        map.put("email", "abc@gmail.com");
-        map.put("nickName", "nickName");
-        map.put("confirmPassword", "Teswqwsst127123");
-
-        RestAssured.given().
-                accept(ContentType.JSON).
-                contentType(ContentType.JSON).
-                body(map).
-                when().
-                post(API + "/register")
+                post(API + "/complete")
                 .then()
                 .assertThat()
                 .statusCode(equalTo(HttpStatus.OK.value()))
@@ -108,20 +110,16 @@ class UserRegisterControllerTest {
     }
 
     @Test
-    void registerError3() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", "adm");
-        map.put("password", "Teswqwsst127123");
-        map.put("email", "abcg@mail.com");
-        map.put("nickName", "nickName");
-        map.put("confirmPassword", "Teswqwsst127123");
+    void registerError2() {
+        RegisterInfo registerInfo = request();
+        registerInfo.setUsername(RandomStringUtils.randomAlphanumeric(3));
 
         RestAssured.given().
                 accept(ContentType.JSON).
                 contentType(ContentType.JSON).
-                body(map).
+                body(registerInfo).
                 when().
-                post(API + "/register")
+                post(API + "/complete")
                 .then()
                 .assertThat()
                 .statusCode(equalTo(HttpStatus.OK.value()))
@@ -131,20 +129,16 @@ class UserRegisterControllerTest {
     }
 
     @Test
-    void registerError4() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", "admddd");
-        map.put("password", "Tesw");
-        map.put("email", "abcg@mail.com");
-        map.put("nickName", "nickName");
-        map.put("confirmPassword", "Tesw");
+    void registerError3() {
+        RegisterInfo registerInfo = request();
+        registerInfo.setPassword(RandomStringUtils.randomAlphanumeric(8));
 
         RestAssured.given().
                 accept(ContentType.JSON).
                 contentType(ContentType.JSON).
-                body(map).
+                body(registerInfo).
                 when().
-                post(API + "/register")
+                post(API + "/complete")
                 .then()
                 .assertThat()
                 .statusCode(equalTo(HttpStatus.OK.value()))
@@ -154,30 +148,30 @@ class UserRegisterControllerTest {
     }
 
     @Test
-    @Disabled
-    void emailExist() {
+    void emailExist() throws MessagingException {
+        User user = registerRandomUser(userRegisterService);
         RestAssured.given()
-                .get(API + "/register/email/dededew@qq.com")
+                .get(API + "/email-exist/" + user.getEmail())
+                .then()
+                .assertThat()
+                .statusCode(equalTo(HttpStatus.OK.value()))
+                .and()
+                .body("data", is(true));
+
+        RestAssured.given()
+                .get(API + "/email-exist/" + randomEmail())
                 .then()
                 .assertThat()
                 .statusCode(equalTo(HttpStatus.OK.value()))
                 .and()
                 .body("data", is(false));
-
-        RestAssured.given()
-                .get(API + "/register/email/dhlidddddddddj@qq.com")
-                .then()
-                .assertThat()
-                .statusCode(equalTo(HttpStatus.OK.value()))
-                .and()
-                .body("data", is(true));
     }
 
     @Test
-    @Disabled
-    void usernameExist() {
+    void usernameExist() throws MessagingException {
+        User user = registerRandomUser(userRegisterService);
         RestAssured.given()
-                .get(API + "/register/username/test")
+                .get(API + "/username-exist/"+user.getUsername())
                 .then()
                 .assertThat()
                 .statusCode(equalTo(HttpStatus.OK.value()))
@@ -185,7 +179,7 @@ class UserRegisterControllerTest {
                 .body("data", is(true));
 
         RestAssured.given()
-                .get(API + "/register/username/dededew@qq.com")
+                .get(API + "/username-exist/" + RandomStringUtils.randomAlphanumeric(5))
                 .then()
                 .assertThat()
                 .statusCode(equalTo(HttpStatus.OK.value()))
