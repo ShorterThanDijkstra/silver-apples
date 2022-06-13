@@ -29,7 +29,7 @@ class AuthUserCacheServiceImplTest {
         AuthUser authUser = (AuthUser) userDetailService.loadUserByUsername(user.getEmail());
         Integer userId = authUser.getUser().getId();
 
-        authUserCacheService.cacheAuthUser(authUser);
+        authUserCacheService.cacheAuthUserByUserId(authUser);
         AuthUser cachedAuthUser = authUserCacheService.getCachedAuthUser(String.valueOf(userId));
         assertThat(authUser, equalTo(cachedAuthUser));
 

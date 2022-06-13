@@ -43,23 +43,55 @@
 
 <script>
 import RootCard from "@/components/RootCard.vue";
-import { mapState } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   components: { RootCard },
+  data() {
+    return {
+      currentUnit: {},
+    };
+  },
   computed: {
-    ...mapState(["currentUnit"]),
+    ...mapGetters(["currentUnitCache"]),
   },
   methods: {
+    ...mapMutations(["setCurrentUnit"]),
     exercise() {
       this.$router.push({
         name: "Exercise",
+        params: { unit: this.$route.params.unit },
       });
     },
     specialSection() {
       this.$router.push({
         name: "SpecialSection",
+        params: { unit: this.$route.params.unit },
       });
     },
+    loadContent(unitIndex) {
+      const currentUnitCache = this.currentUnitCache(unitIndex);
+
+      if (!currentUnitCache) {
+        const url = this.$backend + "/book/units/" + unitIndex;
+        this.$http.get(url).then((response) => {
+          this.currentUnit = response.data.data;
+          this.setCurrentUnit(response.data.data);
+        });
+      } else {
+        this.currentUnit = currentUnitCache;
+      }
+    },
+  },
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      (toParams, previousParams) => {
+        if (this.$route.name === "Unit") {
+          this.loadContent(toParams.unit);
+        }
+      }
+    );
+    this.loadContent(this.$route.params.unit);
   },
 };
 </script>

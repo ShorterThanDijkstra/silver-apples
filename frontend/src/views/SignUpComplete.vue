@@ -40,8 +40,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import { mapState } from "vuex";
 import { ElMessage } from "element-plus";
 export default {
   data() {
@@ -54,7 +52,6 @@ export default {
   },
 
   computed: {
-    ...mapState(["backend"]),
     passwordError() {
       return this.password.length >= 10
         ? ""
@@ -75,14 +72,14 @@ export default {
     fail(msg) {
       ElMessage.error(msg);
     },
-    success(){
-       ElMessage({
+    success() {
+      ElMessage({
         message: "注册成功，请登录",
         type: "success",
       });
       this.$router.push({
-        name:'Login'
-      })
+        name: "Login",
+      });
     },
     handleSubmit() {
       if (
@@ -90,8 +87,8 @@ export default {
         this.usernameLengthError === "" &&
         this.confirmPasswordError === ""
       ) {
-        axios
-          .get(this.backend + "/user/register/username-exist/" + this.username)
+        this.$http
+          .get(this.$backend + "/user/register/username-exist/" + this.username)
           .then((data) => {
             if (data.data.data) {
               this.fail("This username has already been taken");
@@ -108,16 +105,24 @@ export default {
         confirmedPassword: this.confirmPassword,
         token: this.$route.query.token,
       };
-      axios
-        .post(this.backend + "/user/register/complete", info)
+      this.$http
+        .post(this.$backend + "/user/register/complete", info)
         .then((response) => {
-          if(response.data.code === 200){
-            this.success()
-          }else{
-            this.fail(response.data.data)
+          if (response.data.code === 200) {
+            this.success();
+          } else {
+            this.fail(response.data.data);
           }
         });
     },
+  },
+  mounted() {
+    if (!this.$route.query.token) {
+      this.fail("invalid request");
+      this.$router.push({
+        name: "RegisterRequest",
+      });
+    }
   },
 };
 </script>

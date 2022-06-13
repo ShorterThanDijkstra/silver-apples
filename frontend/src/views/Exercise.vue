@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1 class="head">Unit {{ currentUnit.index }}</h1>
+    <h1 class="head">Unit {{ $route.params.unit }}</h1>
     <br>
     <QuizCard
-      v-for="(quiz, index) in quizzesOfCurrentUnit()"
+      v-for="(quiz, index) in quizzesOfCurrentUnit($route.params.unit)"
       :quiz="quiz"
       :key="index"
     >
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters } from "vuex";
 import QuizCard from "@/components/QuizCard.vue";
 export default {
   components: {
@@ -21,7 +21,6 @@ export default {
   },
   computed: {
     ...mapGetters(["quizzesOfCurrentUnit"]),
-    ...mapState(["currentUnit"]),
   },
 };
 </script>

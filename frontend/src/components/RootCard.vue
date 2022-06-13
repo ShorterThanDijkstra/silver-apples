@@ -13,7 +13,7 @@
   </el-card>
 </template>
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations } from "vuex";
 export default {
   props: {
     root: {
@@ -22,18 +22,19 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['setCurrentRoot']),
+    ...mapMutations(["setCurrentRoot"]),
     wordsOfRoot() {
-      this.setCurrentRoot(this.root)
+      this.setCurrentRoot(this.root);
       this.$router.push({
-        name: "Root"
+        name: "Root",
+        params: { name: this.root.name },
       });
     },
   },
 };
 </script>
 <style>
-.card-header  {
+.card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;

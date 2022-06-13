@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationTokenFilter authenticationTokenFilter;
-
+    public static final String TOKEN_HEADER_NAME = "Access-Token";
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -31,11 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1.0/user/register/**").anonymous()
-                .antMatchers("/api/v1.0/user/login").anonymous()
+                .antMatchers("/api/v1.0/user/register/**").permitAll()
+                .antMatchers("/api/v1.0/user/login").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);

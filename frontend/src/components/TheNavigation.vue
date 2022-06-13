@@ -7,7 +7,8 @@
     active-text-color="#ffd04b"
     @select="handleSelect"
   >
-    <p @click="intro" class="intro">Introduction</p>
+    <elMenuItem index="home" class="home">Home</elMenuItem>
+    <elMenuItem index="intro" class="intro">Introduction</elMenuItem>
     <el-sub-menu v-for="(group, i) in 6" :key="i" :index="String(i)">
       <template #title>Unit {{ group * 5 - 4 }}-{{ group * 5 }}</template>
       <el-menu-item
@@ -27,22 +28,28 @@
   </el-menu>
 </template>
 <script>
-import { mapActions } from "vuex";
 export default {
   methods: {
-    ...mapActions(["getUnitByIndex"]),
     handleSelect(key, keyPath) {
-      // if(key==="sign_in"){
-      //   this.signIn()
-      //   return
-      // }
-      // if(key==="sign_up"){
-      //   this.signUp()
-      //   return
-      // }
-      this.getUnitByIndex(key);
+      if (key === "intro") {
+        this.intro();
+        return;
+      }
+      if (key === "home") {
+        this.home();
+        return;
+      }
+      this.unit(key);
+    },
+    home() {
+      this.$router.push({
+        name: "Home",
+      });
+    },
+    unit(index) {
       this.$router.push({
         name: "Unit",
+        params: { unit: index },
       });
     },
     intro() {
@@ -55,10 +62,14 @@ export default {
 </script>
 <style scoped>
 .intro {
-  background-color: #545c64;
+  /* background-color: #545c64;
   color: #fff;
   text-align: center;
-  cursor: pointer;
+  cursor: pointer; */
+  margin-left: 5%;
+}
+.home {
   margin-left: 7rem;
+  font-size: medium;
 }
 </style>

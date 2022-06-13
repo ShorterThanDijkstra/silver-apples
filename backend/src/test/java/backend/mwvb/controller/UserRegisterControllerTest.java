@@ -2,7 +2,9 @@ package backend.mwvb.controller;
 
 import backend.mwvb.entity.RegisterInfo;
 import backend.mwvb.entity.User;
+import backend.mwvb.service.UserLoginService;
 import backend.mwvb.service.UserRegisterService;
+import backend.mwvb.test_util.UserTestUtil;
 import backend.mwvb.util.CommonJWTUtils;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -13,7 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
 import javax.mail.MessagingException;
+import java.util.Map;
 
+import static backend.mwvb.config.SecurityConfig.TOKEN_HEADER_NAME;
 import static backend.mwvb.test_util.UserTestUtil.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -24,36 +28,34 @@ class UserRegisterControllerTest {
     @Autowired
     private UserRegisterService userRegisterService;
 
-    private RegisterInfo request() {
+    @Autowired
+    private UserLoginService userLoginService;
+
+    RegisterInfo request() {
         User user = randomUser();
 
         RestAssured.given().
                 accept(ContentType.JSON).
                 contentType(ContentType.JSON).
-                body(user.getEmail()).
                 when().
-                post(API + "/request");
-
-        String token = CommonJWTUtils.lastToken();
-        return use2registerInfo(user, token);
-
-    }
-
-    @Test
-    void register0() {
-        User user = randomUser();
-
-        RestAssured.given().
-                accept(ContentType.JSON).
-                contentType(ContentType.JSON).
-                body(user.getEmail()).
-                when().
-                post(API + "/request")
+                get(API + "/request/" + user.getEmail())
                 .then()
                 .assertThat()
                 .statusCode(equalTo(HttpStatus.OK.value()))
                 .and()
+                .body("code", is(HttpStatus.OK.value()))
                 .body("data", is("请查收邮件，激活帐号"));
+
+
+        String token = CommonJWTUtils.lastToken();
+        return use2registerInfo(user, token);
+    }
+
+    @Test
+    void register() {
+        User user = randomUser();
+
+        request();
 
         String token = CommonJWTUtils.lastToken();
         RegisterInfo registerInfo = use2registerInfo(user, token);
@@ -68,6 +70,7 @@ class UserRegisterControllerTest {
                 .assertThat()
                 .statusCode(equalTo(HttpStatus.OK.value()))
                 .and()
+                .body("code", is(HttpStatus.OK.value()))
                 .body("data", is("创建用户成功"));
     }
 
@@ -171,7 +174,7 @@ class UserRegisterControllerTest {
     void usernameExist() throws MessagingException {
         User user = registerRandomUser(userRegisterService);
         RestAssured.given()
-                .get(API + "/username-exist/"+user.getUsername())
+                .get(API + "/username-exist/" + user.getUsername())
                 .then()
                 .assertThat()
                 .statusCode(equalTo(HttpStatus.OK.value()))
@@ -186,4 +189,54 @@ class UserRegisterControllerTest {
                 .and()
                 .body("data", is(false));
     }
+
+    private String getLoginToken() throws MessagingException {
+        User user = registerRandomUser(userRegisterService);
+        Map<String, String> login = UserTestUtil.login(userLoginService, user);
+        return login.get("token");
+    }
+
+    @Test
+    void requestWithLoginToken() throws MessagingException {
+        String loginToken = getLoginToken();
+        RestAssured.given().
+                accept(ContentType.JSON).
+                contentType(ContentType.JSON).
+                header(TOKEN_HEADER_NAME, loginToken)
+                .when().
+                get(API + "/request/" + randomEmail())
+                .then()
+                .assertThat()
+                .statusCode(equalTo(HttpStatus.OK.value()))
+                .and()
+                .body("code", is(HttpStatus.OK.value()))
+                .body("data", is("请查收邮件，激活帐号"));
+
+    }
+
+    @Test
+    void registerWithLoginToken() throws MessagingException {
+        String loginToken = getLoginToken();
+
+        User user = randomUser();
+
+        request();
+
+        String token = CommonJWTUtils.lastToken();
+        RegisterInfo registerInfo = use2registerInfo(user, token);
+        RestAssured.given().
+                accept(ContentType.JSON).
+                contentType(ContentType.JSON).
+                header(TOKEN_HEADER_NAME, loginToken).
+                body(registerInfo).
+                when().
+                post(API + "/complete")
+                .then()
+                .assertThat()
+                .statusCode(equalTo(HttpStatus.OK.value()))
+                .and()
+                .body("code", is(HttpStatus.OK.value()))
+                .body("data", is("创建用户成功"));
+    }
+
 }

@@ -17,8 +17,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import { mapState } from "vuex";
 import { ElMessage } from "element-plus";
 export default {
   data() {
@@ -28,7 +26,6 @@ export default {
   },
 
   computed: {
-    ...mapState(["backend"]),
     emailPatternError() {
       return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)
         ? ""
@@ -44,14 +41,14 @@ export default {
         message: "请前往邮箱查收邮件。",
         type: "success",
       });
-      this.email=""
+      this.email = "";
     },
     handle() {
       if (this.emailPatternError === "") {
-        axios
-          .get(this.backend + "/user/register/email-exist/" + this.email)
+        this.$http
+          .get(this.$backend + "/user/register/email-exist/" + this.email)
           .then((response) => {
-            if (response.data.data === false) {
+            if (!response.data.data) {
               this.registerRequest();
             } else {
               this.fail("this email has aready been taken");
@@ -60,10 +57,8 @@ export default {
       }
     },
     registerRequest() {
-      const config = { headers: { "Content-Type": "text/plain" } };
-      const data = this.email;
-      const url = this.backend + "/user/register/request";
-      axios.post(url, data, config).then((response) => {
+      const url = this.$backend + "/user/register/request/" + this.email;
+      this.$http.get(url).then((response) => {
         if (response.data.code !== 200) {
           this.fail(response.data.data);
         } else {

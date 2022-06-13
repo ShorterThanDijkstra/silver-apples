@@ -22,8 +22,8 @@ public class UserRegisterController {
     private final UserLoginService loginService;
     private final UserRegisterService registerService;
 
-    @PostMapping("/request")
-    public Response<String> request(@RequestBody @Valid @Email String email) throws UserRegisterException, MessagingException {
+    @GetMapping("/request/{email}")
+    public Response<String> request(@PathVariable @Valid @Email String email) throws UserRegisterException, MessagingException {
         registerService.request(email);
         return Response.success("请查收邮件，激活帐号");
     }

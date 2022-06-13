@@ -25,8 +25,7 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import { mapState } from "vuex";
+import { mapMutations } from "vuex";
 import { ElMessage } from "element-plus";
 export default {
   data() {
@@ -37,7 +36,6 @@ export default {
   },
 
   computed: {
-    ...mapState(["backend"]),
     passwordError() {
       return this.password.length >= 10
         ? ""
@@ -50,17 +48,23 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(["setUserToken"]),
     fail(msg) {
       ElMessage.error(msg);
     },
-    success() {
+    success(data) {
       ElMessage({
         message: "Congrats, you are successfully logged in.",
         type: "success",
       });
-      this.$router.push({
-        name: "Home",
-      });
+      this.setUserToken(data.token);
+      if (this.$route.query.redirect) {
+        this.$router.push(this.$route.query.redirect);
+      } else {
+        this.$router.push({
+          name: "Home",
+        });
+      }
     },
     login() {
       if (this.passwordError === "" && this.emailError === "") {
@@ -68,13 +72,15 @@ export default {
           email: this.email,
           password: this.password,
         };
-        axios.post(this.backend + "/user/login", login).then((response) => {
-          if (response.data.code !== 200) {
-            this.fail(response.data.data);
-          } else {
-            this.success();
-          }
-        });
+        this.$http
+          .post(this.$backend + "/user/login", login)
+          .then((response) => {
+            if (response.data.code !== 200) {
+              this.fail(response.data.data);
+            } else {
+              this.success(response.data.data);
+            }
+          });
       }
     },
     newAccount() {
