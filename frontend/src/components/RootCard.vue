@@ -1,16 +1,16 @@
 <template>
-  <el-card class="box-card">
-    <div class="card-header">
-      <span>{{ root.name }}</span>
-      <el-button class="button" @click="wordsOfRoot" type="text"
-        >Words</el-button
-      >
-    </div>
-    <hr />
-    <div class="card-body">
-      <p>{{ root.description }}</p>
-    </div>
-  </el-card>
+    <el-card class="box-card">
+      <div class="card-header">
+        <span>{{ root.name }}</span>
+        <el-button class="button" @click="wordsOfRoot" type="text"
+          >Words</el-button
+        >
+      </div>
+      <hr />
+      <div class="card-body">
+        <p>{{ root.description }}</p>
+      </div>
+    </el-card>
 </template>
 <script>
 import { mapMutations } from "vuex";
@@ -20,11 +20,15 @@ export default {
       type: Object,
       required: true,
     },
+    rootIndex: {
+      type: Number,
+      required: true,
+    },
   },
   methods: {
-    ...mapMutations(["setCurrentRoot"]),
+    ...mapMutations(["setCurrentRootIndex"]),
     wordsOfRoot() {
-      this.setCurrentRoot(this.root);
+      this.setCurrentRootIndex(this.rootIndex);
       this.$router.push({
         name: "Root",
         params: { name: this.root.name },

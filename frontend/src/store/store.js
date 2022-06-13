@@ -4,21 +4,37 @@ const store = createStore({
     state() {
         return {
             allUnits: new Array(30),
-
             theIntro: "",
-            currentRoot: {},
+            currentRootIndex: -1,
+            currentUnitIndex: -1,
             user: {
                 token: ""
             }
         }
     },
     mutations: {
-        setCurrentUnit(state, unit) {
+        cacheCurrentUnit(state, unit) {
             let index = unit.index - 1
+            state.currentUnitIndex = index
             state.allUnits[index] = unit
         },
-        setCurrentRoot(state, root) {
-            state.currentRoot = root;
+        setCurrentUnitIndex(state, unitIndex) {
+            state.currentUnitIndex = unitIndex - 1
+        },
+        setCurrentRootIndex(state, index) {
+            state.currentRootIndex = index;
+        },
+        incCurrentRootIndex(state) {
+            const roots = state.allUnits[state.currentUnitIndex].roots;
+            if (state.currentRootIndex < roots.length - 1) {
+                state.currentRootIndex += 1
+            }
+        },
+        decCurrentRootIndex(state) {
+            if (state.currentRootIndex > 0) {
+                state.currentRootIndex -= 1
+            }
+
         },
         setTheIntro(state, intro) {
             state.theIntro = intro;
@@ -26,6 +42,10 @@ const store = createStore({
         setUserToken(state, token) {
             localStorage.setItem(USER_TOKEN_LOCALSTORAGE_KEY, token)
             state.user.token = token;
+        },
+        clearUserToken(state) {
+            localStorage.removeItem(USER_TOKEN_LOCALSTORAGE_KEY)
+            state.user.token = ""
         }
     },
     // actions: {
@@ -44,17 +64,19 @@ const store = createStore({
     // }
     // },
     getters: {
-        quizzesOfCurrentUnit: (state) => (unitIndex) => {
-            const index = parseInt(unitIndex) - 1
-            return state.allUnits[index].quizzes
+        quizzesOfCurrentUnit: (state) => {
+            return state.allUnits[state.currentUnitIndex].quizzes
         },
 
-        specialSectionOfCurrentUnit: (state) => (unitIndex) => {
-            const index = parseInt(unitIndex) - 1
-            return state.allUnits[index].specialSectionWords
+        specialSectionOfCurrentUnit: (state) => {
+            return state.allUnits[state.currentUnitIndex].specialSectionWords
         },
 
-        currentUnitCache: (state) => (unitIndex) => state.allUnits[unitIndex - 1],
+        currentRootCache: (state) => {
+            const unit = state.allUnits[state.currentUnitIndex];
+            return unit.roots[state.currentRootIndex]
+        },
+        currentUnitCache: (state) => state.allUnits[state.currentUnitIndex],
         userToken: (state) => {
             if (state.user.token) {
                 return state.user.token;

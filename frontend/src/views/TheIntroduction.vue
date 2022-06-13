@@ -2,7 +2,7 @@
   <div class="center">
     <el-card class="article">
       <div
-        v-for="(content, index) in theIntro.paragraphs"
+        v-for="(content, index) in intro.paragraphs"
         :key="index"
         class="text"
       >
@@ -18,18 +18,26 @@
 <script>
 import { mapMutations, mapState } from "vuex";
 export default {
+  data() {
+    return {
+      intro: "",
+    };
+  },
   computed: {
     ...mapState(["theIntro"]),
   },
-  methods:{
-    ...mapMutations(["setTheIntro"])
+  methods: {
+    ...mapMutations(["setTheIntro"]),
   },
   mounted() {
     if (!this.theIntro) {
       const url = this.$backend + "/book/intro";
       this.$http.get(url).then((response) => {
+        this.intro = response.data.data;
         this.setTheIntro(response.data.data);
       });
+    } else {
+      this.intro = this.theIntro;
     }
   },
 };

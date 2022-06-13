@@ -3,7 +3,7 @@
     <h1 class="head">Unit {{ $route.params.unit }}</h1>
     <br>
     <QuizCard
-      v-for="(quiz, index) in quizzesOfCurrentUnit($route.params.unit)"
+      v-for="(quiz, index) in quizzesOfCurrentUnit"
       :quiz="quiz"
       :key="index"
     >

@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="center">
       <h1 class="title">
         <span>Unit {{ currentUnit.index }}</span>
@@ -36,9 +35,9 @@
         v-for="(root, index) in currentUnit.roots"
         :key="index"
         :root="root"
+        :rootIndex="index"
       ></RootCard>
     </div>
-  </div>
 </template>
 
 <script>
@@ -55,7 +54,7 @@ export default {
     ...mapGetters(["currentUnitCache"]),
   },
   methods: {
-    ...mapMutations(["setCurrentUnit"]),
+    ...mapMutations(["cacheCurrentUnit", "setCurrentUnitIndex"]),
     exercise() {
       this.$router.push({
         name: "Exercise",
@@ -69,16 +68,15 @@ export default {
       });
     },
     loadContent(unitIndex) {
-      const currentUnitCache = this.currentUnitCache(unitIndex);
-
-      if (!currentUnitCache) {
+      this.setCurrentUnitIndex(unitIndex);
+      if (!this.currentUnitCache) {
         const url = this.$backend + "/book/units/" + unitIndex;
         this.$http.get(url).then((response) => {
           this.currentUnit = response.data.data;
-          this.setCurrentUnit(response.data.data);
+          this.cacheCurrentUnit(response.data.data);
         });
       } else {
-        this.currentUnit = currentUnitCache;
+        this.currentUnit = this.currentUnitCache;
       }
     },
   },

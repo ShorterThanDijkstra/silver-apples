@@ -4,7 +4,7 @@
 
     <WordCard
       class="card"
-      v-for="(word, index) in specialSectionOfCurrentUnit($route.params.unit)"
+      v-for="(word, index) in specialSectionOfCurrentUnit"
       :key="index"
       :word="word"
     ></WordCard>
