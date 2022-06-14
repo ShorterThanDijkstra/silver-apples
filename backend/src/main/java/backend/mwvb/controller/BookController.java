@@ -4,16 +4,20 @@ import backend.mwvb.entity.*;
 import backend.mwvb.exception.IllegalRequestException;
 import backend.mwvb.service.BookService;
 import backend.mwvb.util.Response;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/v1.0")
+@RequestMapping("/api/v1.0/book")
 public class BookController {
     private final BookService bookService;
 
@@ -48,7 +52,9 @@ public class BookController {
 
     @GetMapping("/roots/{unitIndex}")
     @ApiResponse(content = @Content(mediaType = "application/json"))
-    public Response<List<Root>> rootsInUnit(@PathVariable("unitIndex") Integer unitIndex) throws IllegalRequestException {
+
+    public Response<List<Root>> rootsInUnit(@Parameter(description = "should be in range [1,30]", required = true)
+                                            @PathVariable("unitIndex") Integer unitIndex) throws IllegalRequestException {
         validateUnitIndex(unitIndex);
         List<Root> roots = bookService.rootsInUnit(unitIndex);
         return Response.success(roots);
@@ -63,7 +69,10 @@ public class BookController {
 
     @GetMapping("/quizzes/{unitIndex}")
     @ApiResponse(content = @Content(mediaType = "application/json"))
-    public Response<List<Quiz>> quizzesInUnit(@PathVariable("unitIndex") Integer unitIndex) throws IllegalRequestException {
+    @Min(1)
+    @Max(Unit.UNIT_COUNT)
+    public Response<List<Quiz>> quizzesInUnit(@Parameter(description = "should be in range [1,30]", required = true)
+                                              @PathVariable("unitIndex") Integer unitIndex) throws IllegalRequestException {
         validateUnitIndex(unitIndex);
         List<Quiz> quizzes = bookService.quizzesInUnit(unitIndex);
         return Response.success(quizzes);
@@ -77,8 +86,11 @@ public class BookController {
     }
 
     @GetMapping("/units/{unitIndex}")
+    @Min(1)
+    @Max(Unit.UNIT_COUNT)
     @ApiResponse(content = @Content(mediaType = "application/json"))
-    public Response<Unit> unit(@PathVariable("unitIndex") Integer unitIndex) throws IllegalRequestException {
+    public Response<Unit> unit(@Parameter(description = "should be in range [1,30]", required = true)
+                               @PathVariable("unitIndex") Integer unitIndex) throws IllegalRequestException {
         validateUnitIndex(unitIndex);
         Unit unit = bookService.unit(unitIndex);
         return Response.success(unit);

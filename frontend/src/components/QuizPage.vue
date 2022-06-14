@@ -80,7 +80,7 @@ export default {
       for (let i = 0; i < expectList.length; i++) {
         if (expectList[i] !== actualList[i]) {
           const msg =
-            "your answer is " + actual + ", right answer is " + expect;
+            "your answer is " + actual + ", correct answer is " + expect;
           this.showError(msg, index + 1);
           return false;
         }

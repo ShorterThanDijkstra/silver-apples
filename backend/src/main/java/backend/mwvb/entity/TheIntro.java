@@ -4,8 +4,6 @@ import lombok.Data;
 
 import java.util.List;
 
-@Data
-public class TheIntro {
+public record TheIntro(List<String> paragraphs) {
     private static final String TITLE = "INTRODUCTION to the Second Edition";
-    private final List<String> paragraphs;
 }

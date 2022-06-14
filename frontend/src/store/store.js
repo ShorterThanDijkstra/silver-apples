@@ -1,49 +1,88 @@
 import { createStore } from "vuex";
-import axios from "axios";
-
+const USER_TOKEN_LOCALSTORAGE_KEY = "USER_TOKEN_LOCALSTORAGE_KEY";
 const store = createStore({
     state() {
         return {
-            backend: "http://localhost:8080/api/v1.0",
-
-            currentUnit: {},
-
-            currentRoot: {},
-
-            theIntro: null
-        }
-    },
-    mutations: {
-        setCurrentUnit(state, unit) {
-            state.currentUnit = unit;
-        },
-        setCurrentRoot(state, root) {
-            state.currentRoot = root;
-        },
-        setTheIntro(state, intro) {
-            state.theIntro = intro;
-        }
-    },
-    actions: {
-        async getUnitByIndex(context, index) {
-            const url = this.state.backend + "/units/" + index
-            let data = await axios.get(url)
-            context.commit("setCurrentUnit", data.data.data)
-        },
-
-        async getTheIntro(context) {
-            if (context.state.theIntro === null) {
-                const url = this.state.backend + "/intro"
-                let data = await axios.get(url)
-                console.log("get data from " + this.state.backend + "/intro")
-                context.commit("setTheIntro", data.data.data)
+            allUnits: new Array(30),
+            theIntro: "",
+            currentRootIndex: -1,
+            currentUnitIndex: -1,
+            user: {
+                token: ""
             }
         }
     },
-    getters: {
-        quizzesOfCurrentUnit: (state) => (_) => state.currentUnit.quizzes,
-        specialSectionOfCurrentUnit: (state) => (_) => state.currentUnit.specialSectionWords
+    mutations: {
+        cacheCurrentUnit(state, unit) {
+            let index = unit.index - 1
+            state.currentUnitIndex = index
+            state.allUnits[index] = unit
+        },
+        setCurrentUnitIndex(state, unitIndex) {
+            state.currentUnitIndex = unitIndex - 1
+        },
+        setCurrentRootIndex(state, index) {
+            state.currentRootIndex = index;
+        },
+        incCurrentRootIndex(state) {
+            const roots = state.allUnits[state.currentUnitIndex].roots;
+            if (state.currentRootIndex < roots.length - 1) {
+                state.currentRootIndex += 1
+            }
+        },
+        decCurrentRootIndex(state) {
+            if (state.currentRootIndex > 0) {
+                state.currentRootIndex -= 1
+            }
 
+        },
+        setTheIntro(state, intro) {
+            state.theIntro = intro;
+        },
+        setUserToken(state, token) {
+            localStorage.setItem(USER_TOKEN_LOCALSTORAGE_KEY, token)
+            state.user.token = token;
+        },
+        clearUserToken(state) {
+            localStorage.removeItem(USER_TOKEN_LOCALSTORAGE_KEY)
+            state.user.token = ""
+        }
+    },
+    // actions: {
+    // async getUnitByIndex(context, index) {
+    //     const url = th is.state.backend + "/book/units/" + index
+    //     let data = await axios.get(url)
+    //     context.commit("setCurrentUnit", data.data.data)
+    // },
+
+    // async getTheIntro(context) {
+    //     if (context.state.theIntro === null) {
+    //         const url = this.state.backend + "/book/intro"
+    //         let data = await axios.get(url)
+    //         context.commit("setTheIntro", data.data.data)
+    //     }
+    // }
+    // },
+    getters: {
+        quizzesOfCurrentUnit: (state) => {
+            return state.allUnits[state.currentUnitIndex].quizzes
+        },
+
+        specialSectionOfCurrentUnit: (state) => {
+            return state.allUnits[state.currentUnitIndex].specialSectionWords
+        },
+
+        currentRootCache: (state) => {
+            const unit = state.allUnits[state.currentUnitIndex];
+            return unit.roots[state.currentRootIndex]
+        },
+        currentUnitCache: (state) => state.allUnits[state.currentUnitIndex],
+        userToken: (state) => {
+            if (state.user.token) {
+                return state.user.token;
+            }
+            return localStorage.getItem(USER_TOKEN_LOCALSTORAGE_KEY)
+        }
     }
 })
 

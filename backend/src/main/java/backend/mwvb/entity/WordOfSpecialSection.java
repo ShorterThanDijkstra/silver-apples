@@ -8,6 +8,9 @@ import java.util.List;
 @Data
 public class WordOfSpecialSection {
     @JsonIgnore
+    public static final int WORDS_IN_SPECIAL_SECTION = 8;
+
+    @JsonIgnore
     private final Integer id;
 
     private final String spell;

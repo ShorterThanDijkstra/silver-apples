@@ -1,10 +1,10 @@
 <template>
   <div class="center">
-    <h1>Special Section of Unit {{ currentUnit.index }}</h1>
+    <h1>Special Section of Unit {{ $route.params.unit }}</h1>
 
     <WordCard
       class="card"
-      v-for="(word, index) in currentUnit.specialSectionWords"
+      v-for="(word, index) in specialSectionOfCurrentUnit"
       :key="index"
       :word="word"
     ></WordCard>
@@ -13,13 +13,13 @@
 
 <script>
 import WordCard from "@/components/WordCard.vue";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   components: {
     WordCard,
   },
   computed: {
-    ...mapState(["currentUnit"]),
+    ...mapGetters(["specialSectionOfCurrentUnit"])
   },
 };
 </script>

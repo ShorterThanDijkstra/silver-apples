@@ -1,16 +1,9 @@
 <script>
 import TheNavigation from "@/components/TheNavigation.vue";
-import { mapActions } from "vuex";
 
 export default {
   components: {
     TheNavigation: TheNavigation,
-  },
-  methods: {
-    ...mapActions(["getTheIntro"]),
-  },
-  mounted() {
-    this.getTheIntro();
   },
 };
 </script>
@@ -23,4 +16,10 @@ export default {
 </template>
 
 <style>
+/* body {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+} */
 </style>

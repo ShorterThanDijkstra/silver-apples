@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="center">
       <h1 class="title">
         <span>Unit {{ currentUnit.index }}</span>
@@ -36,30 +35,61 @@
         v-for="(root, index) in currentUnit.roots"
         :key="index"
         :root="root"
+        :rootIndex="index"
       ></RootCard>
     </div>
-  </div>
 </template>
 
 <script>
 import RootCard from "@/components/RootCard.vue";
-import { mapState } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   components: { RootCard },
+  data() {
+    return {
+      currentUnit: {},
+    };
+  },
   computed: {
-    ...mapState(["currentUnit"]),
+    ...mapGetters(["currentUnitCache"]),
   },
   methods: {
+    ...mapMutations(["cacheCurrentUnit", "setCurrentUnitIndex"]),
     exercise() {
       this.$router.push({
         name: "Exercise",
+        params: { unit: this.$route.params.unit },
       });
     },
     specialSection() {
       this.$router.push({
         name: "SpecialSection",
+        params: { unit: this.$route.params.unit },
       });
     },
+    loadContent(unitIndex) {
+      this.setCurrentUnitIndex(unitIndex);
+      if (!this.currentUnitCache) {
+        const url = this.$backend + "/book/units/" + unitIndex;
+        this.$http.get(url).then((response) => {
+          this.currentUnit = response.data.data;
+          this.cacheCurrentUnit(response.data.data);
+        });
+      } else {
+        this.currentUnit = this.currentUnitCache;
+      }
+    },
+  },
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      (toParams, previousParams) => {
+        if (this.$route.name === "Unit") {
+          this.loadContent(toParams.unit);
+        }
+      }
+    );
+    this.loadContent(this.$route.params.unit);
   },
 };
 </script>
