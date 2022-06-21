@@ -1,0 +1,49 @@
+:root {
+    box-sizing: border-box;
+}
+
+*,
+::before,
+::after {
+    box-sizing: inherit
+}
+
+.container {
+    display: flex;
+}
+
+@media (min-width: 35em) {
+    .container {
+        display: flex;
+        margin-left: 10em;
+        margin-right: 10em;
+    }
+}
+
+.sidebar {
+    flex: 1;
+    height: 95vh;
+    border: 1px solid white;
+    margin-top: 4vh;
+    margin-right: 1em;
+}
+
+@media (min-width: 35em) {
+    .sidebar {
+        flex: 0.5;
+        height: 95vh;
+        border: 1px solid white;
+        margin-top: 4vh;
+        margin-right: 1em;
+    }
+}
+
+.main {
+    flex: 5;
+    height: 95vh;
+}
+
+body {
+    background-color: darkgray;
+    font-family: Helvetica, Arial, sans-serif;
+}

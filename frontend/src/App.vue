@@ -1,25 +1,21 @@
 <script>
-import TheNavigation from "@/components/TheNavigation.vue";
+import TheSidebarMenu from "@/components/TheSidebarMenu.vue";
 
 export default {
   components: {
-    TheNavigation: TheNavigation,
+    TheSidebarMenu: TheSidebarMenu,
   },
 };
 </script>
 
 <template>
-  <TheNavigation></TheNavigation>
   <div class="container">
-    <router-view></router-view>
+    <div class="sidebar">
+      <TheSidebarMenu></TheSidebarMenu>
+    </div>
+    <main class="main">
+      <h1>Main</h1>
+      <router-view></router-view>
+    </main>
   </div>
 </template>
-
-<style>
-/* body {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0;
-} */
-</style>
