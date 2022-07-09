@@ -10,31 +10,33 @@
 
 .container {
     display: flex;
+    
 }
 
 @media (min-width: 35em) {
     .container {
         display: flex;
-        margin-left: 10em;
-        margin-right: 10em;
+        margin-left: calc(5vw + 1em);
+        margin-right: calc(5vw + 1em);
     }
 }
 
 .sidebar {
     flex: 1;
-    height: 95vh;
+    height: 96vh;
     border: 1px solid white;
-    margin-top: 4vh;
     margin-right: 1em;
+    margin-top: 1vh;
 }
 
 @media (min-width: 35em) {
     .sidebar {
-        flex: 0.5;
-        height: 95vh;
+        flex: 0.3;
+        height: 96vh;
         border: 1px solid white;
-        margin-top: 4vh;
         margin-right: 1em;
+        margin-top: 1vh;
+
     }
 }
 

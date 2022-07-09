@@ -1,67 +1,95 @@
 <template>
   <el-menu
-    class="sidemenu"
+    class="el-menu-vertical"
     :collapse="isCollapse"
+    :collapse-transition="true"
+    :unique-opened="true"
+    :default-active="router.currentRoute.value.fullPath"
+    router
     @open="handleOpen"
     @close="handleClose"
   >
-    <el-sub-menu
-      :index="`unit-group-${unitGroup}`"
-      v-for="unitGroup in 5"
-      :key="unitGroup"
-    >
+    <div>
+      <button class="menu-toggle" @click="toggle">toggle-menu</button>
+    </div>
+    <el-sub-menu v-for="(group, i) in 6" :key="i" :index="`unit-group-${i}`">
       <template #title>
-        <el-icon><IconMenu></IconMenu></el-icon>
-        <span
-          >unit{{ unitGroupStart(unitGroup) }}-{{
-            unitGroupEnd(unitGroup)
-          }}</span
-        >
+        <el-icon><IconMenu /></el-icon>
+        <span>Unit {{ group * 5 - 4 }}-{{ group * 5 }}</span>
       </template>
-      <el-menu-item v-for="unitIndex in unitsInGroup(unitGroup)" :key="unitIndex" @click="showUnit(unitIndex)" index="1-1"
-          >{{unitIndex}}</el-menu-item
-        >
+      <el-menu-item
+        v-for="rank in 5"
+        :key="rank"
+        :index="`/unit/${group * 5 + rank - 5}`"
+      >
+        unit {{ group * 5 + rank - 5 }}
+      </el-menu-item>
     </el-sub-menu>
 
-    <el-sub-menu index="unit-1">
-      <template #title>
-        <el-icon><IconMenu></IconMenu></el-icon>
-        <span>Unit 1</span>
-      </template>
-      <el-menu-item @click="showUnit" index="1-1">item one</el-menu-item>
-      <el-menu-item index="1-2">item two</el-menu-item>
-    </el-sub-menu>
+    <div class="bottom">
+      <el-menu-item index="/">
+        <el-icon><setting /></el-icon>
+        <template #title>setting</template>
+      </el-menu-item>
+    </div>
   </el-menu>
 </template>
 
-<script setup>
+<script  setup>
 import { ref } from "vue";
-import { Menu as IconMenu } from "@element-plus/icons-vue";
+import { useRouter } from "vue-router";
+import { Menu as IconMenu, Setting } from "@element-plus/icons-vue";
 
+const router = useRouter();
 const isCollapse = ref(true);
+const paths = ref(router.currentRoute.value.fullPath)
 const handleOpen = (key, keyPath) => {
-//   isCollapse.value = false;
 };
 const handleClose = (key, keyPath) => {
-//   isCollapse.value = true;
+ 
+
 };
 const showUnit = (unitIndex) => {
-  console.log(unitIndex);
+  router.push({
+    name: "Unit",
+    params: { unit: unitIndex },
+  });
 };
-// const sidemenubar=()
-const unitGroupStart = (groupIndex) => groupIndex * 5 - 4;
-const unitGroupEnd = (groupIndex) => groupIndex * 5;
-const unitsInGroup = (groupIndex) =>
-  Array.from({ length: 6 }, (_, i) => unitGroupStart(groupIndex) + i);
+const toggle = () => {
+  isCollapse.value = !isCollapse.value;
+};
 </script>
 
-<style >
-.sidemenu {
+<style>
+.el-menu-vertical {
   display: flex;
   flex-direction: column;
-  font-size: 0.1rem;
+  /* font-size: 0.1rem; */
   width: auto;
+  height: 100%;
 }
-.el-sub-menu.is-opened {
+.bottom {
+  margin-top: auto;
+}
+.menu-toggle {
+  right: 0.1em;
+  border: 0;
+  background-color: transparent;
+  font-size: 2.5em;
+  width: 1em;
+  text-indent: 5em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.menu-toggle::after {
+  position: absolute;
+  top: 0.2em;
+  left: 0.5em;
+  display: block;
+  content: "\2261";
+  text-indent: 0;
+}
+.el-icon.el-sub-menu__icon-arrow{
+  display: none;
 }
 </style>
