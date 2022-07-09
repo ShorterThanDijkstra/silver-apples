@@ -9,43 +9,88 @@
 }
 
 .container {
-    display: flex;
-    
+    margin: 0em;
+    font-size: 1rem;
 }
 
 @media (min-width: 35em) {
     .container {
-        display: flex;
         margin-left: calc(5vw + 1em);
         margin-right: calc(5vw + 1em);
+        font-size: 1.5rem;
+
     }
 }
 
-.sidebar {
-    flex: 1;
-    height: 96vh;
+.menu {
     border: 1px solid white;
-    margin-right: 1em;
-    margin-top: 1vh;
+    font-size: 0.5em;
 }
 
 @media (min-width: 35em) {
-    .sidebar {
-        flex: 0.3;
-        height: 96vh;
+    .menu {
         border: 1px solid white;
-        margin-right: 1em;
-        margin-top: 1vh;
 
     }
 }
 
-.main {
-    flex: 5;
-    height: 95vh;
-}
+.main {}
 
 body {
     background-color: darkgray;
     font-family: Helvetica, Arial, sans-serif;
+}
+
+.button {
+    display: flex;
+    justify-content: right;
+    appearance: none;
+    background-color: #2ea44f;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.button:focus:not(:focus-visible):not(.focus-visible) {
+    box-shadow: none;
+    outline: none;
+}
+
+.button:hover {
+    background-color: #2c974b;
+}
+
+.button:focus {
+    box-shadow: rgba(46, 164, 79, 0.4) 0 0 0 3px;
+    outline: none;
+}
+
+.button:disabled {
+    background-color: #94d3a2;
+    border-color: rgba(27, 31, 35, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: default;
+}
+
+.button:active {
+    background-color: #298e46;
+    box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
 }

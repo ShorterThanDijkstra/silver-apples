@@ -5,32 +5,34 @@
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b"
+    :ellipsis="false"
     @select="handleSelect"
   >
-    <elMenuItem index="home" class="home">Home</elMenuItem>
-    <el-sub-menu index="user">
-      <template #title>User</template>
-      <el-menu-item v-if="userToken === null" index="login">Sign in</el-menu-item>
-      <el-menu-item v-else index="logout">Sign out</el-menu-item>
-    </el-sub-menu>
-    <span class="vl"></span>
-    <elMenuItem index="intro" class="intro">Introduction</elMenuItem>
-    <el-sub-menu v-for="(group, i) in 6" :key="i" :index="String(i)">
-      <template #title>Unit {{ group * 5 - 4 }}-{{ group * 5 }}</template>
+    <el-sub-menu
+      class="sub-menu"
+      v-for="(group, i) in 3"
+      :key="i"
+      :index="String(i)"
+    >
+      <template #title>Unit {{ group * 10 - 9 }}-{{ group * 10 }}</template>
       <el-menu-item
-        v-for="unit_index in 5"
+        v-for="unit_index in 10"
         :key="unit_index"
-        :index="String(group * 5 + unit_index - 5)"
+        :index="String(group * 10 + unit_index - 10)"
       >
-        unit {{ group * 5 + unit_index - 5 }}
+        unit {{ group * 10 + unit_index - 10 }}
       </el-menu-item>
     </el-sub-menu>
-
-    <!-- <el-sub-menu index="user">
+    <elMenuItem index="intro" class="sub-menu intro">
+      <template #title>Introduction</template>
+    </elMenuItem>
+    <el-sub-menu index="user" class="right">
       <template #title>User</template>
-      <el-menu-item index="sign_in">sign in</el-menu-item>
-      <el-menu-item index="sign_up">sign up</el-menu-item>
-    </el-sub-menu> -->
+      <el-menu-item v-if="userToken === null" index="login"
+        >Sign in</el-menu-item
+      >
+      <el-menu-item v-else index="logout">Sign out</el-menu-item>
+    </el-sub-menu>
   </el-menu>
 </template>
 <script>
@@ -75,7 +77,7 @@ export default {
       })
         .then(() => {
           this.clearUserToken();
-          this.$router.go()
+          this.$router.go();
         })
         .catch(() => {});
     },
@@ -98,20 +100,15 @@ export default {
   },
 };
 </script>
-<style scoped>
-.intro {
-  /* background-color: #545c64;
-  color: #fff;
-  text-align: center;
-  cursor: pointer; */
-  margin-left: 3rem;
-
+<style>
+.el-menu {
+  flex-wrap: wrap;
 }
-.home {
-  margin-left: 7rem;
-}
-.vl {
-  border-left: 0.5px solid #fff;
-  height: auto;
+@media (min-width: 35em) {
+  .el-menu .right {
+    margin-left: auto;
+    margin-right: 1em;
+    justify-content: flex-start;
+  }
 }
 </style>
