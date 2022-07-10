@@ -1,25 +1,24 @@
 <script>
-import TheNavigation from "@/components/TheNavigation.vue";
+import TheTopNavigation from "./components/TheTopBarMenu.vue";
+import {mapGetters} from "vuex";
 
 export default {
   components: {
-    TheNavigation: TheNavigation,
+    TheTopNavigation: TheTopNavigation,
   },
+  computed: {
+    ...mapGetters(['userToken'])
+  }
 };
 </script>
 
 <template>
-  <TheNavigation></TheNavigation>
   <div class="container">
-    <router-view></router-view>
+    <div v-show="userToken" class="menu">
+      <TheTopNavigation></TheTopNavigation>
+    </div>
+    <main class="main">
+      <router-view></router-view>
+    </main>
   </div>
 </template>
-
-<style>
-/* body {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0;
-} */
-</style>

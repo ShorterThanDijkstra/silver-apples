@@ -1,19 +1,25 @@
 <template>
-  <div class="center">
-    <h1>Special Section of Unit {{ $route.params.unit }}</h1>
+  <div>
+    <div class="head flex">
+      <h1 class="title">Special Section of Unit {{ $route.params.unit }}</h1>
+      <button class="button button-right" type="button" @click="$router.back()">&#8592; back</button>
+    </div>
 
-    <WordCard
-      class="card"
-      v-for="(word, index) in specialSectionOfCurrentUnit"
-      :key="index"
-      :word="word"
-    ></WordCard>
+    <div class="grid">
+      <WordCard
+          v-for="(word, index) in specialSectionOfCurrentUnit"
+          :key="index"
+          :word="word"
+      ></WordCard>
+    </div>
+
   </div>
 </template>
 
 <script>
 import WordCard from "@/components/WordCard.vue";
-import { mapGetters } from "vuex";
+import {mapGetters} from "vuex";
+
 export default {
   components: {
     WordCard,
@@ -24,5 +30,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.button.button-right{
+  margin-left: auto;
+}
 </style>

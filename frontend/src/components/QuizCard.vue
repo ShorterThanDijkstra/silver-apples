@@ -1,6 +1,6 @@
 <template>
   <el-card class="quiz-card">
-    <div v-for="(page, i) in quiz.quizPages" :key="i">
+    <div  class="quiz-page" v-for="(page, i) in quiz.quizPages" :key="i">
       <QuizPage :page="page"></QuizPage>
       <hr v-if="i < quiz.quizPages.length - 1" />
     </div>
@@ -18,19 +18,8 @@ export default {
 };
 </script>
 <style scoped>
-.text {
-  font-size: 20px;
-}
-
-.item {
-  padding: 18px 0;
-}
 
 .quiz-card {
-  width: 70%;
-  display: inline-grid;
-  margin-left: 15%;
-  margin-bottom: 5rem;
-  height: auto;
+  margin-bottom: 2em;
 }
 </style>

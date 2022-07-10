@@ -40,11 +40,11 @@ const store = createStore({
             state.theIntro = intro;
         },
         setUserToken(state, token) {
-            localStorage.setItem(USER_TOKEN_LOCALSTORAGE_KEY, token)
+            window.localStorage.setItem(USER_TOKEN_LOCALSTORAGE_KEY, token)
             state.user.token = token;
         },
         clearUserToken(state) {
-            localStorage.removeItem(USER_TOKEN_LOCALSTORAGE_KEY)
+            window.localStorage.removeItem(USER_TOKEN_LOCALSTORAGE_KEY)
             state.user.token = ""
         }
     },
@@ -81,7 +81,7 @@ const store = createStore({
             if (state.user.token) {
                 return state.user.token;
             }
-            return localStorage.getItem(USER_TOKEN_LOCALSTORAGE_KEY)
+            return window.localStorage.getItem(USER_TOKEN_LOCALSTORAGE_KEY)
         }
     }
 })
