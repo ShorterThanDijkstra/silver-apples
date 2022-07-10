@@ -1,54 +1,55 @@
 <template>
-  <el-card class="box-card" style="height: 45%">
+  <el-card class="word-card">
     <div class="card-header">
       <span>{{ word.spell }}</span>
     </div>
-    <hr />
+    <hr/>
     <div class="card-body">
       <div>
-        <div @click="hideOrShow('explain')">
-          <div v-if="explainShow">
-            <span>explain:</span>
-            <button style="margin-left: 5rem" class="button" role="button">
-              hide
-            </button>
-          </div>
-          <div v-else>
-            <span>explain:</span>
-            <button style="margin-left: 5rem" class="button" role="button">
-              show
+        <div>
+          <div class="flex">
+            <span>explain :</span>
+            <button class="button  button-right" role="button" @click="hideOrShow('explain')">
+              <span v-if="explainShow">hide</span>
+              <span v-else>show</span>
             </button>
           </div>
         </div>
         <p v-show="explainShow">{{ word.explain }}</p>
-        <hr />
+        <hr/>
       </div>
 
       <div>
-        <div @click="hideOrShow('detail')">
-          <div v-if="detailShow">
-            <span>more: </span
-            ><button style="margin-left:5.8rem" class="button" role="button">hide</button>
-          </div>
-          <div v-else>
-            <span>more: </span
-            ><button  style="margin-left:5.8rem" class="button" role="button">show</button>
+        <div>
+          <div class="flex">
+            <span>background : </span>
+            <button
+                class="button button-right"
+                role="button"
+                @click="hideOrShow('detail')"
+            >
+              <span v-if="detailShow">hide</span>
+              <span v-else>show</span>
+            </button>
           </div>
         </div>
-        <div></div>
         <p v-show="detailShow">{{ word.detail }}</p>
-        <hr />
+        <hr/>
       </div>
 
       <div>
-        <div @click="hideOrShow('sentences')">
-          <div v-if="sentencesShow">
-            <span>sentences: </span
-            ><button style="margin-left:3.4rem" class="button" role="button">hide</button>
-          </div>
-          <div v-else>
-            <span>sentences: </span>
-            <button style="margin-left:3.4rem" class="button" role="button">show</button>
+        <div>
+          <div class="flex">
+            <span>sentences : </span
+            >
+            <button
+                class="button button-right"
+                role="button"
+                @click="hideOrShow('sentences')"
+            >
+              <span v-if="sentencesShow">hide</span>
+              <span v-else>show</span>
+            </button>
           </div>
         </div>
         <div v-show="sentencesShow">
@@ -62,7 +63,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import {ref} from "vue";
 
 const props = defineProps<{
   word: Object;
@@ -82,4 +83,9 @@ const hideOrShow = (item: String) => {
 };
 </script>
 <style scoped>
+.button.button-right {
+  margin-left: auto;
+  margin-top: 0;
+}
+
 </style>

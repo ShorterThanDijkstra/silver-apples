@@ -14,12 +14,13 @@
 .home {
   display: flex;
   flex-direction: column;
-  height: 90%;
 }
 .content {
   flex-basis: 15em;
 }
 .warning-msg {
+  position: absolute;
+  bottom: 0;
   margin-top: auto;
   padding: 0.5em;
   border-radius: 3px 3px 3px 3px;

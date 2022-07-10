@@ -1,18 +1,14 @@
 <template>
-  <div class="center">
     <el-card class="article">
       <div
         v-for="(content, index) in intro.paragraphs"
         :key="index"
-        class="text"
       >
         <p class="paragraph">
           {{ content }}
         </p>
       </div>
     </el-card>
-  </div>
-  <div></div>
 </template>
 
 <script>
@@ -44,19 +40,21 @@ export default {
 </script>
 
 <style scoped>
-.text {
-  font-size: 22px;
+.article {
+  height: auto;
+  margin-top: 1em;
 }
 
-.article {
-  width: 60%;
-  margin-left: 19%;
-  margin-top: 2rem;
-  height: auto;
-}
 .paragraph {
-  margin-left: 4rem;
-  margin-right: 4rem;
-  margin-bottom: 3rem;
+  margin: 1em 0.1em;
+  font-size: 1rem;
+  line-height: 1.5em;
+}
+@media (min-width: 35em){
+  .paragraph {
+    margin: 1.5em;
+    font-size: 1.5rem;
+    line-height: 1.5em;
+  }
 }
 </style>

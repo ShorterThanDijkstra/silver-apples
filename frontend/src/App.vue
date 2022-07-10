@@ -1,16 +1,20 @@
 <script>
-import TheSidebarMenu from "@/components/TheSidebarMenu.vue";
-import TheTopNavigation from "./components/TheTopNavigation.vue";
+import TheTopNavigation from "./components/TheTopBarMenu.vue";
+import {mapGetters} from "vuex";
+
 export default {
   components: {
     TheTopNavigation: TheTopNavigation,
   },
+  computed: {
+    ...mapGetters(['userToken'])
+  }
 };
 </script>
 
 <template>
   <div class="container">
-    <div class="menu">
+    <div v-show="userToken" class="menu">
       <TheTopNavigation></TheTopNavigation>
     </div>
     <main class="main">

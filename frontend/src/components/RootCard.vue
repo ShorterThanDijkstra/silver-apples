@@ -1,16 +1,14 @@
 <template>
-    <el-card class="box-card">
-      <div class="card-header">
-        <span>{{ root.name }}</span>
-        <el-button class="button" @click="wordsOfRoot" type="text"
-          >Words</el-button
-        >
-      </div>
-      <hr />
-      <div class="card-body">
-        <p>{{ root.description }}</p>
-      </div>
-    </el-card>
+  <el-card>
+    <div class="card-header">
+      <span>{{ root.name }}</span>
+      <button class="button" @click="wordsOfRoot" type="text">Words</button>
+    </div>
+    <hr />
+    <div class="card-body">
+      <p>{{ root.description }}</p>
+    </div>
+  </el-card>
 </template>
 <script>
 import { mapMutations } from "vuex";
@@ -37,10 +35,6 @@ export default {
   },
 };
 </script>
-<style>
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+<style scoped>
+
 </style>

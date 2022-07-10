@@ -8,31 +8,41 @@
     :ellipsis="false"
     @select="handleSelect"
   >
-    <el-sub-menu
-      class="sub-menu"
-      v-for="(group, i) in 3"
-      :key="i"
-      :index="String(i)"
-    >
-      <template #title>Unit {{ group * 10 - 9 }}-{{ group * 10 }}</template>
-      <el-menu-item
-        v-for="unit_index in 10"
-        :key="unit_index"
-        :index="String(group * 10 + unit_index - 10)"
+    <el-sub-menu index="book">
+      <template #title>Book</template>
+      <elMenuItem index="intro" class="sub-menu intro">
+        <template #title>Introduction</template>
+      </elMenuItem>
+      <el-sub-menu
+          class="sub-menu"
+          v-for="(group, i) in 3"
+          :key="i"
+          :index="String(i)"
       >
-        unit {{ group * 10 + unit_index - 10 }}
-      </el-menu-item>
+        <template #title>Unit {{ group * 10 - 9 }}-{{ group * 10 }}</template>
+        <el-menu-item
+            v-for="unit_index in 10"
+            :key="unit_index"
+            :index="String(group * 10 + unit_index - 10)"
+        >
+          unit {{ group * 10 + unit_index - 10 }}
+        </el-menu-item>
+      </el-sub-menu>
+
     </el-sub-menu>
-    <elMenuItem index="intro" class="sub-menu intro">
-      <template #title>Introduction</template>
-    </elMenuItem>
-    <el-sub-menu index="user" class="right">
+
+    <div class="flex-grow"></div>
+    <el-sub-menu index="user">
       <template #title>User</template>
       <el-menu-item v-if="userToken === null" index="login"
         >Sign in</el-menu-item
       >
       <el-menu-item v-else index="logout">Sign out</el-menu-item>
     </el-sub-menu>
+
+    <elMenuItem index="home">
+      <template #title>about</template>
+    </elMenuItem>
   </el-menu>
 </template>
 <script>
@@ -103,12 +113,9 @@ export default {
 <style>
 .el-menu {
   flex-wrap: wrap;
+  border: none;
 }
-@media (min-width: 35em) {
-  .el-menu .right {
-    margin-left: auto;
-    margin-right: 1em;
-    justify-content: flex-start;
-  }
+.flex-grow{
+  flex-grow: 2;
 }
 </style>
