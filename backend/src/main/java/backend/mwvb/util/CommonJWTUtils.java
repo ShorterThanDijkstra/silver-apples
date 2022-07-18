@@ -1,14 +1,13 @@
 package backend.mwvb.util;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import lombok.val;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 public class CommonJWTUtils {
@@ -18,6 +17,39 @@ public class CommonJWTUtils {
         JwtBuilder builder = commonBuilder(subject, jwtKey);
         Date expire = new Date(System.currentTimeMillis() + expireMillis);
         builder.setExpiration(expire);
+
+        String jwtToken = builder.compact();
+
+        cacheToken(jwtToken);
+        return jwtToken;
+    }
+
+    public static String create(String subject, String jwtKey, Long expireMillis, Map<String, Object> claims) {
+        JwtBuilder builder = commonBuilder(subject, jwtKey);
+
+        Date expire = new Date(System.currentTimeMillis() + expireMillis);
+        builder.setExpiration(expire);
+
+        builder.addClaims(claims);
+
+        String jwtToken = builder.compact();
+
+        cacheToken(jwtToken);
+        return jwtToken;
+    }
+
+    public static void verifySubject(Claims claims, String expectedSubject) {
+        val subject = claims.getSubject();
+        if (!subject.equals(expectedSubject)) {
+            throw new JwtException("Wrong JWT Subject, expected: " +
+                    expectedSubject + ", actual: " + subject);
+        }
+    }
+
+    public static String create(String subject, String jwtKey, Map<String, Object> claims) {
+        JwtBuilder builder = commonBuilder(subject, jwtKey);
+
+        builder.addClaims(claims);
 
         String jwtToken = builder.compact();
 

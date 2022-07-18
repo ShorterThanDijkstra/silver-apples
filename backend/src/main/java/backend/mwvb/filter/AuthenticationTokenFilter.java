@@ -3,14 +3,13 @@ package backend.mwvb.filter;
 import backend.mwvb.entity.AuthUser;
 import backend.mwvb.exception.UserAuthenticationException;
 import backend.mwvb.service.AuthUserCacheService;
+import backend.mwvb.service.UserLoginService;
 import backend.mwvb.util.CommonJWTUtils;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -21,9 +20,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
 
 import static backend.mwvb.config.SecurityConfig.TOKEN_HEADER_NAME;
+import static backend.mwvb.util.CommonJWTUtils.verifySubject;
 
 @Component
 @RequiredArgsConstructor
@@ -46,10 +45,13 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+
     private void authenUser(String token) {
         try {
             Claims claims = CommonJWTUtils.parse(token, jwtKey);
-            String userId = claims.getSubject();
+            verifySubject(claims, UserLoginService.LOGIN_JWT_SUBJECT);
+
+            String userId = claims.get(UserLoginService.LOGIN_JWT_CLAIMS_KEY, String.class);
             AuthUser cachedAuthUser = authUserCacheService.getCachedAuthUser(userId);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(cachedAuthUser, null, cachedAuthUser.getAuthorities());

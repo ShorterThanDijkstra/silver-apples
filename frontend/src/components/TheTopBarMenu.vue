@@ -2,9 +2,9 @@
   <el-menu
     class="el-menu"
     mode="horizontal"
-    background-color="#545c64"
-    text-color="#fff"
-    active-text-color="#ffd04b"
+    background-color="#999"
+    text-color="#333"
+    active-text-color="#fff"
     :ellipsis="false"
     @select="handleSelect"
   >
@@ -118,4 +118,7 @@ export default {
 .flex-grow{
   flex-grow: 2;
 }
+/*.el-menu--horizontal>.el-menu-item.is-active{*/
+/*  background-color: darkgrey;*/
+/*}*/
 </style>

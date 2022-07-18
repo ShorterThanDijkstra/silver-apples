@@ -146,9 +146,6 @@ class BookControllerTest {
                 .get(API + "/quizzes/10")
                 .then()
                 .assertThat()
-                // TODO: 2022/6/11
-                //  backend.mwvb.service.impl.AuthUserCacheServiceImpl.getCachedAuthUser里抛UserAuthenticationException
-                //  在backend.mwvb.exception.handle.ControllerExceptionHandler返回的不是Bad_Request吗？
                 .statusCode(equalTo(HttpStatus.FORBIDDEN.value()));
     }
 }

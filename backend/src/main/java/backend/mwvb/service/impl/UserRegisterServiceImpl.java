@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import java.util.Map;
+
+import static backend.mwvb.util.CommonJWTUtils.verifySubject;
 
 @Service
 @Data
@@ -52,9 +55,10 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     public void request(String email) throws UserRegisterException, MessagingException {
         validateEmail(email);
         String jwtToken = CommonJWTUtils.create(
-                email,
+                REGISTER_JWT_SUBJECT,
                 jwtKey,
-                REGISTER_INFO_EXPIRE
+                REGISTER_INFO_EXPIRE,
+                Map.of(REGISTER_JWT_CLAIMS_KEY, email)
         );
         emailService.sendRegisterCompleteEmail(jwtToken, email);
     }
@@ -122,9 +126,10 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     private String parseToken(RegisterInfo info) throws UserRegisterException {
         try {
             Claims claims = CommonJWTUtils.parse(info.getToken(), jwtKey);
-            return claims.getSubject();
+            verifySubject(claims, REGISTER_JWT_SUBJECT);
+            return claims.get(REGISTER_JWT_CLAIMS_KEY, String.class);
         } catch (JwtException e) {
-            throw new UserRegisterException("Bad Token");
+            throw new UserRegisterException(e.toString());
         }
     }
 }

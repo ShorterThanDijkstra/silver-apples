@@ -44,12 +44,23 @@ class UserLoginServiceImplTest {
         val result = userLoginService.login(user2loginInfo(randomUser));
         val userFromDB = userMapper.queryUserByEmail(randomUser.getEmail());
         val token = result.getData().get("token");
-        val userId = CommonJWTUtils.parse(token, jwtKey).getSubject();
+        val claims = CommonJWTUtils.parse(token, jwtKey);
+        val subject = claims.getSubject();
+        val userId = claims.get(UserLoginService.LOGIN_JWT_CLAIMS_KEY, String.class);
 
         assertThat(randomUser.getEmail(), equalTo(userFromDB.getEmail()));
         assertThat(randomUser.getUsername(), equalTo(userFromDB.getUsername()));
         assertThat(passwordEncoder.matches(randomUser.getPassword(), userFromDB.getPassword()), is(true));
 
+        assertThat(subject, equalTo(UserLoginService.LOGIN_JWT_SUBJECT));
         assertThat(Integer.valueOf(userId), equalTo(userFromDB.getId()));
+
+    }
+
+    @Test
+    void loginWithBadToken() {
+        val token = CommonJWTUtils.create("no-meaning", jwtKey);
+
+
     }
 }
