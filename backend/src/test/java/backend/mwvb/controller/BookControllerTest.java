@@ -4,18 +4,16 @@ import backend.mwvb.entity.User;
 import backend.mwvb.service.UserLoginService;
 import backend.mwvb.service.UserRegisterService;
 import backend.mwvb.util.CommonJWTUtils;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
+import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 
 import javax.mail.MessagingException;
 
-import static backend.mwvb.config.SecurityConfig.TOKEN_HEADER_NAME;
+import static backend.mwvb.test_util.RestAssuredTestUtil.*;
 import static backend.mwvb.test_util.UserTestUtil.login;
 import static backend.mwvb.test_util.UserTestUtil.registerRandomUser;
 import static org.hamcrest.Matchers.*;
@@ -40,112 +38,59 @@ class BookControllerTest {
 
     @Test
     void intro() {
-        RestAssured.given()
-                .header(TOKEN_HEADER_NAME, token)
-                .get(API + "/intro")
-                .then()
-                .assertThat()
-                .statusCode(equalTo(HttpStatus.OK.value()))
-                .and()
-                .body("data.paragraphs", hasSize(14));
+        val response = getWithTokenSuccessfully(API + "/intro", token);
+        assertBody(response, "data.paragraphs", hasSize(14));
     }
 
     @Test
     void allRoots() {
-        RestAssured.given()
-                .header(TOKEN_HEADER_NAME, token)
-                .get(API + "/roots")
-                .then()
-                .assertThat()
-                .statusCode(equalTo(HttpStatus.OK.value()))
-                .and()
-                .body("data.flatten().", hasSize(240));
+        val response = getWithTokenSuccessfully(API + "/roots", token);
+        assertBody(response, "data.flatten().", hasSize(240));
     }
 
     @Test
     void rootsInUnit() {
-        RestAssured.given()
-                .header(TOKEN_HEADER_NAME, token)
-                .get(API + "/roots/17")
-                .then()
-                .assertThat()
-                .statusCode(equalTo(HttpStatus.OK.value()))
-                .and()
-                .body("data[5].name", equalTo("TANG/TACT"))
-                .and()
-                .body("data", hasSize(8));
+        val response = getWithTokenSuccessfully(API + "/roots/17", token);
+        assertBody(response, "data[5].name", equalTo("TANG/TACT"), "data", hasSize(8));
     }
 
     @Test
     void quizzesInUnit() {
-        RestAssured.given()
-                .header(TOKEN_HEADER_NAME, token)
-                .get(API + "/quizzes/27")
-                .then()
-                .assertThat()
-                .statusCode(equalTo(HttpStatus.OK.value()))
-                .and()
-                .body("data", hasSize(6))
-                .and()
-                .body("data[1].quizPages[1].content", containsString("7. slander"));
+        val response = getWithTokenSuccessfully(API + "/quizzes/27", token);
+        assertBody(response, "data", hasSize(6), "data[1].quizPages[1].content", containsString("7. slander"));
     }
 
     @Test
     void wordsInRoot() {
-        Response response = RestAssured.given()
-                .header(TOKEN_HEADER_NAME, token)
-                .get(API + "/roots/2");
+        val response = getWithToken(API + "/roots/2", token);
         int rootId = response.body().jsonPath().get("data[5].id");
-        RestAssured.given()
-                .header(TOKEN_HEADER_NAME, token)
-                .get(API + "/words/" + rootId)
-                .then()
-                .body("data[2].spell", equalTo("protracted"));
+
+        val success = getWithTokenSuccessfully(API + "/words/" + rootId, token);
+        assertBody(success, "data[2].spell", equalTo("protracted"));
     }
 
     @Test
     void allQuizzes() {
-        RestAssured.given()
-                .header(TOKEN_HEADER_NAME, token)
-
-                .get(API + "/quizzes")
-                .then()
-                .assertThat()
-                .statusCode(equalTo(HttpStatus.OK.value()))
-                .and()
-                .body("data.flatten()", hasSize(180));
-
+        val response = getWithTokenSuccessfully(API + "/quizzes", token);
+        assertBody(response, "data.flatten()", hasSize(180));
     }
 
     @Test
     void unit() {
-        RestAssured.given()
-                .header(TOKEN_HEADER_NAME, token)
-                .get(API + "/units/7")
-                .then()
-                .assertThat()
-                .statusCode(equalTo(HttpStatus.OK.value()))
-                .body("data.specialSectionWords[2].sentences[0].text", containsString("Cassandra"));
+        val response = getWithTokenSuccessfully(API + "/units/7", token);
+        assertBody(response, "data.specialSectionWords[2].sentences[0].text", containsString("Cassandra"));
     }
 
     @Test
     void unitWithoutToken() {
-        RestAssured.given()
-                .get(API + "/units/7")
-                .then()
-                .assertThat()
-                .statusCode(equalTo(HttpStatus.FORBIDDEN.value()));
+        getWithoutTokenForbidden(API + "/units/7");
     }
 
 
     @Test
     void quizzesInUnitWithBadToken() {
+
         String badToken = CommonJWTUtils.create("bad token", jwtKey);
-        RestAssured.given()
-                .header(TOKEN_HEADER_NAME, badToken)
-                .get(API + "/quizzes/10")
-                .then()
-                .assertThat()
-                .statusCode(equalTo(HttpStatus.FORBIDDEN.value()));
+        getWithBadToken(API + "/quizzes/10", badToken);
     }
 }

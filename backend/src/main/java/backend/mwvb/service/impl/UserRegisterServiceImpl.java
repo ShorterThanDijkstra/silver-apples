@@ -32,8 +32,6 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     @Value("${com.maerd_zinbiel.silver-apples.jwt.password}")
     private String jwtKey;
 
-    private String registerEmail;
-
 
     @Override
     public void complete(RegisterInfo info) throws UserRegisterException {

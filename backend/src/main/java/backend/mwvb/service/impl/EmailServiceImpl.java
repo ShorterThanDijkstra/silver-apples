@@ -23,11 +23,12 @@ public class EmailServiceImpl implements EmailService {
     @Value("${spring.mail.username}")
     private String mailFrom;
 
-    @Value("${com.maerd_zinbiel.silver-apples.email.url}")
-    private String emailActivationBaseUrl;
-    @Value("${com.maerd_zinbiel.silver-apples.email.test}")
-    private Boolean randomTest;
-
+    @Value("${com.maerd_zinbiel.silver-apples.email.register-complete-url}")
+    private String registerCompleteEmailUrl;
+    @Value("${com.maerd_zinbiel.silver-apples.email.send}")
+    private Boolean testMode;
+    @Value("${com.maerd_zinbiel.silver-apples.email.change-password-url}")
+    private String changePasswordEmailUrl;
     public void sendHtmlEmail(Email email) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -39,12 +40,12 @@ public class EmailServiceImpl implements EmailService {
         mailSender.send(message);
     }
 
-    private String buildActivationUrl(String jwtToken) {
-        return emailActivationBaseUrl + jwtToken;
+    private String buildUrlWithToken(String jwtToken, String baseUrl) {
+        return baseUrl + jwtToken;
     }
 
     private Email buildRegisterCompleteEmail(String jwtToken, String emailAddr) {
-        String url = buildActivationUrl(jwtToken);
+        String url = buildUrlWithToken(jwtToken, registerCompleteEmailUrl);
         String content = body(
                 p("Welcome!"),
                 div(
@@ -63,10 +64,36 @@ public class EmailServiceImpl implements EmailService {
     @Async
     public void sendRegisterCompleteEmail(String jwtToken, String emailAddr) throws MessagingException {
 
-        if (randomTest) {
+        if (testMode) {
             return;
         }
         Email email = buildRegisterCompleteEmail(jwtToken, emailAddr);
         sendHtmlEmail(email);
     }
+
+    @Override
+    @Async
+    public void sendChangePasswordEmail(String jwtToken, String emailAddr) throws MessagingException {
+        if (testMode) {
+            return;
+        }
+        Email email = buildChangePasswordEmail(jwtToken, emailAddr);
+        sendHtmlEmail(email);
+    }
+
+    private Email buildChangePasswordEmail(String jwtToken, String emailAddr) {
+        String url = buildUrlWithToken(jwtToken, changePasswordEmailUrl);
+        String content = body(
+                div(
+                        p("Click the link below to reset your password: "),
+                        a("reset password").withHref(url)
+                )
+        ).render();
+        return Email.builder()
+                .to(emailAddr)
+                .subject("Reset Password")
+                .content(content)
+                .build();
+    }
+
 }

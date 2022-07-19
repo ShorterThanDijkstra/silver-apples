@@ -30,6 +30,9 @@ public class ControllerExceptionHandler {
         if (ex instanceof UserAuthenticationException) {
             return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
         }
+        if (ex instanceof UserChangePasswordException) {
+            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+        }
         if (ex instanceof InternalAuthenticationServiceException) {
             String message = ex.getMessage();
             message = message.substring(message.lastIndexOf(":") + 1);
