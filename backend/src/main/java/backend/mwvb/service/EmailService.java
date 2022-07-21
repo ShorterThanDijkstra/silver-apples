@@ -7,4 +7,5 @@ import javax.mail.MessagingException;
 public interface EmailService {
 
     void sendRegisterCompleteEmail(String jwtToken, String emailAddr) throws MessagingException;
+    void sendChangePasswordEmail(String jwtToken, String emailAddr) throws MessagingException;
 }

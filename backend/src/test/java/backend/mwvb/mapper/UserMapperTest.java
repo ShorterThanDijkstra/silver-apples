@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.OffsetDateTime;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @SpringBootTest
@@ -62,6 +61,18 @@ class UserMapperTest {
         assertThat(result, is(true));
     }
 
+
+    @Test
+    @Order(4)
+    public void queryUserByName() {
+        User user = userMapper.queryUserByName(UserMapperTest.user.getUsername());
+        assertThat(user, notNullValue());
+        assertThat(user.getId(), notNullValue());
+        assertThat(user.getUsername(), notNullValue());
+        assertThat(user.getEmail(), notNullValue());
+        assertThat(user.getCreateTime(), notNullValue());
+    }
+
     @Test
     @Order(5)
     public void queryUserByEmail() {
@@ -74,13 +85,13 @@ class UserMapperTest {
     }
 
     @Test
-    @Order(4)
-    public void queryUserByName() {
-        User user = userMapper.queryUserByName(UserMapperTest.user.getUsername());
-        assertThat(user, notNullValue());
-        assertThat(user.getId(), notNullValue());
-        assertThat(user.getUsername(), notNullValue());
-        assertThat(user.getEmail(), notNullValue());
-        assertThat(user.getCreateTime(), notNullValue());
+    @Order(6)
+    public void updatePasswordEmail() {
+        String newPassword = RandomStringUtils.randomAlphanumeric(10, 16);
+        userMapper.updatePasswordByEmail(user.getEmail(), newPassword);
+        User updatedUser = userMapper.queryUserByEmail(user.getEmail());
+        assertThat(updatedUser.getPassword(), equalTo(newPassword));
+        assertThat(updatedUser.getPassword(), not(equalTo(user.getPassword())));
+
     }
 }

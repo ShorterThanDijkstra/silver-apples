@@ -18,8 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.mail.MessagingException;
 
-import static backend.mwvb.service.UserLoginService.LOGIN_JWT_CLAIMS_KEY;
-import static backend.mwvb.service.UserLoginService.LOGIN_JWT_SUBJECT;
 import static backend.mwvb.service.UserRegisterService.*;
 import static backend.mwvb.test_util.UserTestUtil.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -103,7 +101,7 @@ class UserRegisterServiceImplTest {
     }
 
     @Test
-    void registerWithOtherToken() throws MessagingException {
+    void registerWithBadToken1() throws MessagingException {
         val user = randomUser();
         UserTestUtil.register(registerService, user);
 
@@ -115,4 +113,13 @@ class UserRegisterServiceImplTest {
         registerInfo.setToken(otherToken);
         assertThrows(UserRegisterException.class, () -> registerService.complete(registerInfo));
     }
+
+    @Test
+    void registerWithBadToken0() {
+        RegisterInfo info = genRegisterInfo();
+        String jwtToken = CommonJWTUtils.create("email", jwtKey, REGISTER_INFO_EXPIRE);
+        info.setToken(jwtToken);
+        assertThrows(UserRegisterException.class, () -> registerService.complete(info));
+    }
+
 }

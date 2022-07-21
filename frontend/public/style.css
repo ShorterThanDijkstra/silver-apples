@@ -59,16 +59,17 @@
 .flex {
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: flex-start;
 }
 
 .button-right {
 }
 
-@media (min-width: 35em) {
+@media (min-width: 50em) {
     .button-right {
-        margin-left: auto;
-    }
+        margin: auto;
+        align-self: auto;
+      }
 }
 
 .main {
