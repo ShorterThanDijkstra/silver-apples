@@ -67,7 +67,7 @@ class UserRegisterControllerTest {
         RegisterInfo registerInfo = request();
         registerInfo.setUsername(RandomStringUtils.randomAlphanumeric(3));
         val response = postWithoutTokenSuccessfully(API + "/complete", registerInfo);
-        assertBody(response,"code", is(HttpStatus.BAD_REQUEST.value()), "data", is("用户名长度至少为5"));
+        assertBody(response,"code", is(HttpStatus.BAD_REQUEST.value()), "data", is("用户名长度应至少为5"));
     }
 
     @Test
@@ -76,7 +76,7 @@ class UserRegisterControllerTest {
         registerInfo.setPassword(RandomStringUtils.randomAlphanumeric(8));
 
         val response = postWithoutTokenSuccessfully(API + "/complete", registerInfo);
-        assertBody(response,"code", is(HttpStatus.BAD_REQUEST.value()), "data", is("密码长度至少为10"));
+        assertBody(response,"code", is(HttpStatus.BAD_REQUEST.value()), "data", is("密码长度应至少为10"));
 
     }
 

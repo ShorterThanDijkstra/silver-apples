@@ -14,21 +14,20 @@
         <template #title>Introduction</template>
       </elMenuItem>
       <el-sub-menu
-          class="sub-menu"
-          v-for="(group, i) in 3"
-          :key="i"
-          :index="String(i)"
+        class="sub-menu"
+        v-for="(group, i) in 3"
+        :key="i"
+        :index="String(i)"
       >
         <template #title>Unit {{ group * 10 - 9 }}-{{ group * 10 }}</template>
         <el-menu-item
-            v-for="unit_index in 10"
-            :key="unit_index"
-            :index="String(group * 10 + unit_index - 10)"
+          v-for="unit_index in 10"
+          :key="unit_index"
+          :index="String(group * 10 + unit_index - 10)"
         >
           unit {{ group * 10 + unit_index - 10 }}
         </el-menu-item>
       </el-sub-menu>
-
     </el-sub-menu>
 
     <div class="flex-grow"></div>
@@ -37,7 +36,10 @@
       <el-menu-item v-if="userToken === null" index="login"
         >Sign in</el-menu-item
       >
-      <el-menu-item v-else index="logout">Sign out</el-menu-item>
+      <div v-else>
+        <el-menu-item index="logout">Sign out</el-menu-item>
+        <el-menu-item index="resetPassord">Change password</el-menu-item>
+      </div>
     </el-sub-menu>
 
     <elMenuItem index="home">
@@ -72,12 +74,19 @@ export default {
         this.home();
         return;
       }
+      if (key === "resetPassord") {
+        this.resetPassword();
+        return;
+      }
       this.unit(key);
     },
     login() {
       this.$router.push({
         name: "Login",
       });
+    },
+    resetPassword() {
+      this.$router.push({ name: "ResetPasswordRequest" });
     },
     logout() {
       ElMessageBox.confirm("Logout?", "", {
@@ -115,7 +124,7 @@ export default {
   flex-wrap: wrap;
   border: none;
 }
-.flex-grow{
+.flex-grow {
   flex-grow: 2;
 }
 /*.el-menu--horizontal>.el-menu-item.is-active{*/

@@ -52,6 +52,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
             verifySubject(claims, UserLoginService.LOGIN_JWT_SUBJECT);
 
             String userId = claims.get(UserLoginService.LOGIN_JWT_CLAIMS_KEY, String.class);
+
             AuthUser cachedAuthUser = authUserCacheService.getCachedAuthUser(userId);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(cachedAuthUser, null, cachedAuthUser.getAuthorities());

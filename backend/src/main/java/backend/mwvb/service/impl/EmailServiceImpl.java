@@ -26,7 +26,7 @@ public class EmailServiceImpl implements EmailService {
     @Value("${com.maerd_zinbiel.silver-apples.email.register-complete-url}")
     private String registerCompleteEmailUrl;
     @Value("${com.maerd_zinbiel.silver-apples.email.send}")
-    private Boolean testMode;
+    private Boolean send;
     @Value("${com.maerd_zinbiel.silver-apples.email.change-password-url}")
     private String changePasswordEmailUrl;
     public void sendHtmlEmail(Email email) throws MessagingException {
@@ -64,7 +64,7 @@ public class EmailServiceImpl implements EmailService {
     @Async
     public void sendRegisterCompleteEmail(String jwtToken, String emailAddr) throws MessagingException {
 
-        if (testMode) {
+        if (!send) {
             return;
         }
         Email email = buildRegisterCompleteEmail(jwtToken, emailAddr);
@@ -74,7 +74,7 @@ public class EmailServiceImpl implements EmailService {
     @Override
     @Async
     public void sendChangePasswordEmail(String jwtToken, String emailAddr) throws MessagingException {
-        if (testMode) {
+        if (!send) {
             return;
         }
         Email email = buildChangePasswordEmail(jwtToken, emailAddr);
@@ -86,7 +86,7 @@ public class EmailServiceImpl implements EmailService {
         String content = body(
                 div(
                         p("Click the link below to reset your password: "),
-                        a("reset password").withHref(url)
+                        a("Reset Password").withHref(url)
                 )
         ).render();
         return Email.builder()

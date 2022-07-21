@@ -1,5 +1,6 @@
 package backend.mwvb.util;
 
+import backend.mwvb.exception.UserRegisterException;
 import io.jsonwebtoken.*;
 import lombok.val;
 
@@ -9,6 +10,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Function;
 
 public class CommonJWTUtils {
     private static String lastToken;
@@ -97,4 +99,15 @@ public class CommonJWTUtils {
                 .parseClaimsJws(jwtToken)
                 .getBody();
     }
+
+    public static String parse(String jwtToken, String jwtKey, String subject, String key, Function<String, RuntimeException> exception) throws UserRegisterException {
+        try {
+            Claims claims = parse(jwtToken, jwtKey);
+            verifySubject(claims, subject);
+            return claims.get(key, String.class);
+        } catch (JwtException e) {
+            throw exception.apply(e.toString());
+        }
+    }
+
 }

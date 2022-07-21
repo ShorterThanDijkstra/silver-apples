@@ -69,8 +69,17 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: () => import('@/views/SignIn.vue')
+    },
+    {
+        path: '/reset-password-request',
+        name: 'ResetPasswordRequest',
+        component: () => import('@/views/ResetPasswordRequest.vue')
+    },
+    {
+        path: '/change-password-complete',
+        name: 'ResetPasswordComplete',
+        component: () => import('@/views/ResetPasswordComplete.vue')
     }
-
 ]
 const router = createRouter({
     history: createWebHistory(),

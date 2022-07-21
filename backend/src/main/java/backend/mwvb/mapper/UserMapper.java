@@ -33,5 +33,6 @@ public interface UserMapper {
     @ResultMap({"userMap"})
     User queryUserByName(@Param("username") String username);
 
-
+    @Update(" UPDATE sys_user SET passwd = #{password} WHERE email = #{email}")
+    void updatePasswordByEmail(@Param("email") String email, @Param("password") String password);
 }
