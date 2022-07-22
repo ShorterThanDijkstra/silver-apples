@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.TestPropertySource;
 
 import javax.mail.MessagingException;
 import java.util.Map;
@@ -20,6 +21,7 @@ import static backend.mwvb.test_util.RestAssuredTestUtil.*;
 import static backend.mwvb.test_util.UserTestUtil.*;
 import static org.hamcrest.Matchers.is;
 
+@TestPropertySource(locations = "classpath:test.properties")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class UserRegisterControllerTest {
     private static final String API = "http://localhost:8080/api/v1.0/user/register";

@@ -49,9 +49,9 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
     private void authenUser(String token) {
         try {
             Claims claims = CommonJWTUtils.parse(token, jwtKey);
-            verifySubject(claims, UserLoginService.LOGIN_JWT_SUBJECT);
+            verifySubject(claims, UserLoginService.USER_AUTH_JWT_SUBJECT);
 
-            String userId = claims.get(UserLoginService.LOGIN_JWT_CLAIMS_KEY, String.class);
+            String userId = claims.get(UserLoginService.USER_AUTH_JWT_CLAIMS_KEY, String.class);
 
             AuthUser cachedAuthUser = authUserCacheService.getCachedAuthUser(userId);
             UsernamePasswordAuthenticationToken authenticationToken =

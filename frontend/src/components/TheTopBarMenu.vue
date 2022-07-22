@@ -56,7 +56,7 @@ export default {
     ...mapGetters(["userToken"]),
   },
   methods: {
-    ...mapMutations(["clearUserToken"]),
+    ...mapMutations(["clearUser"]),
     handleSelect(key, keyPath) {
       if (key === "intro") {
         this.intro();
@@ -95,7 +95,7 @@ export default {
         type: "info",
       })
         .then(() => {
-          this.clearUserToken();
+          this.clearUser();
           this.$router.go();
         })
         .catch(() => {});

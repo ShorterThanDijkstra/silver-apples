@@ -43,12 +43,16 @@ public class UserLoginServiceImpl implements UserLoginService {
 
         Integer userId = authUser.getUser().getId();
         String jwtToken = CommonJWTUtils.create(
-                LOGIN_JWT_SUBJECT,
+                USER_AUTH_JWT_SUBJECT,
                 jwtKey,
-                Map.of(LOGIN_JWT_CLAIMS_KEY, String.valueOf(userId))
+                Map.of(USER_AUTH_JWT_CLAIMS_KEY, String.valueOf(userId))
         );
         authUserCacheService.cacheAuthUserByUserId(authUser);
-        Map<String, String> result = Map.of("token", jwtToken);
+        Map<String, String> result = Map.of(
+                "token", jwtToken,
+                "email",authUser.getUser().getEmail(),
+                "username", authUser.getUser().getUsername()
+                );
         return Response.success(result);
     }
 

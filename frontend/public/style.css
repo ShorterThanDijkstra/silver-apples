@@ -24,8 +24,8 @@
 
 @media (min-width: 50em) {
     .container {
-        margin-left: calc(25vw + 1em);
-        margin-right: calc(25vw + 1em);
+        margin-left: calc(20vw + 1em);
+        margin-right: calc(20vw + 1em);
         font-size: 1.5rem;
 
     }

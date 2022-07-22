@@ -56,6 +56,15 @@ const routes = [
         },
     },
     {
+        path: '/make-sentences/:spell',
+        name: 'MakeSentences',
+        component: () => import('@/views/WordSentences.vue'),
+        meta: {
+            requireAuth: true,
+        },
+        props: true
+    },
+    {
         path: '/register-complete',
         name: 'RegisterComplete',
         component: () => import('@/views/SignUpComplete.vue'),

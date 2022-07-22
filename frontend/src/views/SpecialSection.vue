@@ -10,6 +10,7 @@
           v-for="(word, index) in specialSectionOfCurrentUnit"
           :key="index"
           :word="word"
+          :specialSection="true"
       ></WordCard>
     </div>
 

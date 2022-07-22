@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-const USER_TOKEN_LOCALSTORAGE_KEY = "USER_TOKEN_LOCALSTORAGE_KEY";
+const USER_LOCALSTORAGE_KEY = "USER_LOCALSTORAGE_KEY";
 const store = createStore({
     state() {
         return {
@@ -8,6 +8,8 @@ const store = createStore({
             currentRootIndex: -1,
             currentUnitIndex: -1,
             user: {
+                username: "",
+                email: "",
                 token: ""
             }
         }
@@ -39,13 +41,13 @@ const store = createStore({
         setTheIntro(state, intro) {
             state.theIntro = intro;
         },
-        setUserToken(state, token) {
-            window.localStorage.setItem(USER_TOKEN_LOCALSTORAGE_KEY, token)
-            state.user.token = token;
+        setUser(state, user) {
+            localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(user))
+            state.user = user;
         },
-        clearUserToken(state) {
-            window.localStorage.removeItem(USER_TOKEN_LOCALSTORAGE_KEY)
-            state.user.token = ""
+        clearUser(state) {
+            localStorage.removeItem(USER_LOCALSTORAGE_KEY)
+            state.user = {}
         }
     },
     // actions: {
@@ -77,11 +79,24 @@ const store = createStore({
             return unit.roots[state.currentRootIndex]
         },
         currentUnitCache: (state) => state.allUnits[state.currentUnitIndex],
-        userToken: (state) => {
-            if (state.user.token) {
-                return state.user.token;
+        userToken: (state, getters) => {
+            const user = getters.userCache
+            if (user) {
+                return user.token
             }
-            return window.localStorage.getItem(USER_TOKEN_LOCALSTORAGE_KEY)
+        },
+        userCache: (state) => {
+            if (state.user.token && state.user.username && state.user.email) {
+                return state.user;
+            }
+            const user = localStorage.getItem(USER_LOCALSTORAGE_KEY)
+            if (user) { return JSON.parse(user) }
+
+        },
+        findWordInCurrentRoot: (state) => (name) => {
+            const unit = state.allUnits[state.currentUnitIndex];
+            const words = unit.roots[state.currentRootIndex].words
+            return words.find(word => word.spell === name)
         }
     }
 })

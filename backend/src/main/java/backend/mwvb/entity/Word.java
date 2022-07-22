@@ -14,4 +14,28 @@ public class Word {
     private final String explain;
     private final String detail;
     private List<Sentence> sentences;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getSpell() {
+        return spell;
+    }
+
+    public String getExplain() {
+        return explain;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public List<Sentence> getSentences() {
+        return sentences;
+    }
+
+    public void setSentences(List<Sentence> sentences) {
+        this.sentences = sentences;
+    }
 }

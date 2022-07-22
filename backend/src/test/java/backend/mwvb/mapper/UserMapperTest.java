@@ -1,16 +1,18 @@
 package backend.mwvb.mapper;
 
 import backend.mwvb.entity.User;
+import lombok.val;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.time.OffsetDateTime;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-
+@TestPropertySource(locations = "classpath:test.properties")
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UserMapperTest {
@@ -92,6 +94,13 @@ class UserMapperTest {
         User updatedUser = userMapper.queryUserByEmail(user.getEmail());
         assertThat(updatedUser.getPassword(), equalTo(newPassword));
         assertThat(updatedUser.getPassword(), not(equalTo(user.getPassword())));
+    }
 
+    @Test
+    @Order(7)
+    public void queryUserById() {
+        val userByName = userMapper.queryUserByName(UserMapperTest.user.getUsername());
+        val userById = userMapper.queryUserById(userByName.getId());
+        assertThat(userById, equalTo(userByName));
     }
 }
