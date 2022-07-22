@@ -55,7 +55,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["clearUserToken"]),
+    ...mapMutations(["clearUser"]),
     fail(msg) {
       ElMessage.error(msg);
     },
@@ -64,7 +64,7 @@ export default {
         message: "修改密码成功",
         type: "success",
       });
-      this.clearUserToken();
+      this.clearUser();
       this.$router.push({
         name: "Login",
       });

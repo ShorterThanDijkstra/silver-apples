@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.TestPropertySource;
 
 import javax.mail.MessagingException;
 import java.util.Map;
@@ -21,6 +22,7 @@ import static backend.mwvb.test_util.UserTestUtil.user2loginInfo;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 
+@TestPropertySource(locations = "classpath:test.properties")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class UserLoginControllerTest {
     private static final String API = "http://localhost:8080/api/v1.0";
@@ -39,6 +41,8 @@ class UserLoginControllerTest {
         String token = CommonJWTUtils.lastToken();
 
         assertBody(response, "data.token", equalTo(token));
+        assertBody(response, "data.email", equalTo(user.getEmail()));
+        assertBody(response, "data.username", equalTo(user.getUsername()));
 
         getWithTokenSuccessfully(API + "/book/quizzes/13", token);
     }

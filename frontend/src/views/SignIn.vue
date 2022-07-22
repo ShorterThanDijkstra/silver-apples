@@ -51,7 +51,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["setUserToken"]),
+    ...mapMutations(["setUser"]),
     fail(msg) {
       ElMessage.error(msg);
     },
@@ -60,7 +60,12 @@ export default {
         message: "Congrats, you are successfully logged in.",
         type: "success",
       });
-      this.setUserToken(data.token);
+      const user = {
+        username: data.username,
+        email: data.email,
+        token: data.token,
+      };
+      this.setUser(user);
       if (this.$route.query.redirect) {
         this.$router.push(this.$route.query.redirect);
       } else {

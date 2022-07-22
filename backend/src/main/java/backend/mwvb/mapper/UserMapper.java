@@ -33,6 +33,13 @@ public interface UserMapper {
     @ResultMap({"userMap"})
     User queryUserByName(@Param("username") String username);
 
+    // TODO: 2022/7/22 test
+    @Select(" SELECT EXISTS(SELECT id FROM sys_user WHERE id=#{id}) ")
+    boolean idExist(@Param("id") Integer id);
+
+    @Select(" SELECT id, username, passwd, email, create_time FROM sys_user WHERE id=#{userId}")
+    @ResultMap({"userMap"})
+    User queryUserById(@Param("userId") Integer userId);
     @Update(" UPDATE sys_user SET passwd = #{password} WHERE email = #{email}")
     void updatePasswordByEmail(@Param("email") String email, @Param("password") String password);
 }

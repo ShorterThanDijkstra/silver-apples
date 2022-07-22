@@ -1,22 +1,33 @@
 <template>
   <el-card class="word-card">
-    <div class="card-header">
+    <div class="card-header flex">
       <span>{{ word.spell }}</span>
+      <button
+        v-show="!specialSection"
+        class="button button-right"
+        @click="makeSentences"
+      >
+        make sentences
+      </button>
     </div>
-    <hr/>
+    <hr />
     <div class="card-body">
       <div>
         <div>
           <div class="flex">
             <span>explain :</span>
-            <button class="button  button-right" role="button" @click="hideOrShow('explain')">
+            <button
+              class="button button-right"
+              role="button"
+              @click="hideOrShow('explain')"
+            >
               <span v-if="explainShow">hide</span>
               <span v-else>show</span>
             </button>
           </div>
         </div>
         <p v-show="explainShow">{{ word.explain }}</p>
-        <hr/>
+        <hr />
       </div>
 
       <div>
@@ -24,9 +35,9 @@
           <div class="flex">
             <span>background : </span>
             <button
-                class="button button-right"
-                role="button"
-                @click="hideOrShow('detail')"
+              class="button button-right"
+              role="button"
+              @click="hideOrShow('detail')"
             >
               <span v-if="detailShow">hide</span>
               <span v-else>show</span>
@@ -34,18 +45,17 @@
           </div>
         </div>
         <p v-show="detailShow">{{ word.detail }}</p>
-        <hr/>
+        <hr />
       </div>
 
       <div>
         <div>
           <div class="flex">
-            <span>sentences : </span
-            >
+            <span>sentences : </span>
             <button
-                class="button button-right"
-                role="button"
-                @click="hideOrShow('sentences')"
+              class="button button-right"
+              role="button"
+              @click="hideOrShow('sentences')"
             >
               <span v-if="sentencesShow">hide</span>
               <span v-else>show</span>
@@ -63,10 +73,13 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from "vue";
-
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { mapGetters } from "vuex";
+const router = useRouter();
 const props = defineProps<{
   word: Object;
+  specialSection: boolean;
 }>();
 
 let explainShow = ref(false);
@@ -81,11 +94,20 @@ const hideOrShow = (item: String) => {
     explainShow.value = !explainShow.value;
   }
 };
+const makeSentences = () => {
+  if (!props.specialSection.valueOf()) {
+    router.push({
+      name: "MakeSentences",
+      params: {
+        spell: props.word.spell,
+      },
+    });
+  }
+};
 </script>
 <style scoped>
 .button.button-right {
   margin-left: auto;
   margin-top: 0;
 }
-
 </style>

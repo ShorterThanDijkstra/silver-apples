@@ -16,6 +16,7 @@
           v-for="(word, index) in currentRootCache.words"
           :key="index"
           :word="word"
+          :specialSection="false"
       ></WordCard>
     </div>
   </div>

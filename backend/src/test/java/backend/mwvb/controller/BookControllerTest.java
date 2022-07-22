@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import javax.mail.MessagingException;
 
@@ -18,6 +19,7 @@ import static backend.mwvb.test_util.UserTestUtil.login;
 import static backend.mwvb.test_util.UserTestUtil.registerRandomUser;
 import static org.hamcrest.Matchers.*;
 
+@TestPropertySource(locations = "classpath:test.properties")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class BookControllerTest {
     @Autowired

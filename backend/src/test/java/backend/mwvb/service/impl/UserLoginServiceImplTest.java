@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.TestPropertySource;
 
 import javax.mail.MessagingException;
 
@@ -20,6 +21,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
+@TestPropertySource(locations = "classpath:test.properties")
 @SpringBootTest
 class UserLoginServiceImplTest {
     @Autowired
@@ -46,13 +48,13 @@ class UserLoginServiceImplTest {
         val token = result.getData().get("token");
         val claims = CommonJWTUtils.parse(token, jwtKey);
         val subject = claims.getSubject();
-        val userId = claims.get(UserLoginService.LOGIN_JWT_CLAIMS_KEY, String.class);
+        val userId = claims.get(UserLoginService.USER_AUTH_JWT_CLAIMS_KEY, String.class);
 
         assertThat(randomUser.getEmail(), equalTo(userFromDB.getEmail()));
         assertThat(randomUser.getUsername(), equalTo(userFromDB.getUsername()));
         assertThat(passwordEncoder.matches(randomUser.getPassword(), userFromDB.getPassword()), is(true));
 
-        assertThat(subject, equalTo(UserLoginService.LOGIN_JWT_SUBJECT));
+        assertThat(subject, equalTo(UserLoginService.USER_AUTH_JWT_SUBJECT));
         assertThat(Integer.valueOf(userId), equalTo(userFromDB.getId()));
 
     }
