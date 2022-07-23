@@ -1,4 +1,4 @@
-create table if not exists the_intro
+create table the_intro
 (
     paragraph varchar default ''::character varying not null
 );
@@ -6,7 +6,7 @@ create table if not exists the_intro
 alter table the_intro
     owner to postgres;
 
-create table if not exists unit
+create table unit
 (
     id    serial
         constraint unit_pk
@@ -17,7 +17,7 @@ create table if not exists unit
 alter table unit
     owner to postgres;
 
-create table if not exists root
+create table root
 (
     id          serial
         constraint root_pk
@@ -32,7 +32,7 @@ create table if not exists root
 alter table root
     owner to postgres;
 
-create table if not exists quiz
+create table quiz
 (
     id      serial
         constraint quiz_pk
@@ -45,7 +45,7 @@ create table if not exists quiz
 alter table quiz
     owner to postgres;
 
-create table if not exists word
+create table word
 (
     id      serial
         constraint word_pk
@@ -61,7 +61,7 @@ create table if not exists word
 alter table word
     owner to postgres;
 
-create table if not exists sentence
+create table sentence
 (
     id      serial
         constraint sentence_pk
@@ -75,7 +75,7 @@ create table if not exists sentence
 alter table sentence
     owner to postgres;
 
-create table if not exists special_section_word
+create table special_section_word
 (
     id      serial
         constraint special_section_word_pk
@@ -91,7 +91,7 @@ create table if not exists special_section_word
 alter table special_section_word
     owner to postgres;
 
-create table if not exists simple_quiz_page
+create table simple_quiz_page
 (
     id      serial
         constraint simple_quiz_page_pk
@@ -105,7 +105,7 @@ create table if not exists simple_quiz_page
 alter table simple_quiz_page
     owner to postgres;
 
-create table if not exists simple_quiz_page_answer
+create table simple_quiz_page_answer
 (
     id      serial
         constraint simple_quiz_page_answer_pk
@@ -119,7 +119,7 @@ create table if not exists simple_quiz_page_answer
 alter table simple_quiz_page_answer
     owner to postgres;
 
-create table if not exists special_section_sentence
+create table special_section_sentence
 (
     id                      serial
         constraint special_section_sentence_pk
@@ -131,5 +131,46 @@ create table if not exists special_section_sentence
 );
 
 alter table special_section_sentence
+    owner to postgres;
+
+create table sys_user
+(
+    id          serial
+        constraint sys_user_pk
+            primary key,
+    username    varchar(32)              not null,
+    passwd      varchar(128)             not null,
+    email       varchar(64)              not null,
+    create_time timestamp with time zone not null
+);
+
+alter table sys_user
+    owner to postgres;
+
+create unique index sys_user_id_uindex
+    on sys_user (id);
+
+create unique index sys_user_name_uindex
+    on sys_user (username);
+
+create unique index sys_user_email_uindex
+    on sys_user (email);
+
+create table user_word_practice
+(
+    id          serial
+        constraint user_word_practice_pk
+            primary key,
+    user_id     serial
+        constraint user_word_practice_sys_user_id_fk
+            references sys_user,
+    word_id     serial
+        constraint user_word_practice_word_id_fk
+            references word,
+    sentence    text                     not null,
+    create_time timestamp with time zone not null
+);
+
+alter table user_word_practice
     owner to postgres;
 
