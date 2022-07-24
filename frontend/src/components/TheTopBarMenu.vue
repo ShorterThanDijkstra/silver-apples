@@ -33,13 +33,8 @@
     <div class="flex-grow"></div>
     <el-sub-menu index="user">
       <template #title>User</template>
-      <el-menu-item v-if="userToken === null" index="login"
-        >Sign in</el-menu-item
-      >
-      <div v-else>
-        <el-menu-item index="logout">Sign out</el-menu-item>
-        <el-menu-item index="resetPassord">Change password</el-menu-item>
-      </div>
+      <el-menu-item index="logout">Sign out</el-menu-item>
+      <el-menu-item index="resetPassord">Change password</el-menu-item>
     </el-sub-menu>
 
     <elMenuItem index="home">
@@ -48,13 +43,10 @@
   </el-menu>
 </template>
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 import { ElMessageBox } from "element-plus";
 
 export default {
-  computed: {
-    ...mapGetters(["userToken"]),
-  },
   methods: {
     ...mapMutations(["clearUser"]),
     handleSelect(key, keyPath) {
