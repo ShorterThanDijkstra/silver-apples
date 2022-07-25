@@ -65,6 +65,15 @@ const routes = [
         props: true
     },
     {
+        path: '/user-statistic/:username',
+        name:'UserStatistic',
+        component:() => import('@/views/UserStatistic.vue'),
+        meta: {
+            requireAuth: true,
+        },
+        props: true
+    },
+    {
         path: '/register-complete',
         name: 'RegisterComplete',
         component: () => import('@/views/SignUpComplete.vue'),
@@ -88,7 +97,7 @@ const routes = [
         path: '/change-password-complete',
         name: 'ResetPasswordComplete',
         component: () => import('@/views/ResetPasswordComplete.vue')
-    }
+    },
 ]
 const router = createRouter({
     history: createWebHistory(),

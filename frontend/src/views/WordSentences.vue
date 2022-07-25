@@ -17,22 +17,22 @@
   <hr />
 
   <div class="grid">
-    <UserWordPracticeCard
+    <UserPracticeWordCard
       v-for="(practice, index) in practices"
       :key="index"
       :practice="practice"
     >
-    </UserWordPracticeCard>
+    </UserPracticeWordCard>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { ElMessage } from "element-plus";
-import UserWordPracticeCard from "@/components/UserWordPracticeCard.vue";
+import UserPracticeWordCard from "@/components/UserPracticeWordCard.vue";
 export default {
   components: {
-    UserWordPracticeCard,
+    UserPracticeWordCard,
   },
 
   props: ["spell"],
@@ -54,6 +54,7 @@ export default {
       ElMessage({
         message: "submit successfully",
         type: "success",
+        duration: 1000
       });
       this.sentence = "";
       this.formVisible = false;

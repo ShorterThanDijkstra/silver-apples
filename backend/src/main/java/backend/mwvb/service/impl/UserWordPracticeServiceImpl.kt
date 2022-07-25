@@ -1,7 +1,9 @@
 package backend.mwvb.service.impl
 
 import backend.mwvb.entity.AuthUser
+import backend.mwvb.entity.UserWordActivity
 import backend.mwvb.entity.UserWordPractice
+import backend.mwvb.exception.UserInfoValidateException
 import backend.mwvb.exception.UserWordPracticeException
 import backend.mwvb.mapper.UserMapper
 import backend.mwvb.mapper.UserWordPracticeMapper
@@ -20,9 +22,15 @@ class UserWordPracticeServiceImpl(
 ) :
     UserWordPracticeService {
     override fun add(practice: UserWordPractice) {
+        setUser(practice)
         validate(practice)
         practice.createTime = OffsetDateTime.now(Clock.systemUTC())
         userWordPracticeMapper.insert(practice)
+    }
+
+    private fun setUser(practice: UserWordPractice) {
+        val authUser = SecurityContextHolder.getContext().authentication.principal as AuthUser
+        practice.user = authUser.user
     }
 
     override fun allPracticesOfWord(wordId: Int): List<UserWordPractice> {
@@ -34,8 +42,6 @@ class UserWordPracticeServiceImpl(
 
 
     private fun validate(practice: UserWordPractice) {
-        val authUser = SecurityContextHolder.getContext().authentication.principal as AuthUser
-        practice.user = authUser.user
         with(practice) {
             when {
                 user == null || user?.id == null -> throw UserWordPracticeException("Bad User")

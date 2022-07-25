@@ -62,6 +62,13 @@ public class RestAssuredTestUtil {
                 .statusCode(equalTo(HttpStatus.FORBIDDEN.value()));
     }
 
+    public static void getWithTokenBadRequest(String url, String token) {
+        getWithToken(url, token)
+                .then()
+                .assertThat()
+                .statusCode(equalTo(HttpStatus.BAD_REQUEST.value()));
+    }
+
     public static ValidatableResponse getWithoutTokenSuccessfully(String url) {
         return RestAssured.given()
                 .get(url)
