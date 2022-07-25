@@ -35,6 +35,7 @@
       <template #title>User</template>
       <el-menu-item index="logout">Sign out</el-menu-item>
       <el-menu-item index="resetPassord">Change password</el-menu-item>
+      <el-menu-item index="user-statistic">Statistic</el-menu-item>
     </el-sub-menu>
 
     <elMenuItem index="home">
@@ -43,10 +44,12 @@
   </el-menu>
 </template>
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { ElMessageBox } from "element-plus";
-
 export default {
+  computed: {
+    ...mapGetters(["userCache"]),
+  },
   methods: {
     ...mapMutations(["clearUser"]),
     handleSelect(key, keyPath) {
@@ -70,11 +73,21 @@ export default {
         this.resetPassword();
         return;
       }
+      if (key === "user-statistic") {
+        this.userStatistic();
+        return;
+      }
       this.unit(key);
     },
     login() {
       this.$router.push({
         name: "Login",
+      });
+    },
+    userStatistic() {
+      this.$router.push({
+        name: "UserStatistic",
+        params: { username: this.userCache.username },
       });
     },
     resetPassword() {

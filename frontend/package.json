@@ -13,6 +13,7 @@
     "vue": "^3.2.25",
     "vue-axios": "^3.4.1",
     "vue-router": "^4.0.14",
+    "vue3-calendar-heatmap": "^2.0.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

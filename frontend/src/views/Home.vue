@@ -40,7 +40,7 @@
 </template>
 <style scoped>
 .about-book {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 .source-code .button {
   width: 6em;
@@ -48,7 +48,7 @@
 .about-book > img {
   max-width: 9em;
   float: right;
-  margin-right: 1em;
+  margin-left: 1em;
   height: auto;
 }
 @media (min-width: 50em) {

@@ -25,7 +25,7 @@ class UserMapperTest {
         user = randomUser();
     }
 
-    private static User randomUser() {
+    public static User randomUser() {
         String name = RandomStringUtils.randomAlphanumeric(5, 10);
         String password = RandomStringUtils.randomAlphanumeric(10, 16);
         String emailPrefix = RandomStringUtils.randomAlphanumeric(5, 10);

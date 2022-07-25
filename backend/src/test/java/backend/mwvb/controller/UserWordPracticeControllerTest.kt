@@ -1,6 +1,9 @@
 package backend.mwvb.controller
 
+import backend.mwvb.entity.User
+import backend.mwvb.entity.UserWordActivity
 import backend.mwvb.entity.UserWordPractice
+import backend.mwvb.mapper.UserMapper
 import backend.mwvb.mapper.UserWordPracticeMapper
 import backend.mwvb.mapper.WordMapper
 import backend.mwvb.service.UserLoginService
@@ -10,7 +13,7 @@ import backend.mwvb.test_util.UserTestUtil.login
 import backend.mwvb.test_util.UserTestUtil.registerRandomUser
 import backend.mwvb.test_util.randomSentence
 import org.hamcrest.CoreMatchers.*
-import org.hamcrest.MatcherAssert
+import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers
 import org.hamcrest.Matchers.emptyString
 import org.junit.jupiter.api.BeforeEach
@@ -18,6 +21,8 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.TestPropertySource
+import java.sql.Date
+import java.time.LocalDate
 
 @TestPropertySource(locations = ["classpath:test.properties"])
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -34,7 +39,12 @@ internal class UserWordPracticeControllerTest {
     @Autowired
     private lateinit var userWordPracticeMapper: UserWordPracticeMapper
 
+    @Autowired
+    private lateinit var userMapper: UserMapper
+
     private lateinit var token: String
+
+    private lateinit var user: User
 
     companion object {
         const val API: String = "http://localhost:8080/api/v1.0/book/word-practice"
@@ -42,12 +52,17 @@ internal class UserWordPracticeControllerTest {
 
     @BeforeEach
     internal fun setUp() {
-        val user = registerRandomUser(userRegisterService)
-        token = login(userLoginService, user)["token"].toString()
+        val randomUser = registerRandomUser(userRegisterService)
+        token = login(userLoginService, randomUser)["token"].toString()
+        user = userMapper.queryUserByName(randomUser.username)
     }
 
     @Test
     fun practice() {
+        val today = Date.valueOf(LocalDate.now())
+        var activities: List<UserWordActivity> = userWordPracticeMapper.queryActivitiesByUserId(user.id)
+        val beforeInsert = activities.find { it.date == today }
+        val beforeInsertCount = if (beforeInsert == null) 0 else beforeInsert.count
         val word = wordMapper.queryWordBySpell("elevation")
         val newPractice = UserWordPractice(word, randomSentence())
         val response = postWithTokenSuccessfully("$API/practice", token, newPractice)
@@ -59,7 +74,11 @@ internal class UserWordPracticeControllerTest {
             practice.word == newPractice.word &&
                     practice.sentence == newPractice.sentence
         }
-        MatcherAssert.assertThat(match, Matchers.`is`(true))
+        activities = userWordPracticeMapper.queryActivitiesByUserId(user.id)
+        val afterInsert = activities.find { it.date == today }
+        val afterInsertCount = if (afterInsert == null) 0 else afterInsert.count
+        assertThat(afterInsertCount - beforeInsertCount, `is`(1))
+        assertThat(match, Matchers.`is`(true))
     }
 
     @Test
@@ -69,6 +88,5 @@ internal class UserWordPracticeControllerTest {
         postWithTokenSuccessfully("$API/practice", token, newPractice)
         val response = getWithTokenSuccessfully("$API/practices/${word.id}", token)
         assertBody(response, "data", not(`is`(emptyString())))
-
     }
 }

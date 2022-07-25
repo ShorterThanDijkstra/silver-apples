@@ -3,9 +3,15 @@
     <div class="card-header flex">
       <el-avatar class="avatar" src="/favicon.png" />
       <span>
-        <a class="user">
+        <router-link
+          class="user"
+          :to="{
+            name: 'UserStatistic',
+            params: { username: practice.user.username },
+          }"
+        >
           {{ practice.user.username }}
-        </a>
+        </router-link>
       </span>
       <span class="right">
         {{ new Date(practice.createTime).toLocaleString() }}
@@ -33,5 +39,6 @@ const props = defineProps<{
 }
 .user {
   color: #555555;
+  text-decoration: none;
 }
 </style>
