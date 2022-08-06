@@ -1,10 +1,20 @@
 <template>
   <div class="title">
-    <h2>{{ username }}</h2>
+    <h2>{{ `${username}' activities` }}</h2>
   </div>
   <div class="activities">
     <UserWordActivity :username="username"></UserWordActivity>
   </div>
+  <div class="info">
+    <el-alert
+      description="Only counts words of the book"
+      type="info"
+      :closable="false"
+      show-icon
+      effect="dark"
+    />
+  </div>
+
   <div class="grid">
     <UserStatisticWordCard
       v-for="(practice, index) in practicesOfUser"
@@ -39,21 +49,24 @@ export default {
   mounted() {
     this.loadPracticesOfUser();
   },
-  created(){
-     this.$watch(
+  created() {
+    this.$watch(
       () => this.$route.params,
       (toParams, previousParams) => {
         if (this.$route.name === "UserStatistic") {
-          this.$router.go()
+          this.$router.go();
         }
       }
     );
-  }
+  },
 };
 </script>
 
 <style scoped>
-.activities{
+.activities {
   margin: 1em 0 2em 0;
+}
+.info{
+  margin-bottom: 0.5em;
 }
 </style>

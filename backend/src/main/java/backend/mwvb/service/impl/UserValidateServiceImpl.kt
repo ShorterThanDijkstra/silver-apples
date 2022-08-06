@@ -2,6 +2,7 @@ package backend.mwvb.service.impl
 
 import backend.mwvb.exception.UserInfoValidateException
 import backend.mwvb.service.UserValidateService
+import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
 import javax.mail.internet.AddressException
 import javax.mail.internet.InternetAddress

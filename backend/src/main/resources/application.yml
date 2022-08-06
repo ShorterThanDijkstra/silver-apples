@@ -3,6 +3,8 @@ jasypt:
     private-key-format: pem
     private-key-location: classpath:jasypt/privatepkcs8.pem
 spring:
+  main:
+    lazy-initialization: true
   datasource:
     url: jdbc:postgresql://172.17.0.2:5432/mwvb
     username: ENC(mey4nOSinR9AWbhc72STQLeaiQJwkUNGZIwfFqtYQyR94xoblGBAhZQbZQMm3er3M95vJNzvga34bXonEeZt5JBSXyFvvMaFpfApG9VA6OpXBaXmyB5DMrk+Fo182+GY6mqWaua38mhFskDOV/buhSzEW7akh6RrFntzfZMUDiJVb0+uduKW0Y//vOadOtfTKBFcuNOuBkARw8ETatwzUED1OB+Q4+PDVdFUSAylzYCdLccKNpZ2sOHPeTx8J36lm7CcndLB0oHfK1NlwmPq/BYEevLxQ+04phThTjkqR7aoiY0CtO6BQTfPKvZ8gEw2XDFE3aChJgH1WyF9cLCsbg==)
@@ -16,7 +18,6 @@ spring:
     host: 172.17.0.3
     port: 6379
     database: 0
-
 
 com:
   maerd_zinbiel:

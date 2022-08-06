@@ -15,30 +15,30 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public Response<String> handler(Exception ex) {
         log.error(ex.getClass().getName() + ": " + ex.getMessage());
-        if (ex instanceof IllegalRequestException) {
-            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-        }
-        if (ex instanceof UserRegisterException) {
-            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-        }
-        if (ex instanceof UserQueryException) {
-            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-        }
-        if (ex instanceof UserLoginException) {
-            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-        }
-        if (ex instanceof UserAuthenticationException) {
-            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-        }
-        if (ex instanceof UserChangePasswordException) {
-            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-        }
-        if (ex instanceof UserInfoValidateException) {
-            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-        }
-        if (ex instanceof UserWordPracticeException) {
-            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-        }
+//        if (ex instanceof IllegalRequestException) {
+//            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+//        }
+//        if (ex instanceof UserRegisterException) {
+//            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+//        }
+//        if (ex instanceof UserQueryException) {
+//            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+//        }
+//        if (ex instanceof UserLoginException) {
+//            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+//        }
+//        if (ex instanceof UserAuthenticationException) {
+//            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+//        }
+//        if (ex instanceof UserChangePasswordException) {
+//            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+//        }
+//        if (ex instanceof UserInfoValidateException) {
+//            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+//        }
+//        if (ex instanceof UserWordPracticeException) {
+//            return Response.fail(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+//        }
         if (ex instanceof InternalAuthenticationServiceException) {
             String message = ex.getMessage();
             message = message.substring(message.lastIndexOf(":") + 1);

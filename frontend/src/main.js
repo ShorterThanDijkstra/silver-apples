@@ -8,7 +8,7 @@ import http from '@/http/http'
 
 const app = createApp(App);
 app.config.globalProperties.$http = http;
-app.config.globalProperties.$backend = "http://192.168.1.5:8080/api/v1.0";
+app.config.globalProperties.$backend = "http://192.168.1.7:8080/api/v1.0";
 
 app.use(store)
     .use(router)

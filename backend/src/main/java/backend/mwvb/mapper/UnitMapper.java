@@ -2,6 +2,7 @@ package backend.mwvb.mapper;
 
 import backend.mwvb.entity.Unit;
 import org.apache.ibatis.annotations.*;
+import org.springframework.context.annotation.Lazy;
 
 @Mapper
 public interface UnitMapper {

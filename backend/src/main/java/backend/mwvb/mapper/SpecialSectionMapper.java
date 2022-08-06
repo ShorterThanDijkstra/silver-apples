@@ -3,6 +3,7 @@ package backend.mwvb.mapper;
 import backend.mwvb.entity.SentenceOfSpecialSectionWord;
 import backend.mwvb.entity.WordOfSpecialSection;
 import org.apache.ibatis.annotations.*;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
 

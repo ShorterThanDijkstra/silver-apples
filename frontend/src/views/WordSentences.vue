@@ -2,8 +2,12 @@
   <div class="title">
     <h2>{{ spell }}</h2>
   </div>
-  <button class="button" @click="formVisible = true">Make a sentence</button>
-
+  <div class="flex">
+    <button class="button" @click="formVisible = true">Make a sentence</button>
+    <button class="button button-right" type="button" @click="$router.back()">
+      &#8592; back
+    </button>
+  </div>
   <el-dialog v-model="formVisible" :title="title">
     <el-input
       class="text"
@@ -15,7 +19,6 @@
     <button class="button" @click="submit">submit</button>
   </el-dialog>
   <hr />
-
   <div class="grid">
     <UserPracticeWordCard
       v-for="(practice, index) in practices"
@@ -37,7 +40,7 @@ export default {
 
   props: ["spell"],
   data() {
-    return { sentence: "", formVisible: false, practices: [] };
+    return { sentence: "", formVisible: true, practices: [] };
   },
   computed: {
     ...mapGetters(["findWordInCurrentRoot", "userCache"]),
@@ -54,7 +57,7 @@ export default {
       ElMessage({
         message: "submit successfully",
         type: "success",
-        duration: 1000
+        duration: 1000,
       });
       this.sentence = "";
       this.formVisible = false;
@@ -118,5 +121,8 @@ export default {
 }
 .text {
   margin-top: -1.5em;
+}
+.button.button-right{
+  margin-left: auto;
 }
 </style>
