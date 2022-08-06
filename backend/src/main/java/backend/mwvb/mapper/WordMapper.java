@@ -2,6 +2,7 @@ package backend.mwvb.mapper;
 
 import backend.mwvb.entity.Word;
 import org.apache.ibatis.annotations.*;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.List;
 

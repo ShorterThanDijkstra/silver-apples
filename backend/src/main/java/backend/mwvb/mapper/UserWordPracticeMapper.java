@@ -4,6 +4,7 @@ import backend.mwvb.entity.UserWordActivity;
 import backend.mwvb.entity.UserWordPractice;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+import org.springframework.context.annotation.Lazy;
 
 import java.time.OffsetDateTime;
 import java.util.List;

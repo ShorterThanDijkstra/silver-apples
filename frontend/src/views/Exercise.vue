@@ -2,16 +2,18 @@
   <div>
     <div class="head flex">
       <h1 class="title">Unit {{ $route.params.unit }}</h1>
-      <button class="button button-right" type="button" @click="$router.back()">&#8592; back</button>
+      <button class="button button-right" type="button" @click="$router.back()">
+        &#8592; back
+      </button>
     </div>
-    <br>
+    <br />
+    <div class="quiz-cards"></div>
     <QuizCard
       v-for="(quiz, index) in quizzesOfCurrentUnit"
       :quiz="quiz"
       :key="index"
     >
     </QuizCard>
-    
   </div>
 </template>
 
@@ -29,7 +31,10 @@ export default {
 </script>
 
 <style scoped>
-.button.button-right{
+.button.button-right {
   margin-left: auto;
+}
+.quiz-cards {
+  margin-top: -1em;
 }
 </style>

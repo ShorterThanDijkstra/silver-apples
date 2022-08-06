@@ -26,6 +26,15 @@ public class RestAssuredTestUtil {
                 .statusCode(equalTo(HttpStatus.OK.value()));
     }
 
+    public static ValidatableResponse deleteWithTokenSuccessfully(String url, String token) {
+        return RestAssured.given()
+                .header(TOKEN_HEADER_NAME, token)
+                .delete(url)
+                .then()
+                .assertThat()
+                .statusCode(equalTo(HttpStatus.OK.value()));
+    }
+
     public static ValidatableResponse postWithoutTokenSuccessfully(String url, Object data) {
         return RestAssured.given().
                 accept(ContentType.JSON).

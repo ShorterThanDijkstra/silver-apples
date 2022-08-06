@@ -29,7 +29,9 @@
         </el-menu-item>
       </el-sub-menu>
     </el-sub-menu>
-
+    <elMenuItem index="custom-words">
+      <template #title>Custom Words</template>
+    </elMenuItem>
     <div class="flex-grow"></div>
     <el-sub-menu index="user">
       <template #title>User</template>
@@ -39,7 +41,7 @@
     </el-sub-menu>
 
     <elMenuItem index="home">
-      <template #title>about</template>
+      <template #title>About</template>
     </elMenuItem>
   </el-menu>
 </template>
@@ -77,8 +79,18 @@ export default {
         this.userStatistic();
         return;
       }
+      if (key == "custom-words") {
+        this.userCustomWords();
+        return;
+      }
       this.unit(key);
     },
+    userCustomWords() {
+      this.$router.push({
+        name:'UserCustomWords'
+      })
+    },
+
     login() {
       this.$router.push({
         name: "Login",

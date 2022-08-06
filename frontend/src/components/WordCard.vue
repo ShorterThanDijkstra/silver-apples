@@ -15,7 +15,7 @@
       <div>
         <div>
           <div class="flex">
-            <span>explain :</span>
+            <span>explanation :</span>
             <button
               class="button button-right"
               role="button"

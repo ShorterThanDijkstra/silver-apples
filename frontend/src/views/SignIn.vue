@@ -64,6 +64,7 @@ export default {
         username: data.username,
         email: data.email,
         token: data.token,
+        id: parseInt(data.userId)
       };
       this.setUser(user);
       if (this.$route.query.redirect) {

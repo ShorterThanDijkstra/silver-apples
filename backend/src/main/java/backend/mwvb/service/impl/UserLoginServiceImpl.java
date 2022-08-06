@@ -50,9 +50,10 @@ public class UserLoginServiceImpl implements UserLoginService {
         authUserCacheService.cacheAuthUserByUserId(authUser);
         Map<String, String> result = Map.of(
                 "token", jwtToken,
-                "email",authUser.getUser().getEmail(),
-                "username", authUser.getUser().getUsername()
-                );
+                "email", authUser.getUser().getEmail(),
+                "username", authUser.getUser().getUsername(),
+                "userId", String.valueOf(authUser.getUser().getId())
+        );
         return Response.success(result);
     }
 

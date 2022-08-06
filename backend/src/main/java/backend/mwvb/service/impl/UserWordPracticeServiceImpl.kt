@@ -9,6 +9,7 @@ import backend.mwvb.mapper.UserMapper
 import backend.mwvb.mapper.UserWordPracticeMapper
 import backend.mwvb.mapper.WordMapper
 import backend.mwvb.service.UserWordPracticeService
+import org.springframework.context.annotation.Lazy
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.time.Clock

@@ -4,6 +4,7 @@ import backend.mwvb.entity.AuthUser;
 import backend.mwvb.exception.UserAuthenticationException;
 import backend.mwvb.service.AuthUserCacheService;
 import lombok.Data;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 

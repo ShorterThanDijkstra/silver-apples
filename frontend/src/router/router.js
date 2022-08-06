@@ -65,6 +65,15 @@ const routes = [
         props: true
     },
     {
+        path: '/custom-words',
+        name: 'UserCustomWords',
+        component: () => import('@/views/UserCustomWords.vue'),
+        meta: {
+            requireAuth: true,
+        },
+        props: true
+    },
+    {
         path: '/user-statistic/:username',
         name:'UserStatistic',
         component:() => import('@/views/UserStatistic.vue'),

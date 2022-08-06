@@ -3,6 +3,7 @@ package backend.mwvb.mapper;
 import backend.mwvb.entity.User;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+import org.springframework.context.annotation.Lazy;
 
 import java.time.OffsetDateTime;
 

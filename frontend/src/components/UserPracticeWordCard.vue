@@ -1,7 +1,7 @@
 <template>
   <el-card class="word-card">
     <div class="card-header flex">
-      <el-avatar class="avatar" src="/favicon.png" />
+      <el-avatar class="avatar" src="/user-default-icon.png" />
       <span>
         <router-link
           class="user"

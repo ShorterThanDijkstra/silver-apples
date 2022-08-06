@@ -2,7 +2,7 @@
   <div class="home">
     <div class="content">
       <div class="about-book">
-        <h3>about the book</h3>
+        <h3>About The Book</h3>
         <img src="/book.webp" alt="book-cover" />
         <p>
           The ideal book for people who want to increase their word power.
@@ -14,19 +14,27 @@
         </p>
       </div>
       <div class="donate">
-        <h3>donate</h3>
+        <h3>Support</h3>
         <div class="methods">
           <div>
             <img src="/alipay.jpg" alt="alipay" />
             <span>Alipay</span>
           </div>
         </div>
+        <hr />
       </div>
-      <div class="source-code">
-        <h3>source code</h3>
-        <a class="button" href="https://github.com/maerd-zinbieL/silver-apples">
-          github
-        </a>
+      <div class="others">
+        <div class="source-code">
+          <a
+            class="button"
+            href="https://github.com/maerd-zinbieL/silver-apples"
+          >
+            source code
+          </a>
+        </div>
+        <div class="leave-msgs">
+          <a class="button" href="mailto:buildvocabulary@163.com">leave a message</a>
+        </div>
       </div>
     </div>
     <div class="warning-msg">
@@ -42,8 +50,11 @@
 .about-book {
   font-size: 1.3rem;
 }
-.source-code .button {
-  width: 6em;
+.source-code {
+  display: inline-block;
+}
+.leave-msgs {
+  display: inline-block;
 }
 .about-book > img {
   max-width: 9em;

@@ -8,6 +8,7 @@ const store = createStore({
             currentRootIndex: -1,
             currentUnitIndex: -1,
             user: {
+                id:-1,
                 username: "",
                 email: "",
                 token: ""

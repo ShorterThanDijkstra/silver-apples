@@ -14,7 +14,7 @@
         <span v-if="showExplain" @click="showExplain=false">
           {{ practice.word.explain }}
         </span>
-        <button v-else class="button" @click="showExplain=true">show explanation</button>
+        <button v-else class="button" @click="showExplain=true">explanation</button>
       </div>
       <hr />
       <span>

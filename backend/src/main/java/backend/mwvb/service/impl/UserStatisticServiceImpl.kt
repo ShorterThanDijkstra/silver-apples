@@ -6,6 +6,7 @@ import backend.mwvb.exception.UserInfoValidateException
 import backend.mwvb.mapper.UserMapper
 import backend.mwvb.mapper.UserWordPracticeMapper
 import backend.mwvb.service.UserStatisticService
+import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Service
 
 @Service

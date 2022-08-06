@@ -11,6 +11,7 @@ import backend.mwvb.service.UserChangePasswordService.Companion.CHANGE_PASSWORD_
 import backend.mwvb.service.UserValidateService
 import backend.mwvb.util.CommonJWTUtils
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Lazy
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
