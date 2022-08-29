@@ -30,7 +30,7 @@
       </el-sub-menu>
     </el-sub-menu>
     <elMenuItem index="custom-words">
-      <template #title>Custom Words</template>
+      <template #title>User Words</template>
     </elMenuItem>
     <div class="flex-grow"></div>
     <el-sub-menu index="user">

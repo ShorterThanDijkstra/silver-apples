@@ -4,6 +4,7 @@
       <div>
         {{ practice.word.spell }}
       </div>
+      <WordAudio class="audio" :word="practice.word"></WordAudio>
       <span>
         {{ new Date(practice.createTime).toLocaleString() }}
       </span>
@@ -26,6 +27,7 @@
 
 <script lang="ts" setup>
 import { ref } from "@vue/reactivity";
+import WordAudio from "./WordAudio.vue";
 
 const props = defineProps<{
   practice: Object;
@@ -33,4 +35,7 @@ const props = defineProps<{
 const showExplain = ref(false)
 </script>
 <style scoped>
+.audio{
+  margin-left: -1.5em;
+}
 </style>

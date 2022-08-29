@@ -2,6 +2,7 @@
   <el-card class="word-card">
     <div class="card-header flex">
       <span>{{ word.spell }}</span>
+      <WordAudio :word="word"></WordAudio>
       <button
         v-show="!specialSection"
         class="button button-right"
@@ -26,7 +27,7 @@
             </button>
           </div>
         </div>
-        <p v-show="explainShow">{{ word.explain }}</p>
+        <p v-show="explainShow" class="content">{{ word.explain }}</p>
         <hr />
       </div>
 
@@ -44,7 +45,7 @@
             </button>
           </div>
         </div>
-        <p v-show="detailShow">{{ word.detail }}</p>
+        <p v-show="detailShow" class="content">{{ word.detail }}</p>
         <hr />
       </div>
 
@@ -62,7 +63,7 @@
             </button>
           </div>
         </div>
-        <div v-show="sentencesShow">
+        <div v-show="sentencesShow" class="content">
           <p v-for="(sentence, index) in word.sentences" :key="index">
             {{ sentence.text }}
           </p>
@@ -76,6 +77,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { mapGetters } from "vuex";
+import WordAudio from "./WordAudio.vue";
 const router = useRouter();
 const props = defineProps<{
   word: Object;
@@ -109,5 +111,14 @@ const makeSentences = () => {
 .button.button-right {
   margin-left: auto;
   margin-top: 0;
+}
+.word-card {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+.content {
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 1.5em;
 }
 </style>

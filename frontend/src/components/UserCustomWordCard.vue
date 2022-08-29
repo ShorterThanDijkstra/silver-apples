@@ -3,7 +3,10 @@
     <div class="card-header flex">
       <div>
         {{ word.spell }}
+        <audio :src="audio"></audio>
       </div>
+      <WordAudio :word="word"></WordAudio>
+
       <span class="date">
         {{ new Date(word.createTime).toLocaleString() }}
       </span>
@@ -38,49 +41,52 @@
 
 <script >
 import { ElMessage, ElMessageBox } from "element-plus";
+import WordAudio from "./WordAudio.vue";
 export default {
-  props: {
-    word: Object,
-  },
-  methods: {
-    fail(msg) {
-      ElMessage.error(msg);
+    props: {
+        word: Object,
     },
-    success() {
-      ElMessage({
-        message: "delete word successfully",
-        type: "success",
-        duration: 1000,
-      });
-      this.$router.go();
+    computed: {
+        audio() {
+            return "http://dict.youdao.com/dictvoice?type=0&audio=" + this.word.spell;
+        },
     },
-    doDelete() {
-      const url = this.$backend + "/user/custom-word/" + this.word.id;
-      this.$http.del(url).then((response) => {
-        if (response.data.code === 200) {
-          this.success();
-        } else {
-          this.fail(response.data.data);
-        }
-      });
+    methods: {
+        fail(msg) {
+            ElMessage.error(msg);
+        },
+        success() {
+            ElMessage({
+                message: "delete word successfully",
+                type: "success",
+                duration: 1000,
+            });
+            this.$router.go();
+        },
+        doDelete() {
+            const url = this.$backend + "/user/custom-word/" + this.word.id;
+            this.$http.del(url).then((response) => {
+                if (response.data.code === 200) {
+                    this.success();
+                }
+                else {
+                    this.fail(response.data.data);
+                }
+            });
+        },
+        deleteWord() {
+            ElMessageBox.confirm("word '" + this.word.spell + "' will permanently be deleted. Continue?", "Warning", {
+                confirmButtonText: "OK",
+                cancelButtonText: "Cancel",
+                type: "warning",
+            })
+                .then(() => {
+                this.doDelete();
+            })
+                .catch(() => { });
+        },
     },
-
-    deleteWord() {
-      ElMessageBox.confirm(
-        "word '" + this.word.spell + "' will permanently be deleted. Continue?",
-        "Warning",
-        {
-          confirmButtonText: "OK",
-          cancelButtonText: "Cancel",
-          type: "warning",
-        }
-      )
-        .then(() => {
-          this.doDelete();
-        })
-        .catch(() => {});
-    },
-  },
+    components: { WordAudio }
 };
 </script>
 <style scoped>
