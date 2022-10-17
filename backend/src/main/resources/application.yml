@@ -6,7 +6,7 @@ spring:
   main:
     lazy-initialization: true
   datasource:
-    url: jdbc:postgresql://172.17.0.2:5432/mwvb
+    url: jdbc:postgresql://localhost:5432/mwvb
     username: ENC(mey4nOSinR9AWbhc72STQLeaiQJwkUNGZIwfFqtYQyR94xoblGBAhZQbZQMm3er3M95vJNzvga34bXonEeZt5JBSXyFvvMaFpfApG9VA6OpXBaXmyB5DMrk+Fo182+GY6mqWaua38mhFskDOV/buhSzEW7akh6RrFntzfZMUDiJVb0+uduKW0Y//vOadOtfTKBFcuNOuBkARw8ETatwzUED1OB+Q4+PDVdFUSAylzYCdLccKNpZ2sOHPeTx8J36lm7CcndLB0oHfK1NlwmPq/BYEevLxQ+04phThTjkqR7aoiY0CtO6BQTfPKvZ8gEw2XDFE3aChJgH1WyF9cLCsbg==)
     password: ENC(Kpyhj7RrARRkENW1d0Z6KnkpaP16zbItIoVSgGaSbOG12Wkwgy7QWGFMbEJCAJI91fiLnIQyLM++K3nR5QJ/wmLwpMCTq2StWm+xRdBTk0pmGeDmVD9dqKvSg82g3FejY3kJGfedogrRvL5mW+zVB37/b310hqvLjn0IxoSh9g8NJkSTGD2TUZ763bh5RiILMTaUHIFFBhAttqapgrzPcMymZmBA8IYhC1JmHGNz/Ibx1SqBsiO5zXiayHe8nQS8vPzdIUewpMB5mSFmAAZJKdd4iyig3D+Ia0jL7qvAqgUob6we+aIRunM/fyKaz9twVZNJy8s7Pxn4S6vdygkCrQ==)
     driver-class-name: org.postgresql.Driver
@@ -15,7 +15,7 @@ spring:
     username: buildvocabulary@163.com
     password: ENC(eUCJtDjILX7oOAusrklmjjky6wkeCXhDyb+vjFqwLRm1cQRtcsc3mnOEyIhgYdOqlJWGwofFJZPvppv69QFqK0w0arU4YX+enusQ/iTTnz99sdjRZUFIpJoCze77frDYCfO6y5K+03E5ABBjiuCPw/5zWBCQHKFz5Ty0VX89DfNdfQ+foJxJGHBTxUfk0itJZ1qtsnwGXgGOJAWHX45SaQ6G7JhBAPJIsBmP55XiHQGHklhA4CyzOQ5lYB4HPyP/Gw/dl4acEUE/zz5b3EMuw98hGMZP8qDr9f1T/QSHzZbU0643X9a41R1/04bHmevQ/pq9QZJ5c5BWqEdIgpjCfw==)
   redis:
-    host: 172.17.0.3
+    host: localhost
     port: 6379
     database: 0
 
@@ -24,8 +24,8 @@ com:
     silver-apples:
       email:
         send: true
-        register-complete-url: http://localhost:3000/register-complete/?token=
-        change-password-url: http://localhost:3000/change-password-complete/?token=
+        register-complete-url: http://8.134.99.20/register-complete/?token=
+        change-password-url: http://8.134.99.20/change-password-complete/?token=
       jwt:
         password: ENC(ZQPFHxQCti4/Wi9HpPS1qWvaRalfgwBfuEV7ftcVlHspOxcEBZXwkfIoRw9SpGAFpZ3coDP1X3/ATv9L74FN3MsFiYj28ddD8nGx+23PsH6dLr5NwB0qTZSRigngsjfPu5tZidGJ4/lVgiGtJaTO8czIC+oE+nMYUk6eazeG3whHOnQP1xXSrRI2/tnE8dsx980eHT9m3g5nQWlIfP8bTinNw/8eFO61BQgpofVUO2uD4umKAtSForr7a/kGAh/rOkId5097H47FmoL5dY6BI3XdSl/SNLRc24dkJoRAelVRBgA3IWcjQBDOGddlz2sRMC6BYHuJG93kOAhrDfHSNQ==)
 
