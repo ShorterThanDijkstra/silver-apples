@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-docker start pg &&
+docker start postgres &&
 docker start redis
