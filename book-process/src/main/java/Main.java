@@ -10,13 +10,13 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Main {
-    private void book2Json() throws IOException {
+    private static void book2Json() throws IOException {
         TheBookProcessor processor = TheBookProcessor.getInstance(new Book2Json());
         processor.processIntro();
         processor.processUnits();
     }
 
-    private void book2Database() throws IOException {
+    private static void book2Database() throws IOException {
         InputStream stream = Resources.getResourceAsStream("mybatis-config.xml");
         SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
         SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(stream);
@@ -28,7 +28,8 @@ public class Main {
         processor.processUnits();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // run book2Json() or book2Database()
+        book2Database();
     }
 }
