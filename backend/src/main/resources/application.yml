@@ -6,16 +6,26 @@ spring:
   main:
     lazy-initialization: true
   datasource:
-    url: jdbc:postgresql://172.17.0.2:5432/mwvb
-    username: ENC(azbEAVP/GDSJeJ3xKy17sTMx6n1s/TtiT0U1OSeKnHzlFpt3qF4y6niAFZhCltsar1qC94iqE9ZHlVjeG2NuxyPw4BWcEzyPlmUAlOalOkpXt2awwrDJbM7Kx00cPfAnSMvGNUDZorSI2srQrC+isnH6R5v9X+XxgyBWiLCMrA9S+dd80FlTv1gUkcpHDeZq0fMclJDA/HNW6k7pDmiRluGYj8BZZmjB3wzxoCjHYWoinXBTmvKQ6HQmgSQO28vAXbPMwRwBvlKhUhujfdztCguw0w2lTrELPRgPq8THbLjMvonjKdkwKWIDNgv2Ml5aR3jPMtyO0uyYMgFmD7iwnQ==)
-    password: ENC(Ao/R3y3pBX4Mwqp47iwvSwxr/AXKIuJiviauHAgr3DUoo/CYjEQ2syYjKDZyg6yXomFygRFt6dE4cttzVv6kPAmrK+TMbJ4bymj9tcrrAKlGrmlxUjdah0tknwJFJNbaGSrJ8ojF06DlrSKBIONM1R0TeNohu3MjPViHgI5hEHxNt5iOGIHf0brZ9KH+hBUgmykBfXmC1XlWA3d6JQUmLbiYTkGN8CJtF6nrUC7M8Tpi4o6MLfvlC+SjKLUS0sLcJOxwr9kpIlXKvkeb4QIHTLlaobWU1D7TpCE5HHjFSt9BqzzsGVacaeBeWCmRNoxpRdYZm21TjrYRJeHPdRNJAA==)
+    url: jdbc:postgresql://localhost:5432/mwvb
+    username: ENC(MtGGvKFXM5OSCk1SEVgM6rl7+pU4enOu6u8hfZKEYqRiJ4FK2b/uz5kQ2wTgHVpQP8r6qG8awzuXW6b7tZSkTELcUjI3sfOXSn4VBlQrVOzzOQHmvMuysS5Wz7msoS8TndyhgSpA9gNz0t0Gf2YlymQD6Gr393YqAVK0DdW8rjPPwCbg4ZoOlSoB/5wuxyf42jINBHIScD0nSJ8gsnyGwzFSl8Td8riNjuT1GgCwCmqKce98Lklu3f7kcu5s7jyiQJuj7I/U8+P1we+nxdmQV43m97dCTuHzNB5+Oq3ep2WLVreJ0FqOh9u7U77yemjeUgQT6gZEzxbhVf7bSt1aDQ==)
+    password: ENC(J8uBSEAPzMPGHi8JJdi78j3pL2KXbURimFEBWPDV2cQzTCVP5/7qHHqpeAxwIw5kSLSksO8GQG0vPrLkJi6YsLqQp6w6RhYq3a4WBsPEPj9E1hh1VlXMRpLYHCrHdqFY1TCIFIY0/06JD5CnLl05LeFITClVOsZXdOSKNzwCFcCyeGCq4uCIDxdHHM9C7AtUaA8l4VeHtvws+dItoOnO+J5+fVi9ynymgghUVoTabHgAFmyynxnFhD6I5E0fkLC1MJYfnpu/LDv3DafStar16qQbaTt83z8iV99VKiSqKHxqUjPEZPGlEk80H8J6SNjlIdKIIlU8kuapH3obuGyIcg==)
     driver-class-name: org.postgresql.Driver
   mail:
     host: smtp.163.com
     username: buildvocabulary@163.com
-    password: ENC(Mfjjrt1owExe3KundfqCkJrj5Po0EqPBn0KTuG6zwDp2QmmQfb7DsfmIhDhSXGJChbT3OiM7nbwdxvDblEgmr/fwRCNQ0W2aAUubdhyOpSfsTik1/w/hHaWRaMxNLdjoAmAu+9HMyuW3hNcll99fosjwZ7uNiJwSYaNh/axMOx6tnCYT8XrBQOz4/8WWomIqJ0EW2sqp9QHXeGYUpa1AGjH6TCTd8zgNUSZNePyiB9rpBVvQg2Yx64tqNxmc4925wCxCoCcn32K+Z/pDaQyLC67xxUKHCjmoh3E3F4/RIRJzVh0rVwh2+fGWBAOHjxItBeoCx8Jpy6KoUsV9hbYCvQ==)
+    password: ENC(YzCsM5OvpZd65i/kriVgwGEO9hSh+yUGneFslVRqgBmuCfcKObOshKn6TNZH3LQabgT/k+ovgIbmTndRsfGoKoWh6kTRXLt5M+isbzzqZVJABZcb/5JAXsIuO1ftA8msD8McNStl15+ehxmQUMbXqXA2nPRHnmyHMt7SutAro+3/pqAtZ1XYK3XsoPUOBsXBo0Oqnn3rGUwuUYdNCZcbrMbYc6WYSeBtjBjzzOFUCC89gYMM338IYDdAotbe6YNEz1WQc89wNTqIk8nxaAKr9GZ/03WyBbyUIigFtqU+DYe4SJxKDwPrAA0bI79SGSliXrZp9FgZjDenA+hvfu9jkw==)
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 465
+          auth: true
+          starttls:
+            enable: true
+            required: true
   redis:
-    host: 172.17.0.3
+    host: localhost
     port: 6379
     database: 0
 
@@ -24,11 +34,10 @@ com:
     silver-apples:
       email:
         send: true
-        register-complete-url: http://localhost:3000/register-complete/?token=
-        change-password-url: http://localhost:3000/change-password-complete/?token=
+        register-complete-url: http://8.134.99.20/register-complete/?token=
+        change-password-url: http://8.134.99.20/change-password-complete/?token=
       jwt:
-        password: ENC(kMhxzC5K+wVcAna8GVavgFGfNtG5JfArLnh4zNkBHmxnjfnrBnJyCIxS/tf72y6jHLirtM+qY7gYHljl/AVYrLG9wuniUY5gBu/eOpPsMDQWRpUubvmAmZKu2stg0GKve5wFNpL0a5euxjW0ASocHQC/vhGHSH1A608Vz4NEAs6UwOwK4TSm/7xMwxFuupGYRiatMhZ8zA66/21kdL3XYas8kZMBkDlpIGEh6uKs622vXXyZctoJUJfPXlppUQs3B+g/NJYNvHf+8kM1xy1q+YZpSA9sM+000T8jyA3XeyAUntOE4h5a5P3lgsRQBrk3qsgThqIfBMsEov2O3Z1vWA==)
-
+        password: ENC(inpTt1V+zJCiBaaBqnVYDKdVTD2gpXAyBylns1f046echuDtWPDtmLFZBekeOc1FhqSUSPqBHjOS57UNmsG7IRwo9Q9d7XZPNNx/a9qP/Hw1B2h0pS1+8BL8EuukTRCVIMr5R5Gygle3FnZgjoH6LHIsHVQKDFWolvNXobejTk3iGhapZtm3HQztkp44HzKN0qb/Z/lisIx/20FvkpBmv5Qyh2AudR0G3jN0jeoRLmE7jAKPTq+JVwrxqS6vweDkRRfU1UVgQWJ+jxBfZSDxcmqs6Dq2zLGEuI1TDiEn7fTA5sAPEVFg+5I11kihfX77WX1X3wkmcvjbWCn7DpQXeA==)
 springdoc:
   api-docs:
     path: /api-docs

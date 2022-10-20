@@ -10,7 +10,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 const app = createApp(App);
 app.config.globalProperties.$http = http;
-app.config.globalProperties.$backend = "http://192.168.1.7:8080/api/v1.0";
+app.config.globalProperties.$backend = "http://8.134.99.20:8080/api/v1.0";
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
